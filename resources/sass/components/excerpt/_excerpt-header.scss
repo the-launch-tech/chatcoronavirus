@@ -1,0 +1,61 @@
+.excerpt-header {
+  background-color: $primary;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  -webkit-box-shadow: 0px 2px 9px -7px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 2px 9px -7px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 2px 9px -7px rgba(0, 0, 0, 0.75);
+
+  .excerpt-user-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.1rem 0.3rem;
+    height: 100%;
+
+    .excerpt-avatar {
+      @include avatar(50px, 1rem);
+    }
+
+    .excerpt-username {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 700;
+      @include hover-transition($std_copy, $hl_green);
+    }
+  }
+
+  .excerpt-usermeta {
+    display: flex;
+
+    .excerpt-health_points {
+      padding: 0 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      color: $std_copy;
+      @include icon-spacing(0.3rem);
+    }
+
+    .excerpt-subscribe {
+      font-weight: 700;
+      padding: 0 0.5rem;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      @include hover-transition($hl_green, $std_copy);
+      @include icon-spacing(0.3rem);
+    }
+
+    .excerpt-access {
+      font-weight: 700;
+      padding: 0 1rem;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+    }
+  }
+}

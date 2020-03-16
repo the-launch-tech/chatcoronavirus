@@ -1,0 +1,107 @@
+.searchform-wrapper {
+  .searchform {
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    margin: auto;
+    max-width: 600px;
+
+    @media (max-width: 991px) {
+      padding: 0 1rem;
+    }
+
+    .searchform-input-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      width: 100%;
+
+      .searchform-input {
+        @include input(small);
+      }
+
+      small {
+        padding-left: 0.2rem;
+      }
+    }
+
+    .searchform-button,
+    .toggle-advanced-search {
+      margin-left: 1rem;
+      height: 35px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 2rem;
+      font-size: 1.2rem;
+
+      i {
+        font-weight: 500;
+      }
+
+      @media (max-width: 991px) {
+        padding: 0 1rem;
+        font-size: 1rem;
+        height: 28px;
+      }
+
+      @media (max-width: 599px) {
+        height: 28px;
+      }
+    }
+  }
+
+  .advanced-searchform {
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+    transition: 0.2s;
+
+    @media (max-width: 991px) {
+      padding: 0 1rem;
+    }
+
+    &.active {
+      height: 200px;
+      visibility: visible;
+      opacity: 1;
+
+      @media (max-width: 991px) {
+        height: 240px;
+      }
+    }
+
+    .form-wrapper {
+      width: 100%;
+      background-color: $base;
+      border-radius: 12px;
+      max-width: 600px;
+      margin: 2rem auto;
+      position: relative;
+      padding: 1rem;
+      -webkit-box-shadow: 2px 2px 33px -10px rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: 2px 2px 33px -10px rgba(0, 0, 0, 0.75);
+      box-shadow: 2px 2px 33px -10px rgba(0, 0, 0, 0.75);
+
+      .form-row {
+        margin-bottom: 0.5rem;
+
+        .form-cell {
+          padding: 0.5rem;
+
+          .form-input {
+            max-height: 35px;
+            padding: 0.5rem;
+          }
+
+          .form-checkbox {
+            width: 100%;
+            padding: 0rem 0.8rem;
+            margin-bottom: 0.15rem;
+          }
+        }
+      }
+    }
+  }
+}

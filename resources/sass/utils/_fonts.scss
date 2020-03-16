@@ -1,0 +1,73 @@
+@font-face {
+  font-family: 'Normal';
+  src: url('Normal-Regular.eot');
+  src: url('Normal-Regular.eot?#iefix') format('embedded-opentype'),
+    url('Normal-Regular.woff2') format('woff2'), url('Normal-Regular.woff') format('woff'),
+    url('Normal-Regular.ttf') format('truetype'),
+    url('Normal-Regular.svg#Normal-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Normal';
+  src: url('Normal-ExtraLight.eot');
+  src: url('Normal-ExtraLight.eot?#iefix') format('embedded-opentype'),
+    url('Normal-ExtraLight.woff2') format('woff2'), url('Normal-ExtraLight.woff') format('woff'),
+    url('Normal-ExtraLight.ttf') format('truetype'),
+    url('Normal-ExtraLight.svg#Normal-ExtraLight') format('svg');
+  font-weight: 200;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Normal';
+  src: url('Normal-Bold.eot');
+  src: url('Normal-Bold.eot?#iefix') format('embedded-opentype'),
+    url('Normal-Bold.woff2') format('woff2'), url('Normal-Bold.woff') format('woff'),
+    url('Normal-Bold.ttf') format('truetype'), url('Normal-Bold.svg#Normal-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Normal';
+  src: url('Normal-ExtraBold.eot');
+  src: url('Normal-ExtraBold.eot?#iefix') format('embedded-opentype'),
+    url('Normal-ExtraBold.woff2') format('woff2'), url('Normal-ExtraBold.woff') format('woff'),
+    url('Normal-ExtraBold.ttf') format('truetype'),
+    url('Normal-ExtraBold.svg#Normal-ExtraBold') format('svg');
+  font-weight: 800;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Normal';
+  src: url('Normal-Light.eot');
+  src: url('Normal-Light.eot?#iefix') format('embedded-opentype'),
+    url('Normal-Light.woff2') format('woff2'), url('Normal-Light.woff') format('woff'),
+    url('Normal-Light.ttf') format('truetype'), url('Normal-Light.svg#Normal-Light') format('svg');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  font-weight: 100;
+  src: url('HelveticaNeueThin.ttf') format('truetype');
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Helvetica Neue';
+  font-weight: 400;
+  src: url('HelveticaNeueLight.ttf') format('truetype');
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Helvetica Neue';
+  font-weight: 600;
+  src: url('HelveticaNeueMedium.ttf') format('truetype');
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Helvetica Neue';
+  font-weight: 900;
+  src: url('HelveticaNeueBold.ttf') format('truetype');
+  font-style: normal;
+}

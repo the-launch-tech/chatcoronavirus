@@ -1,0 +1,157 @@
+.form-wrapper {
+  max-width: 700px;
+  margin: auto;
+  position: relative;
+
+  .form-title {
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .form-description {
+    text-align: left;
+    margin: 0 0 1rem;
+    padding-left: 1rem;
+  }
+
+  .form-notification-text {
+    font-weight: 600;
+    text-align: center;
+    position: absolute;
+    bottom: -30px;
+    padding: 0 1rem;
+
+    &.notification-success {
+      color: $hl_green;
+      @include a-hover($std_copy, darken($std_copy, 10%));
+    }
+  }
+
+  .form-content {
+    .form-block {
+      .form-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+        margin-bottom: 1rem;
+
+        @media (max-width: 991px) {
+          margin-bottom: 0.75rem;
+        }
+
+        @media (max-width: 599px) {
+          margin-bottom: 0.5rem;
+        }
+
+        .form-cell {
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: flex-start;
+          position: relative;
+          width: 50%;
+          padding: 1rem;
+
+          @media (max-width: 991px) {
+            padding: 0.75rem;
+          }
+
+          @media (max-width: 599px) {
+            width: 100%;
+            padding: 0.5rem;
+          }
+
+          &.w-33 {
+            width: 33%;
+
+            @media (max-width: 991px) {
+              width: 50%;
+            }
+
+            @media (max-width: 599px) {
+              width: 100%;
+            }
+          }
+
+          &.w-25 {
+            width: 25%;
+
+            @media (max-width: 991px) {
+              width: 50%;
+            }
+
+            @media (max-width: 599px) {
+              width: 100%;
+            }
+          }
+
+          &.w-100 {
+            width: 100%;
+          }
+
+          label {
+            font-family: $display;
+            font-weight: 500;
+          }
+
+          .form-file-output {
+            max-width: 120px;
+            max-height: 120px;
+            width: 100%;
+            height: 100%;
+            margin: 1rem 0 0;
+
+            .form-file-display {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+          }
+
+          .form-input {
+            @include input(standard);
+          }
+
+          .form-textarea {
+            @include input(textarea);
+          }
+
+          .form-checkboxes {
+            margin-top: 0.5rem;
+            width: 100%;
+            max-height: 300px;
+            height: 100%;
+            overflow-y: scroll;
+            border: solid 1px $primary;
+            border-radius: 10px;
+
+            .form-checkbox {
+              width: 100%;
+              padding: 0.3rem 1rem;
+              margin-bottom: 0.3rem;
+
+              input {
+                margin-right: 1rem;
+              }
+
+              span {
+              }
+            }
+          }
+
+          .form-error {
+            position: absolute;
+            left: 0;
+            color: $hl_red;
+            top: calc(100% - 0.7rem);
+            padding-left: 1rem;
+          }
+        }
+      }
+    }
+  }
+  .form-message-text {
+    padding: 0 1rem;
+  }
+}

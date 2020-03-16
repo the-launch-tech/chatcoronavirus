@@ -1,0 +1,42 @@
+@import 'utils/utils';
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 80%;
+  overflow: hidden;
+
+  body {
+    font-family: $body;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 0;
+
+    @import 'utils/mixins';
+
+    &.nighttime {
+      @import 'utils/nighttime';
+
+      background-color: $base;
+      color: $std_copy;
+
+      @import 'utils/base';
+      @import 'main';
+    }
+
+    &.daytime {
+      @import 'utils/daytime';
+
+      background-color: $base;
+      color: $std_copy;
+
+      @import 'utils/base';
+      @import 'main';
+    }
+  }
+}

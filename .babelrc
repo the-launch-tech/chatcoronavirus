@@ -1,0 +1,22 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "useBuiltIns": "entry",
+        "targets": {
+          "browsers": ["since 2013"]
+        }
+      }
+    ],
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    "babel-plugin-transform-es3-member-expression-literals",
+    "babel-plugin-transform-es3-property-literals",
+    "@babel/syntax-dynamic-import",
+    "@babel/plugin-proposal-class-properties",
+    "babel-plugin-transform-object-assign",
+    "@babel/plugin-transform-runtime"
+  ]
+}

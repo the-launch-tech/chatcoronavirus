@@ -1,0 +1,23 @@
+#page-wrapper {
+  &.donate {
+    @include page-wrapper;
+
+    #page-content {
+      @include page-content-centered;
+      @include page-content-padding;
+
+      .feature-coming-soon-page {
+        margin: 1rem auto;
+        max-width: 500px;
+        padding: 1rem;
+
+        ul {
+          list-style: none;
+          margin-left: 2rem;
+          margin-top: 2rem;
+          margin-bottom: 2rem;
+        }
+      }
+    }
+  }
+}

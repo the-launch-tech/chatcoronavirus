@@ -1,0 +1,195 @@
+#left-bar {
+  width: $leftWidth;
+  background-color: $base;
+  height: 100%;
+  position: relative;
+
+  .left-bar-toggle {
+    visibility: hidden;
+    opacity: 1;
+    position: absolute;
+    top: 10px;
+    right: -44px;
+    transition: 0.2s;
+    cursor: pointer;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: solid 2px $std_copy;
+    background-color: $primary;
+    color: $std_copy;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.1rem;
+    font-weight: 900;
+    -webkit-box-shadow: 1px 1px 15px -5px rgba(0, 0, 0, 0.8);
+    -moz-box-shadow: 1px 1px 15px -5px rgba(0, 0, 0, 0.8);
+    box-shadow: 1px 1px 15px -5px rgba(0, 0, 0, 0.8);
+
+    &:hover {
+      border: solid 2px $hl_green;
+      background-color: $primary;
+      color: $hl_green;
+    }
+
+    &:active {
+      border: solid 2px $hl_green;
+      background-color: $primary;
+      color: $hl_green;
+    }
+
+    &.active-bar {
+      top: 2px;
+      right: -26px;
+      width: 24px;
+      height: 24px;
+      padding-right: 1px;
+      border: solid 2px $hl_green;
+      background-color: $primary;
+      color: $hl_green;
+
+      &:hover {
+        border: solid 2px $std_copy;
+        background-color: $primary;
+        color: $std_copy;
+      }
+
+      &:active {
+        border: solid 2px $hl_green;
+        background-color: $primary;
+        color: $hl_green;
+      }
+    }
+  }
+
+  .left-bar-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+
+    .left-bar-stats {
+      border-bottom: solid 1px $greyscale;
+
+      .left-bar-stat-alerts {
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch;
+        list-style: none;
+        flex-wrap: wrap;
+        border-bottom: solid 1px $greyscale;
+
+        .left-bar-stat-alert {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          width: 50%;
+          border-right: solid 1px $greyscale;
+          background-color: $hl_red;
+          color: $white;
+          margin: 0;
+          text-align: center;
+          font-weight: 700;
+          font-size: 1.2rem;
+          cursor: default;
+
+          &:last-child {
+            border: none;
+            background-color: $base;
+            color: $std_copy;
+
+            span {
+              display: flex;
+              justify-content: flex-start;
+              align-items: center;
+              width: 100%;
+              border-bottom: solid 1px $greyscale;
+              font-size: 0.9rem;
+              height: 35px;
+              padding: 0 0 0 1rem;
+
+              i {
+                color: $hl_green;
+                width: 20px;
+                text-align: left;
+                font-size: 1.75rem;
+                margin-right: 1rem;
+                font-weight: 500;
+              }
+
+              &:last-child {
+                border-bottom: none;
+
+                i {
+                  color: $hl_red;
+                  position: relative;
+                  left: 1px;
+                }
+              }
+            }
+          }
+        }
+      }
+      .left-bar-stat-updates {
+        padding: 1rem;
+
+        .left-bar-stat-updates-title {
+          text-transform: uppercase;
+          font-size: 1rem;
+          text-align: center;
+          margin-top: 0;
+
+          .left-bar-stat-updates-list {
+          }
+        }
+      }
+    }
+
+    .left-bar-groups {
+      overflow-y: scroll;
+      height: 100%;
+
+      .left-bar-group {
+        padding: 1rem 0.5rem 1.5rem;
+        border-bottom: solid 1px $hl_primary;
+
+        .left-bar-group-title {
+          text-transform: uppercase;
+          font-size: 1rem;
+          text-align: center;
+          margin-top: 0;
+          margin-bottom: 1.5rem;
+        }
+
+        .left-bar-group-list {
+        }
+      }
+    }
+  }
+
+  @media (max-width: 991px) {
+    max-width: 240px;
+    width: 100%;
+    position: fixed;
+    top: calc($headerHeight + $subHeaderHeight);
+    left: 0;
+    transform: translateX(-100%);
+    transition: 0.3s;
+    z-index: 100;
+
+    &.active-bar {
+      transform: translateX(0%);
+      -webkit-box-shadow: 2px 0px 19px -6px rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: 2px 0px 19px -6px rgba(0, 0, 0, 0.75);
+      box-shadow: 2px 0px 19px -6px rgba(0, 0, 0, 0.75);
+    }
+
+    .left-bar-toggle {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}

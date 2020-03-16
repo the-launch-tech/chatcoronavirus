@@ -1,0 +1,62 @@
+#page-wrapper {
+  &.home {
+    @include page-wrapper;
+
+    #page-content {
+      @include page-content-started;
+      @include page-content-padding;
+
+      .home-content {
+        @include page-content-centered;
+
+        .home-timeline {
+          text-align: center;
+        }
+
+        .home-timeline-list {
+          @include archive-list;
+        }
+      }
+
+      .home-intro {
+        .home-features {
+          max-width: 700px;
+          margin: 2rem auto 4rem;
+
+          .home-feature {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+
+            &:before {
+              font-family: 'Font Awesome 5 Pro';
+              content: '\f00c';
+              font-weight: 900;
+              margin: 0 1rem 0 0;
+              color: $hl_green;
+            }
+          }
+        }
+
+        .home-links {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin: 2rem 0;
+          flex-wrap: wrap;
+          text-align: center;
+
+          .home-link {
+            margin: 0 2%;
+            width: 40%;
+
+            i {
+              margin-left: 0.7rem;
+              font-size: 1.2rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}

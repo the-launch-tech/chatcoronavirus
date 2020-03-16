@@ -1,0 +1,26 @@
+#page-wrapper {
+  &.search {
+    @include page-wrapper;
+
+    #page-content {
+      @include page-content-padding;
+
+      .form-title {
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      .search-results {
+        @include page-content-started;
+
+        .search-results-list {
+          @include archive-list;
+        }
+
+        .load-more-button {
+          @include load-more;
+        }
+      }
+    }
+  }
+}

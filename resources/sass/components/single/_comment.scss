@@ -1,0 +1,110 @@
+.comments {
+  max-width: 1170px;
+  padding: 0 0 5rem;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  > button:first-child {
+    margin-bottom: 2rem;
+  }
+
+  .load-more-button {
+    margin: 4rem auto;
+  }
+
+  .write-comment {
+    width: 100%;
+
+    .write-comment-actions {
+      padding: 1rem 0;
+    }
+  }
+
+  .edit-comment {
+    width: 100%;
+
+    .edit-comment-actions {
+      padding: 1rem 0;
+    }
+  }
+
+  .recursive-group {
+    padding: 0;
+    width: 100%;
+    border-top: solid 1px lighten($primary, 5%);
+    border-left: solid 1px lighten($primary, 5%);
+    -webkit-box-shadow: 0 0 4px -3px rgba(0, 0, 0, 0.8);
+    -moz-box-shadow: 0 0 4px -3px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 4px -3px rgba(0, 0, 0, 0.8);
+    overflow: hidden;
+
+    &.no-left-border {
+      border-left: none;
+    }
+
+    .recursive-subject {
+      .comment-header {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 0.3rem 1rem 0.3rem 0.3rem;
+
+        .comment-user {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+
+          .comment-user-anchor {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin: 0.2rem 0;
+            @include hover-transition($std_copy, $hl_red);
+
+            .comment-user-avatar {
+              @include avatar(40px, 1rem);
+
+              @media (max-width: 599px) {
+                @include avatar(34px, 0.5rem);
+              }
+            }
+
+            .comment-user-username {
+            }
+          }
+
+          .comment-user-meta {
+            margin-left: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+        }
+
+        .comment-icon {
+          font-weight: 700;
+          margin-left: 1rem;
+          @include icon-spacing(0.3rem);
+
+          &.hoverable {
+            @include hover-transition($hl_green, $std_copy);
+          }
+        }
+      }
+
+      .comment-content {
+        @include rich-snippet;
+        padding: 1rem;
+        margin: 1rem;
+        background-color: $primary;
+      }
+
+      .comment-actions {
+        padding: 0.5rem;
+      }
+    }
+  }
+}

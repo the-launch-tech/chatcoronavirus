@@ -1,0 +1,10 @@
+#page-wrapper {
+  &.nomatch {
+    @include page-wrapper;
+
+    #page-content {
+      @include page-content-centered;
+      @include page-content-padding;
+    }
+  }
+}

@@ -1,0 +1,94 @@
+#sub-header {
+  width: 100%;
+  height: $subHeaderHeight;
+  border-bottom: solid 1px $greyscale;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+
+  .sub-header-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    height: 100%;
+    width: 100%;
+    background-color: lighten($base, 3%);
+    position: relative;
+
+    .sub-header-left {
+      width: $leftWidth;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-right: solid 1px $greyscale;
+      background-color: lighten($base, 3%);
+      position: relative;
+      z-index: 1;
+
+      .sub-header-left-title {
+        color: $std_copy;
+        text-transform: uppercase;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        line-height: 0.6rem;
+
+        i {
+          margin-right: 10px;
+          font-size: 1.75rem;
+          color: $hl_green;
+          font-weight: 500;
+        }
+      }
+    }
+
+    @keyframes bannermove {
+      from {
+        left: 15%;
+      }
+      to {
+        left: -115%;
+      }
+    }
+
+    .sub-header-roll {
+      display: flex;
+      align-items: center;
+      width: auto;
+      white-space: nowrap;
+      height: 100%;
+      padding: 0 1rem;
+      position: absolute;
+      z-index: 0;
+      -webkit-animation: bannermove 30s linear infinite;
+      -moz-animation: bannermove 30s linear infinite;
+      -ms-animation: bannermove 30s linear infinite;
+      -o-animation: bannermove 30s linear infinite;
+      animation: bannermove 30s linear infinite;
+
+      .sub-header-roll-item {
+        margin: 0 1rem;
+
+        .sub-header-roll-anchor {
+          color: $std_copy;
+
+          &:visited {
+            color: $std_copy;
+          }
+
+          &:hover {
+            color: $hl_green;
+          }
+
+          &:active {
+            color: darken($hl_green, 3%);
+          }
+        }
+      }
+    }
+  }
+}

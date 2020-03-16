@@ -1,0 +1,97 @@
+.current-nav-item {
+  &.current-red {
+    color: $hl_red;
+
+    &.current-border {
+      border-bottom: solid 2px $hl_red;
+    }
+
+    &:visited {
+      color: $hl_red;
+
+      &.current-border {
+        border-bottom: solid 2px $hl_red;
+      }
+    }
+
+    &:hover {
+      color: $std_copy;
+
+      &.current-border {
+        border-bottom: solid 2px $std_copy;
+      }
+    }
+
+    &:active {
+      color: $hl_red;
+
+      &.current-border {
+        border-bottom: solid 2px $hl_red;
+      }
+    }
+  }
+
+  &.current-green {
+    color: $hl_green;
+
+    &.current-border {
+      border-bottom: solid 2px $hl_green;
+    }
+
+    &:visited {
+      color: $hl_green;
+
+      &.current-border {
+        border-bottom: solid 2px $hl_green;
+      }
+    }
+
+    &:hover {
+      color: $std_copy;
+
+      &.current-border {
+        border-bottom: solid 2px $std_copy;
+      }
+    }
+
+    &:active {
+      color: $hl_green;
+
+      &.current-border {
+        border-bottom: solid 2px $hl_green;
+      }
+    }
+  }
+
+  &.current-yellow {
+    color: $hl_blue;
+
+    &.current-border {
+      border-bottom: solid 2px $hl_blue;
+    }
+
+    &:visited {
+      color: $hl_blue;
+
+      &.current-border {
+        border-bottom: solid 2px $hl_blue;
+      }
+    }
+
+    &:hover {
+      color: $std_copy;
+
+      &.current-border {
+        border-bottom: solid 2px $std_copy;
+      }
+    }
+
+    &:active {
+      color: $hl_blue;
+
+      &.current-border {
+        border-bottom: solid 2px $hl_blue;
+      }
+    }
+  }
+}

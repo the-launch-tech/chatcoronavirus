@@ -1,0 +1,291 @@
+@mixin page-wrapper {
+  overflow-y: scroll;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 2rem;
+}
+
+@mixin page-content-started {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+@mixin page-content-centered {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+@mixin page-content-padding {
+  padding: $centerPadding;
+
+  @media (max-width: 991px) {
+    padding: 2rem 1rem 1rem;
+  }
+
+  @media (max-width: 991px) {
+    padding: 1.5rem 0.5rem 0.5rem;
+  }
+}
+
+@mixin dashboard-content {
+  padding: 1rem;
+  width: 100%;
+  max-width: 1170px;
+  margin: auto;
+}
+
+@mixin archive-list {
+  width: 100%;
+  padding: 0 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  border-left: solid 4px $primary;
+
+  @media (max-width: 991px) {
+    padding: 0 1rem;
+  }
+
+  @media (max-width: 599px) {
+    padding: 0 0.5rem;
+  }
+}
+
+@mixin load-more {
+  margin: 2rem auto;
+}
+
+@mixin input($size) {
+  @if $size == textarea {
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100px;
+    max-height: 100px;
+    padding: 1rem;
+
+    @media (max-width: 991px) {
+      min-height: 80px;
+      max-height: 80px;
+      padding: 0.8rem;
+    }
+
+    @media (max-width: 991px) {
+      min-height: 70px;
+      max-height: 70px;
+      padding: 0.7rem;
+    }
+  }
+  @elseif $size == standard {
+    width: 100%;
+    height: 50px;
+    padding: 1rem;
+
+    @media (max-width: 991px) {
+      height: 42px;
+      padding: 0.8rem;
+    }
+
+    @media (max-width: 991px) {
+      height: 36px;
+      padding: 0.7rem;
+    }
+  }
+  @elseif $size == small {
+    width: 100%;
+    height: 35px;
+    padding: 0.5rem;
+
+    @media (max-width: 991px) {
+      height: 32px;
+      padding: 0.4rem;
+    }
+
+    @media (max-width: 991px) {
+      height: 28px;
+      padding: 0.35rem;
+    }
+  }
+
+  font-weight: 400;
+  background-color: $primary;
+  border: solid 1px $primary;
+  color: $std_copy;
+  -webkit-box-shadow: inset 0px 0px 2px -2px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: inset 0px 0px 2px -2px rgba(0, 0, 0, 0.75);
+  box-shadow: inset 0px 0px 2px -2px rgba(0, 0, 0, 0.75);
+
+  &:hover {
+    background-color: darken($primary, 2%);
+    border: solid 1px $primary;
+  }
+
+  &:focus {
+    background-color: darken($primary, 2%);
+    border: solid 1px darken($primary, 2%);
+    -webkit-box-shadow: inset 0px 0px 0 0px rgba(0, 0, 0, 0);
+    -moz-box-shadow: inset 0px 0px 0 0px rgba(0, 0, 0, 0);
+    box-shadow: inset 0px 0px 0 0px rgba(0, 0, 0, 0);
+  }
+
+  &:active {
+    background-color: darken($primary, 2%);
+    border: solid 1px darken($primary, 2%);
+    -webkit-box-shadow: inset 0px 0px 0 0px rgba(0, 0, 0, 0);
+    -moz-box-shadow: inset 0px 0px 0 0px rgba(0, 0, 0, 0);
+    box-shadow: inset 0px 0px 0 0px rgba(0, 0, 0, 0);
+  }
+}
+
+@mixin hover-transition($normal, $hover) {
+  color: $normal;
+  cursor: pointer;
+  transition: 0.2s;
+
+  &:visited {
+    color: $normal;
+  }
+
+  &:hover {
+    color: $hover;
+  }
+
+  &:active {
+    color: $normal;
+  }
+}
+
+@mixin a-hover($normal, $hover) {
+  a {
+    @include hover-transition($normal, $hover);
+  }
+}
+
+@mixin excerpt-wrapper($borderColor) {
+  margin: 2rem auto 4rem;
+  max-width: 700px;
+  width: 100%;
+  position: relative;
+  background-color: $primary;
+  -webkit-box-shadow: 2px 2px 15px -10px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 2px 2px 15px -10px rgba(0, 0, 0, 0.75);
+  box-shadow: 2px 2px 15px -10px rgba(0, 0, 0, 0.75);
+  border-left: solid 4px transparentize($borderColor, 0.3);
+
+  @media (max-width: 991px) {
+    margin: 1.5rem auto 3rem;
+  }
+
+  @media (max-width: 599px) {
+    margin: 1rem auto 2rem;
+  }
+}
+
+@mixin excerpt-title {
+  padding: 2rem 1rem;
+  display: block;
+  margin: 0;
+
+  @include hover-transition($std_copy, $hl_red);
+
+  h5 {
+    margin: 0;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 991px) {
+    padding: 1rem;
+
+    h5 {
+      font-size: 1.1rem;
+    }
+  }
+
+  @media (max-width: 599px) {
+    h5 {
+      font-size: 1rem;
+    }
+  }
+}
+
+@mixin rich-excerpt {
+  padding: 0 1rem 1rem;
+
+  iframe {
+    width: 100%;
+    max-height: 300px;
+  }
+
+  img {
+    max-height: 260px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  @media (max-width: 991px) {
+    padding: 0 0.5rem 0.5rem;
+
+    iframe {
+      max-height: 240px;
+    }
+    img {
+      max-height: 240px;
+    }
+  }
+
+  @media (max-width: 599px) {
+    iframe {
+      max-height: 200px;
+    }
+    img {
+      max-height: 200px;
+    }
+  }
+}
+
+@mixin rich-snippet {
+  iframe {
+    height: 160px;
+    width: 240px;
+  }
+  img {
+    max-height: 160px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  @media (max-width: 991px) {
+    iframe {
+      height: 140px;
+      width: 210px;
+    }
+    img {
+      max-height: 140px;
+    }
+  }
+}
+
+@mixin icon-spacing($size) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 800;
+
+  i {
+    margin-right: $size;
+  }
+}
+
+@mixin avatar($size, $margin) {
+  margin-right: $margin;
+  width: $size;
+  height: $size;
+  object-fit: cover;
+  border-radius: 50%;
+}

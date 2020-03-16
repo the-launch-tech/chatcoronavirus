@@ -1,0 +1,16 @@
+#page-wrapper {
+  &.public-profile {
+    @include page-wrapper;
+
+    #page-content {
+      @include page-content-centered;
+      @include page-content-padding;
+
+      .feature-coming-soon-page {
+        margin: auto;
+        max-width: 500px;
+        padding: 1rem;
+      }
+    }
+  }
+}

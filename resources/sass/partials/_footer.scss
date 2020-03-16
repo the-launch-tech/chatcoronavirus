@@ -1,0 +1,25 @@
+#footer {
+  width: 100%;
+  height: $footerHeight;
+  border-top: solid 1px $greyscale;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+
+  .footer-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    padding: 0 1rem;
+
+    span {
+      font-size: 0.8rem;
+      cursor: default;
+    }
+
+    a {
+      font-size: 0.8rem;
+    }
+  }
+}

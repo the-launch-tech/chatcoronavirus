@@ -1,0 +1,115 @@
+#dashboard-header {
+  margin-bottom: 2rem;
+  width: 100%;
+
+  @media (max-width: 599px) {
+    margin-bottom: 1rem;
+  }
+
+  .dashboard-button-row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .dashboard-button {
+      width: 33%;
+      text-align: center;
+      border: none;
+      margin: 0;
+      border-bottom: solid 1px $primary;
+      border-right: solid 1px $primary;
+
+      &:last-child {
+        border-right: none;
+      }
+
+      @media (max-width: 599px) {
+        width: 100%;
+      }
+    }
+  }
+
+  .dashboard-user {
+    padding: 1rem;
+    background-color: darken($base, 1%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .dashboard-user-left {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      width: 50%;
+
+      .dashboard-user-avatar {
+        @include avatar(70px, 2rem);
+
+        @media (max-width: 991px) {
+          @include avatar(60px, 1rem);
+        }
+
+        @media (max-width: 599px) {
+          @include avatar(50px, 0.7rem);
+        }
+      }
+
+      .dashboard-user-info {
+        .dashboard-user-name {
+        }
+
+        .dashboard-user-level {
+        }
+      }
+    }
+
+    .dashboard-user-right {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+      width: 50%;
+
+      .dashboard-health_points {
+        padding-left: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        font-weight: 600;
+        color: #fafafa;
+
+        i {
+          color: $hl_green;
+          font-size: 2rem;
+          margin-bottom: 0.4rem;
+
+          @media (max-width: 991px) {
+            font-size: 1.5rem;
+          }
+
+          @media (max-width: 599px) {
+            font-size: 1.25rem;
+          }
+        }
+      }
+
+      .dashboard-contributions {
+        padding-left: 1rem;
+
+        .dashboard-contributions-title {
+          text-align: right;
+          margin: 0 0 0.5rem;
+        }
+
+        .dashboard-contributions-links {
+          .dashboard-contrubtion-link {
+            padding: 0 0.5rem;
+          }
+        }
+      }
+    }
+  }
+}
