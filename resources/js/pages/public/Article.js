@@ -10,6 +10,7 @@ import TaxonomyList from '../../common/utils/TaxonomyList'
 import mapAuth from '../../helpers/mapAuth'
 import dateParse from '../../helpers/dateParse'
 import loader from '../../helpers/loader'
+import getUrl from '../../helpers/getUrl'
 import PostsService from '../../services/PostsService'
 import CommentsService from '../../services/CommentsService'
 import Comments from '../../common/comments/index'
@@ -71,7 +72,7 @@ function Article({ title, page, dispatch, auth, isAuthenticated, access, match }
       {article.featured_image ? (
         <img
           className="article-banner"
-          src={`http://localhost:8000/storage/${article.featured_image}`}
+          src={getUrl('/storage/' + article.featured_image)}
           alt={article.title}
           alt={article.title}
         />
