@@ -16,8 +16,7 @@ class UsersTableSeeder extends Seeder {
         'access' => 3,
         'role' => 'Medical Official',
         'avatar' => null,
-        'health_points' => 1000,
-        'malpractices' => 0,
+        'health_points' => 1500,
         'password' => Hash::make('Round123123')
       ],
       [
@@ -29,7 +28,6 @@ class UsersTableSeeder extends Seeder {
         'role' => 'Doctor',
         'avatar' => null,
         'health_points' => 0,
-        'malpractices' => 0,
         'password' => Hash::make('Round123123')
       ],
       [
@@ -40,7 +38,7 @@ class UsersTableSeeder extends Seeder {
         'access' => 1,
         'role' => 'Nurse',
         'avatar' => null,
-        'health_points' => 100,
+        'health_points' => 11,
         'malpractices' => 0,
         'password' => Hash::make('Round123123')
       ],
@@ -53,7 +51,6 @@ class UsersTableSeeder extends Seeder {
         'role' => 'Nurse',
         'avatar' => null,
         'health_points' => 2,
-        'malpractices' => 0,
         'password' => Hash::make('Round123123')
       ],
       [
@@ -64,8 +61,7 @@ class UsersTableSeeder extends Seeder {
         'access' => 1,
         'role' => 'Nurse',
         'avatar' => null,
-        'health_points' => 240,
-        'malpractices' => 0,
+        'health_points' => 2,
         'password' => Hash::make('Round123123')
       ],
       [
@@ -76,8 +72,7 @@ class UsersTableSeeder extends Seeder {
         'access' => 1,
         'role' => 'Nurse',
         'avatar' => null,
-        'health_points' => 758,
-        'malpractices' => 0,
+        'health_points' => 6,
         'password' => Hash::make('Round123123')
       ]
     ];
