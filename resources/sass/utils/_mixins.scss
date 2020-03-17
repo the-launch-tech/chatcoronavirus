@@ -80,8 +80,7 @@
       max-height: 70px;
       padding: 0.7rem;
     }
-  }
-  @elseif $size == standard {
+  } @else if $size == standard {
     width: 100%;
     height: 50px;
     padding: 1rem;
@@ -95,8 +94,7 @@
       height: 36px;
       padding: 0.7rem;
     }
-  }
-  @elseif $size == small {
+  } @else if $size == small {
     width: 100%;
     height: 35px;
     padding: 0.5rem;
