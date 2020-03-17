@@ -221,7 +221,7 @@
         width: 200px;
         background-color: $base;
         left: 100%;
-        height: calc(100vh - $combinedHeaderHeight);
+        height: calc(100vh - 80px);
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-start;
