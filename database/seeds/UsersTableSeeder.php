@@ -15,7 +15,7 @@ class UsersTableSeeder extends Seeder {
         'state' => 'North Carolina',
         'access' => 3,
         'role' => 'Medical Official',
-        'avatar' => null,
+        'avatar' => 'avatars/default-avatar-1.png',
         'health_points' => 1500,
         'password' => Hash::make('Round123123')
       ],
@@ -26,7 +26,7 @@ class UsersTableSeeder extends Seeder {
         'state' => 'North Carolina',
         'access' => 2,
         'role' => 'Doctor',
-        'avatar' => null,
+        'avatar' => 'avatars/default-avatar-1.png',
         'health_points' => 0,
         'password' => Hash::make('Round123123')
       ],
@@ -37,9 +37,8 @@ class UsersTableSeeder extends Seeder {
         'state' => 'Toronto',
         'access' => 1,
         'role' => 'Nurse',
-        'avatar' => null,
+        'avatar' => 'avatars/default-avatar-1.png',
         'health_points' => 11,
-        'malpractices' => 0,
         'password' => Hash::make('Round123123')
       ],
       [
@@ -60,7 +59,7 @@ class UsersTableSeeder extends Seeder {
         'state' => 'New York',
         'access' => 1,
         'role' => 'Nurse',
-        'avatar' => null,
+        'avatar' => 'avatars/default-avatar-1.png',
         'health_points' => 2,
         'password' => Hash::make('Round123123')
       ],
@@ -71,7 +70,7 @@ class UsersTableSeeder extends Seeder {
         'state' => 'North Carolina',
         'access' => 1,
         'role' => 'Nurse',
-        'avatar' => null,
+        'avatar' => 'avatars/default-avatar-1.png',
         'health_points' => 6,
         'password' => Hash::make('Round123123')
       ]
