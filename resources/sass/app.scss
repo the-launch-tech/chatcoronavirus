@@ -17,10 +17,10 @@ html {
     align-items: flex-start;
     margin: 0;
 
-    @import 'utils/mixins';
-
     &.nighttime {
       @import 'utils/nighttime';
+
+      @import 'utils/mixins';
 
       background-color: $base;
       color: $std_copy;
@@ -31,6 +31,8 @@ html {
 
     &.daytime {
       @import 'utils/daytime';
+
+      @import 'utils/mixins';
 
       background-color: $base;
       color: $std_copy;
