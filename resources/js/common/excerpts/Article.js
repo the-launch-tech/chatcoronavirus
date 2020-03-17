@@ -12,7 +12,6 @@ const { log, error } = console
 export default connect(mapAuth)(ArticleExcerpt)
 
 function ArticleExcerpt({ post, isAuthenticated, auth, dispatch }) {
-  log('article', post)
   return (
     <article id={`article-excerpt-${post.id}`} className="article-excerpt">
       {post.users.map((user, i) => (

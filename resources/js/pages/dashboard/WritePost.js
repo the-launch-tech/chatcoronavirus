@@ -89,16 +89,13 @@ function WritePost({
   }
 
   function handleSubmit(event) {
-    log('handleSubmit', credentials)
     event.preventDefault()
 
     Object.keys(credentials).map(key => {
-      log('append', key, credentials[key])
       formData.append(key, credentials[key])
     })
 
     validator.validateAll(credentials).then(success => {
-      log('formData pre', success, formData)
       if (success) {
         setErrors(validator.errors)
         submit(formData)

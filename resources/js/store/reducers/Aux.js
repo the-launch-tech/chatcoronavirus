@@ -74,8 +74,6 @@ const auxTheme = (state, theme) => {
   localStorage.setItem('theme', theme)
   document.querySelector('body').classList.remove(theme === 'daytime' ? 'nighttime' : 'daytime')
   document.querySelector('body').classList.add(theme)
-
-  log('auxtheme', theme)
   return merge(state, {
     theme,
   })

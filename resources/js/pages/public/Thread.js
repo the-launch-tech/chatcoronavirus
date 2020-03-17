@@ -50,7 +50,6 @@ function Thread({ title, page, dispatch, auth, isAuthenticated, access, match })
         comment_id: null,
       })
         .then(data => {
-          log('data', data)
           setComments([...comments, ...data.comments])
           setMaxPages(data.total)
           loader(dispatch, false)
@@ -65,8 +64,6 @@ function Thread({ title, page, dispatch, auth, isAuthenticated, access, match })
   function handleShowComments(event) {
     setShowComments(true)
   }
-
-  log('comments', comments)
 
   return (
     <div id="page-wrapper" className={`page-wrapper ${page}`}>

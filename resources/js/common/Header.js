@@ -54,8 +54,6 @@ function Header({
     setToggled(!toggled)
   }
 
-  log('headertheme', theme)
-
   return (
     <React.Fragment>
       <div className="logo-margin">

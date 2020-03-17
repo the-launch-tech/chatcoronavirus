@@ -41,9 +41,7 @@ function Resource({ title, page, dispatch, auth, isAuthenticated, access, match 
   }, [])
 
   useEffect(() => {
-    log('load comments')
     if (showComments) {
-      log('show comments')
       loader(dispatch, true)
       CommentsService.getComments({
         paged: 0,
@@ -53,13 +51,11 @@ function Resource({ title, page, dispatch, auth, isAuthenticated, access, match 
         comment_id: null,
       })
         .then(data => {
-          log('data', data)
           setComments(data.comments)
           setMaxPages(data.total)
           loader(dispatch, false)
         })
         .catch(err => {
-          log('catch', err)
           loader(dispatch, false)
           error(err)
         })

@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import loader from '../../helpers/loader'
 import mapAuth from '../../helpers/mapAuth'
 import iconCount from '../../helpers/iconCount'
+import getUrl from '../../helpers/getUrl'
 import ButtonSubscription from '../utils/ButtonSubscription'
 
 const { log, error } = console
@@ -21,7 +22,7 @@ export default connect(mapAuth)(({ post, user, dispatch }) => {
             <img
               id="excerpt-avatar"
               className="excerpt-avatar"
-              src={'http://localhost:8000/storage/' + user.avatar}
+              src={getUrl('/storage/' + user.avatar)}
               alt={user.username}
               title={user.username}
             />

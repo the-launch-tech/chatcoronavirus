@@ -5,6 +5,7 @@ import ExcerptFooter from './ExcerptFooter'
 import { Link } from 'react-router-dom'
 import mapAuth from '../../helpers/mapAuth'
 import loader from '../../helpers/loader'
+import getUrl from '../../helpers/getUrl'
 import iconCount from '../../helpers/iconCount'
 
 const { log, error } = console
@@ -12,7 +13,6 @@ const { log, error } = console
 export default connect(mapAuth)(ThreadExcerpt)
 
 function ThreadExcerpt({ post, isAuthenticated, auth, dispatch }) {
-  log('thread', post)
   return (
     <article id={`thread-excerpt-${post.id}`} className="thread-excerpt">
       {post.users.map((user, i) => (
@@ -50,7 +50,7 @@ function ThreadExcerpt({ post, isAuthenticated, auth, dispatch }) {
                         <img
                           id="thread-excerpt-comment-user-avatar"
                           className="thread-excerpt-comment-user-avatar"
-                          src={'http://localhost:8000/storage/' + comment.user.avatar}
+                          src={getUrl('/storage/' + comment.user.avatar)}
                           alt={comment.user.username}
                           title={comment.user.username}
                         />

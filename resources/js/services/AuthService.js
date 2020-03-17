@@ -27,19 +27,16 @@ export default {
       })
   },
   login: function(credentials) {
-    log('login', credentials)
     return dispatch =>
       new Promise((resolve, reject) => {
         Http.post('/api/auth/login', credentials)
           .then(res => dispatch(action.authSet(res.data)))
           .then(async () => await Http.get('/api/auth/user'))
           .then(res => {
-            log('login', res)
             dispatch(action.authLogin(res.data))
             return resolve()
           })
           .catch(err => {
-            log(err.response)
             const statusCode = err.response.status
             const data = {
               error: null,

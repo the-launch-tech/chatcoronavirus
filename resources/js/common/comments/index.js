@@ -158,7 +158,6 @@ function Comments({
         comment_id: null,
       })
         .then(data => {
-          log('data', data)
           setComments([...comments, ...data.comments])
         })
         .then(() => {

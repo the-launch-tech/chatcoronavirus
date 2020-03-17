@@ -7,10 +7,7 @@ import ButtonCure from '../utils/ButtonCure'
 
 const { log, error } = console
 
-log('EXCERPT FOOTER')
-
 export default ({ post, dispatch, format }) => {
-  log('excerpt footer')
   return (
     <div className="excerpt-footer">
       <div className="excerpt-footer-items">

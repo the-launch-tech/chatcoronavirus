@@ -21,7 +21,6 @@ export default {
     }
   },
   getSearch: async (paged, posts_per_page, args) => {
-    log(paged, args)
     try {
       const { data } = await Http.get(`/api/posts/search`, {
         params: { paged, posts_per_page, ...args },
@@ -60,7 +59,6 @@ export default {
     }
   },
   getUserPost: async (user_id, format, slug) => {
-    log('getUserPost', user_id, format, slug)
     try {
       const { data } = await Http.get(`/api/${format}/${user_id}/${slug}`)
       return data
@@ -69,10 +67,8 @@ export default {
     }
   },
   save: async function(formData, user_id, format) {
-    log('saving', formData, user_id, format)
     try {
       const { data } = await Http.post(`/api/${format}/${user_id}`, formData)
-      log('data', data)
       return data
     } catch (err) {
       const statusCode = err.response.status

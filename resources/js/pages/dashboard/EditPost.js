@@ -70,7 +70,6 @@ function EditPost({
   }
 
   function handleCheckboxChange(event) {
-    log(event.target.value, event.target.name)
     const name = event.target.name
     const value = event.target.value
     if (!credentials[name]) {

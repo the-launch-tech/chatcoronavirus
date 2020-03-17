@@ -3,6 +3,7 @@ import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import loader from '../helpers/loader'
+import getUrl from '../helpers/getUrl'
 import mapAuth from '../helpers/mapAuth'
 import iconCount from '../helpers/iconCount'
 import currentNav from '../helpers/currentNav'
@@ -63,7 +64,7 @@ function DashboardHeader({ auth, dispatch, location }) {
             <img
               id="dashboard-user-avatar"
               className="dashboard-user-avatar"
-              src={'http://localhost:8000/storage/' + auth.avatar}
+              src={getUrl('/storage/' + auth.avatar)}
               alt={auth.username}
               title={auth.username}
             />

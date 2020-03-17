@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import ButtonSubscription from '../utils/ButtonSubscription'
 import loader from '../../helpers/loader'
+import getUrl from '../../helpers/getUrl'
 import mapAuth from '../../helpers/mapAuth'
 import iconCount from '../../helpers/iconCount'
 
@@ -28,7 +29,7 @@ function UserSnippet({ isAuthenticated, auth, user, dispatch }) {
         <img
           id="snippet-thumbnail"
           className="snippet-thumbnail"
-          src={'http://localhost:8000/storage/' + user.avatar}
+          src={getUrl('/storage/' + user.avatar)}
           alt={user.username}
           title={user.username}
         />

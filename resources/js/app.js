@@ -36,8 +36,6 @@ if (token) {
 
 store.dispatch(action.authCheck())
 
-console.log('app theme', localStorage.getItem('theme'))
-
 if (localStorage.getItem('theme')) {
   store.dispatch(action.auxTheme(localStorage.getItem('theme')))
 } else {

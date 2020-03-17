@@ -1,5 +1,6 @@
 import * as ActionTypes from '../action-types'
 import Http from '../../Http'
+import getUrl from '../../helpers/getUrl'
 import initialState from '../utilities/initialState'
 import jwtToken from '../utilities/token'
 import access from '../utilities/access'
@@ -71,8 +72,6 @@ function authGet(state, payload) {
     unsetAuth()
   }
 
-  log('payload', payload)
-
   return merge(state, {
     isAuthenticated: !!jwtToken(),
     access: access(),
@@ -94,7 +93,7 @@ function authUpdate(state, { auth }) {
 
 function authLogout(state) {
   unsetAuth()
-  window.location.href = 'http://localhost:8000/'
+  window.location.href = getUrl()
   return merge(state, {
     isAuthenticated: false,
     access: false,
