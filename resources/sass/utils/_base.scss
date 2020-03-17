@@ -297,21 +297,8 @@ a {
   font-size: 1rem;
   margin: 0.5rem 0;
   line-height: 1.5rem;
-  transition: 0.2s;
-  color: $hl_red;
   text-decoration: none;
-
-  &:visited {
-    color: $hl_red;
-  }
-
-  &:hover {
-    color: $hl_green;
-  }
-
-  &:active {
-    color: $hl_red;
-  }
+  @include hover-transition($hl_red, $hl_green);
 
   @media (max-width: 991px) {
     font-size: 0.975rem;
@@ -355,140 +342,36 @@ a {
     border: none;
 
     &.green-link-btn {
-      color: $hl_green;
-
-      &:disabled {
-        color: $greyscale;
-      }
-
-      &:hover {
-        color: $white;
-      }
-
-      &:active {
-        color: $hl_green;
-      }
+      @include button-color($hl_green, 'link');
     }
 
     &.red-link-btn {
-      color: $hl_red;
-
-      &:disabled {
-        color: $greyscale;
-      }
-
-      &:hover {
-        color: $white;
-      }
-
-      &:active {
-        color: $hl_red;
-      }
+      @include button-color($hl_red, 'link');
     }
 
     &.blue-link-btn {
-      color: $hl_blue;
-
-      &:disabled {
-        color: $greyscale;
-      }
-
-      &:hover {
-        color: $white;
-      }
-
-      &:active {
-        color: $hl_blue;
-      }
+      @include button-color($hl_blue, 'link');
     }
 
     &.std-link-btn {
-      color: $std_copy;
-
-      &:disabled {
-        color: $greyscale;
-      }
-
-      &:hover {
-        color: $hl_red;
-      }
-
-      &:active {
-        color: $std_copy;
-      }
+      @include button-color($std_copy, 'link');
     }
+  }
+
+  &.primary-btn {
+    @include button-color($primary, 'full');
   }
 
   &.green-btn {
-    border: solid 2px $hl_green;
-    background-color: transparent;
-    color: $hl_green;
-
-    &:disabled {
-      border: solid 2px $greyscale;
-      background-color: transparent;
-      color: $greyscale;
-    }
-
-    &:hover {
-      border: solid 2px $hl_green;
-      background-color: transparentize($hl_green, 0.3);
-      color: $white;
-    }
-
-    &:active {
-      border: solid 2px $hl_green;
-      background-color: transparent;
-      color: $hl_green;
-    }
+    @include button-color($hl_green, 'full');
   }
 
   &.red-btn {
-    border: solid 2px $hl_red;
-    background-color: transparent;
-    color: $hl_red;
-
-    &:disabled {
-      border: solid 2px $greyscale;
-      background-color: transparent;
-      color: $greyscale;
-    }
-
-    &:hover {
-      border: solid 2px $hl_red;
-      background-color: transparentize($hl_red, 0.3);
-      color: $white;
-    }
-
-    &:active {
-      border: solid 2px $hl_red;
-      background-color: transparent;
-      color: $hl_red;
-    }
+    @include button-color($hl_red, 'full');
   }
 
   &.blue-btn {
-    border: solid 2px $hl_blue;
-    background-color: transparent;
-    color: $hl_blue;
-
-    &:disabled {
-      border: solid 2px $greyscale;
-      background-color: transparent;
-      color: $greyscale;
-    }
-
-    &:hover {
-      border: solid 2px $hl_blue;
-      background-color: transparentize($hl_blue, 0.3);
-      color: $white;
-    }
-
-    &:active {
-      border: solid 2px $hl_blue;
-      background-color: transparent;
-      color: $hl_blue;
-    }
+    @include button-color($hl_blue, 'full');
   }
 }
 

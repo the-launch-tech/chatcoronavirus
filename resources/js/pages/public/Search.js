@@ -106,7 +106,7 @@ function Search({ title, page, dispatch, loading }) {
     Array.from(form.querySelectorAll('input[type="checkbox"]')).map(
       check => (check.checked = false)
     )
-    Array.from(form.querySelectorAll('input')).map(select =>
+    Array.from(form.querySelectorAll('select')).map(select =>
       Array.from(select.children).map(child => (child.selected = false))
     )
   }
@@ -149,7 +149,7 @@ function Search({ title, page, dispatch, loading }) {
               <div className="form-content">
                 <div className="form-block">
                   <div className="form-row">
-                    <div className="form-cell 25">
+                    <div className="form-cell w-25">
                       <label>Posted Since</label>
                       <select
                         className="form-input"
@@ -164,7 +164,7 @@ function Search({ title, page, dispatch, loading }) {
                         <option value="680">This Month</option>
                       </select>
                     </div>
-                    <div className="form-cell 25">
+                    <div className="form-cell w-25">
                       <label>Order By</label>
                       <select
                         className="form-input"
@@ -177,7 +177,7 @@ function Search({ title, page, dispatch, loading }) {
                         <option value="title">Title</option>
                       </select>
                     </div>
-                    <div className="form-cell 25">
+                    <div className="form-cell w-25">
                       <label>Order Direction</label>
                       <select
                         className="form-input"
@@ -187,6 +187,27 @@ function Search({ title, page, dispatch, loading }) {
                       >
                         <option value="ASC">Ascending</option>
                         <option value="DESC">Descending</option>
+                      </select>
+                    </div>
+                    <div className="form-cell w-25">
+                      <label>Relevance Strictness</label>
+                      <select
+                        className="form-input"
+                        name="relevance_cutoff"
+                        defaultValue="3"
+                        onChange={handleSelectChange}
+                      >
+                        <option value="0">Lax</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">Strict</option>
                       </select>
                     </div>
                   </div>

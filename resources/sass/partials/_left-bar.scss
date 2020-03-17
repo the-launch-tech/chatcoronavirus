@@ -86,7 +86,6 @@
           flex-direction: column;
           justify-content: center;
           align-items: center;
-          width: 50%;
           border-right: solid 1px $greyscale;
           background-color: $hl_red;
           color: $white;
@@ -96,7 +95,12 @@
           font-size: 1.2rem;
           cursor: default;
 
-          &:last-child {
+          &.w-100 {
+            width: 100%;
+          }
+
+          &.w-50 {
+            width: 50%;
             border: none;
             background-color: $base;
             color: $std_copy;
@@ -112,7 +116,6 @@
               padding: 0 0 0 1rem;
 
               i {
-                color: $hl_green;
                 width: 20px;
                 text-align: left;
                 font-size: 1.75rem;
@@ -124,9 +127,32 @@
                 border-bottom: none;
 
                 i {
-                  color: $hl_red;
                   position: relative;
                   left: 1px;
+                }
+              }
+
+              &.green {
+                i {
+                  color: $hl_green;
+                }
+              }
+
+              &.red {
+                i {
+                  color: $hl_red;
+                }
+              }
+
+              &.blue {
+                i {
+                  color: $hl_blue;
+                }
+              }
+
+              &.yellow {
+                i {
+                  color: $hl_yellow;
                 }
               }
             }

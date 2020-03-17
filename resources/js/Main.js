@@ -5,6 +5,7 @@ import SubHeader from './common/SubHeader'
 import LeftBar from './common/LeftBar'
 import RightBar from './common/RightBar'
 import Footer from './common/Footer'
+import SimpleDialog from './common/utils/SimpleDialog'
 import mapAuth from './helpers/mapAuth'
 
 const { log, error } = console
@@ -62,6 +63,7 @@ export default connect(mapStateToProps)(function({ loading, children }) {
       <footer id="footer">
         <Footer desktop={desktop} />
       </footer>
+      <SimpleDialog />
     </React.Fragment>
   )
 })

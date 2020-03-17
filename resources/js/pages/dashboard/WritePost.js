@@ -91,6 +91,8 @@ function WritePost({
   function handleSubmit(event) {
     event.preventDefault()
 
+    log('credentials', credentials)
+
     Object.keys(credentials).map(key => {
       formData.append(key, credentials[key])
     })

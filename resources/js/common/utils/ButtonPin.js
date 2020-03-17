@@ -4,6 +4,7 @@ import mapAuth from '../../helpers/mapAuth'
 import SocialsService from '../../services/SocialsService'
 import * as actions from '../../store/actions'
 import iconCount from '../../helpers/iconCount'
+import getUrl from '../../helpers/getUrl'
 
 const { log, error } = console
 
@@ -49,7 +50,17 @@ function ButtonPin({
   function handlePin(event) {
     event.preventDefault()
     if (!auth) {
-      alert('You must be logged in to pin or repost!')
+      dispatch(
+        actions.auxSimpleDialog({
+          active: true,
+          content:
+            '<p>You must be <a href="' +
+            getUrl('/login') +
+            '">logged in</a> or <a href="' +
+            getUrl('/register') +
+            '">registered</a> to pin or repost!</p>',
+        })
+      )
       return
     }
     SocialsService.increment({ social: 'pins', authId: auth.id, itemId, type })

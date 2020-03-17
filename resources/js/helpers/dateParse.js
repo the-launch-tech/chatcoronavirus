@@ -11,13 +11,13 @@ export default function(date) {
   const minutes = current.diff(previous, 'minutes')
   const seconds = current.diff(previous, 'seconds')
 
-  if (days > 0) {
-    return `${days} days ago`
-  } else if (hours > 0) {
-    return `${hours % 24} hours ago`
-  } else if (minutes > 0) {
-    return `${minutes % 60} minutes ago`
+  if (days > 1) {
+    return `${days} day${days === 1 ? '' : 's'} ago`
+  } else if (hours > 1) {
+    return `${hours % 24} hour${hours % 24 === 1 ? '' : 's'} ago`
+  } else if (minutes > 1) {
+    return `${minutes % 60} minute${minutes % 60 === 1 ? '' : 's'} ago`
   } else {
-    return `${seconds % 60} seconds ago`
+    return `${seconds % 60} second${seconds % 60 === 1 ? '' : 's'} ago`
   }
 }

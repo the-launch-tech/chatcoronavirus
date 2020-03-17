@@ -35,6 +35,7 @@ export default {
     postCureStore: {},
     commentCureStore: {},
     theme: 'nighttime',
+    simpleDialogArgs: { active: false, content: '' },
   },
   posts: {
     recentPosts: [],

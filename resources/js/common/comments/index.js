@@ -5,6 +5,11 @@ import RenderComments from './RenderComments'
 import CommentsService from '../../services/CommentsService'
 import mapAuth from '../../helpers/mapAuth'
 import loader from '../../helpers/loader'
+import getUrl from '../../helpers/getUrl'
+import * as actions from '../../store/actions'
+import recursiveSave from './utils/recursiveSave'
+import recursiveUpdate from './utils/recursiveUpdate'
+import recursiveDelete from './utils/recursiveDelete'
 
 const { log, error } = console
 
@@ -45,7 +50,17 @@ function Comments({
     event.preventDefault()
 
     if (!auth) {
-      alert('You must be logged in to write a comment!')
+      dispatch(
+        actions.auxSimpleDialog({
+          active: true,
+          content:
+            '<p>You must be <a href="' +
+            getUrl('/login') +
+            '">logged in</a> or <a href="' +
+            getUrl('/register') +
+            '">registered</a> to write a comment!</p>',
+        })
+      )
       return
     }
 
@@ -55,22 +70,6 @@ function Comments({
   function handleSave(event) {
     event.preventDefault()
     loader(dispatch, true)
-    function recursiveSave(comment, arr, found = false) {
-      if (!arr.length || comment.comment_id === null) {
-        arr = [...arr, comment]
-        found = true
-        return arr
-      }
-      for (let i = 0; i < arr.length; i++) {
-        if (comment.comment_id === arr[i].id) {
-          arr[i].recursive_children = [...arr[i].recursive_children, comment]
-          found = true
-        } else if (!found && arr[i].recursive_children.length) {
-          arr[i].recursive_children = recursiveSave(comment, arr[i].recursive_children, found)
-        }
-      }
-      return arr
-    }
     CommentsService.save(writingParams)
       .then(data => {
         setComments(recursiveSave(data.comment, comments))
@@ -86,17 +85,6 @@ function Comments({
   function handleUpdate(event) {
     event.preventDefault()
     loader(dispatch, true)
-    function recursiveUpdate(comment, arr, found = false) {
-      for (let i = 0; i < arr.length; i++) {
-        if (comment.id === arr[i].id) {
-          arr[i].content = comment.content
-          found = true
-        } else if (!found && arr[i].recursive_children.length > 0) {
-          arr[i].recursive_children = recursiveUpdate(comment, arr[i].recursive_children, found)
-        }
-      }
-      return arr
-    }
     CommentsService.update(editingParams)
       .then(data => {
         setComments(recursiveUpdate(data.comment, comments))
@@ -112,17 +100,6 @@ function Comments({
   function handleDelete(event) {
     event.preventDefault()
     loader(dispatch, true)
-    function recursiveDelete(comment, arr, found = false) {
-      for (let i = 0; i < arr.length; i++) {
-        if (comment.id === arr[i].id) {
-          arr.splice(i, 1)
-          found = true
-        } else if (!found && arr[i].recursive_children.length > 0) {
-          arr[i].recursive_children = recursiveDelete(comment, arr[i].recursive_children, found)
-        }
-      }
-      return arr
-    }
     CommentsService.delete(editingParams)
       .then(data => {
         setComments(recursiveDelete(data.comment, comments))

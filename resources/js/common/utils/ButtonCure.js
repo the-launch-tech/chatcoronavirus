@@ -4,6 +4,7 @@ import mapAuth from '../../helpers/mapAuth'
 import SocialsService from '../../services/SocialsService'
 import * as actions from '../../store/actions'
 import iconCount from '../../helpers/iconCount'
+import getUrl from '../../helpers/getUrl'
 
 const { log, error } = console
 
@@ -68,7 +69,17 @@ function ButtonCure({
 
   function handleCure(event) {
     if (!auth) {
-      alert('You must be logged in to add cures!')
+      dispatch(
+        actions.auxSimpleDialog({
+          active: true,
+          content:
+            '<p>You must be <a href="' +
+            getUrl('/login') +
+            '">logged in</a> or <a href="' +
+            getUrl('/register') +
+            '">registered</a> to add cures!</p>',
+        })
+      )
       return
     }
     SocialsService.increment({ social: 'cures', authId: auth.id, itemId, type })

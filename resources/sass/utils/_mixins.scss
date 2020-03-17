@@ -287,3 +287,35 @@
   object-fit: cover;
   border-radius: 50%;
 }
+
+@mixin button-color($color, $type) {
+  color: $std_copy;
+  @if $type == full {
+    border: solid 2px $color;
+    background-color: transparent;
+  }
+
+  &:disabled {
+    color: $greyscale;
+    @if $type == full {
+      border: solid 2px $greyscale;
+      background-color: transparent;
+    }
+  }
+
+  &:hover {
+    color: $white;
+    @if $type == full {
+      border: solid 2px $color;
+      background-color: transparentize($color, 0.3);
+    }
+  }
+
+  &:active {
+    color: $color;
+    @if $type == full {
+      border: solid 2px $color;
+      background-color: transparent;
+    }
+  }
+}

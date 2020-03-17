@@ -8,7 +8,7 @@
     ),
     'name' => 'ChatCoronavirus',
     'env' => 'local',
-    'debug' => false,
+    'debug' => true,
     'url' => 'http://localhost',
     'asset_url' => NULL,
     'timezone' => 'EST',
@@ -344,7 +344,7 @@
   ),
   'debugbar' => 
   array (
-    'enabled' => false,
+    'enabled' => true,
     'except' => 
     array (
       0 => 'telescope*',

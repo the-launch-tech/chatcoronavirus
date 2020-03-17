@@ -12,5 +12,6 @@ export default ({ Auth, Aux }) => {
     postCureStore: Aux.postCureStore,
     authCommentCured: Auth.authCommentCured,
     commentCureStore: Aux.commentCureStore,
+    dialog: Aux.dialog,
   }
 }

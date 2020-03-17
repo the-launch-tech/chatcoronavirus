@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DB;
 use Str;
+use Debugbar;
 use Carbon\Carbon;
 use App\Cure;
 use App\Post;
@@ -302,10 +303,17 @@ class PostsController extends Controller {
       $since = array_key_exists('since', $params) ? (int)$params['since'] : -1;
       $order = array_key_exists('order', $params) ? $params['order'] : 'DESC';
       $orderby = array_key_exists('orderby', $params) ? $params['orderby'] : 'relevance';
+      $relevance_cutoff = array_key_exists('relevance_cutoff', $params) ? (int)$params['relevance_cutoff'] : 0;
 
       $query = Post::selectRelevance($search);
 
-      $query->search($search);
+      Debugbar::info($relevance_cutoff);
+
+      $query->search($search, $relevance_cutoff);
+
+      $searchPosts = $query->get();
+
+      Debugbar::info($searchPosts);
 
       if ($since > 0) {
         $query->where('created_at', '>', Carbon::now()->subHours($since));
@@ -358,6 +366,8 @@ class PostsController extends Controller {
       }
 
       $posts = $query->get();
+
+      Debugbar::info($posts);
 
       return response()->json(['posts' => $posts, 'total' => $total], 200);
     } catch (Exception $e) {

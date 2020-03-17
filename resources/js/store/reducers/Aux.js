@@ -21,6 +21,8 @@ export default (state = initialState.aux, { type, payload = null }) => {
       return auxUpdateCommentCureStore(state, payload)
     case ActionTypes.AUX_THEME:
       return auxTheme(state, payload)
+    case ActionTypes.AUX_SIMPLE_DIALOG:
+      return auxSimpleDialog(state, payload)
     default:
       return state
   }
@@ -76,5 +78,11 @@ const auxTheme = (state, theme) => {
   document.querySelector('body').classList.add(theme)
   return merge(state, {
     theme,
+  })
+}
+
+const auxSimpleDialog = (state, payload) => {
+  return merge(state, {
+    simpleDialogArgs: payload,
   })
 }

@@ -18,6 +18,7 @@ export default class Validator {
     return new Promise(resolve => {
       const success = Object.keys(this.args).map(key => {
         const validate = () => {
+          log('validation', key, values[key], values[key].length)
           let valid = this.args[key].validation(values[key], values)
           if (!valid) {
             this.errors[key] = this.args[key].error

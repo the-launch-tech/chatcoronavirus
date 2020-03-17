@@ -23,7 +23,12 @@ function ButtonReport({ auth, isAuthenticated, classNames, itemId, type, auxRepo
   function handleReport(event) {
     event.preventDefault()
     if (!auth || auth.access < 2) {
-      alert('You must be a Doctor or Medical Official to report a malpractice!')
+      dispatch(
+        actions.auxSimpleDialog({
+          active: true,
+          content: '<p>You must be a Doctor or Medical Official to report a malpractice!</p>',
+        })
+      )
       return
     }
     SocialsService.increment({ social: 'reports', authId: auth.id, itemId, type })

@@ -25,7 +25,7 @@ function DashboardHeader({ auth, dispatch, location }) {
     <header id="dashboard-header">
       <div className="dashboard-button-row">
         <Link
-          className={`dashboard-button sm-btn blue-btn ${currentNav(
+          className={`dashboard-button sm-btn primary-btn ${currentNav(
             location,
             [`/dashboard/${auth.id}/articles/write`],
             'red'
@@ -36,7 +36,7 @@ function DashboardHeader({ auth, dispatch, location }) {
           Write Article
         </Link>
         <Link
-          className={`dashboard-button sm-btn blue-btn ${currentNav(
+          className={`dashboard-button sm-btn primary-btn ${currentNav(
             location,
             [`/dashboard/${auth.id}/threads/write`],
             'red'
@@ -47,7 +47,7 @@ function DashboardHeader({ auth, dispatch, location }) {
           Start Thread
         </Link>
         <Link
-          className={`dashboard-button sm-btn blue-btn ${currentNav(
+          className={`dashboard-button sm-btn primary-btn ${currentNav(
             location,
             [`/dashboard/${auth.id}/resources/write`],
             'red'

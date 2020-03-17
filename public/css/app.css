@@ -516,9 +516,10 @@ html body.nighttime a {
   font-size: 1rem;
   margin: 0.5rem 0;
   line-height: 1.5rem;
-  transition: 0.2s;
-  color: #f56537;
   text-decoration: none;
+  color: #f56537;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
 html body.nighttime a:visited {
@@ -591,7 +592,7 @@ html body.nighttime a.link-btn {
 
 html body.nighttime button.link-btn.green-link-btn,
 html body.nighttime a.link-btn.green-link-btn {
-  color: #75d891;
+  color: #f7f7f7;
 }
 
 html body.nighttime button.link-btn.green-link-btn:disabled,
@@ -611,7 +612,7 @@ html body.nighttime a.link-btn.green-link-btn:active {
 
 html body.nighttime button.link-btn.red-link-btn,
 html body.nighttime a.link-btn.red-link-btn {
-  color: #f56537;
+  color: #f7f7f7;
 }
 
 html body.nighttime button.link-btn.red-link-btn:disabled,
@@ -631,7 +632,7 @@ html body.nighttime a.link-btn.red-link-btn:active {
 
 html body.nighttime button.link-btn.blue-link-btn,
 html body.nighttime a.link-btn.blue-link-btn {
-  color: #5ec4ff;
+  color: #f7f7f7;
 }
 
 html body.nighttime button.link-btn.blue-link-btn:disabled,
@@ -646,7 +647,7 @@ html body.nighttime a.link-btn.blue-link-btn:hover {
 
 html body.nighttime button.link-btn.blue-link-btn:active,
 html body.nighttime a.link-btn.blue-link-btn:active {
-  color: #5ec4ff;
+  color: #8feee8;
 }
 
 html body.nighttime button.link-btn.std-link-btn,
@@ -661,7 +662,7 @@ html body.nighttime a.link-btn.std-link-btn:disabled {
 
 html body.nighttime button.link-btn.std-link-btn:hover,
 html body.nighttime a.link-btn.std-link-btn:hover {
-  color: #f56537;
+  color: #fff;
 }
 
 html body.nighttime button.link-btn.std-link-btn:active,
@@ -669,88 +670,116 @@ html body.nighttime a.link-btn.std-link-btn:active {
   color: #f7f7f7;
 }
 
+html body.nighttime button.primary-btn,
+html body.nighttime a.primary-btn {
+  color: #f7f7f7;
+  border: solid 2px #1f2c39;
+  background-color: transparent;
+}
+
+html body.nighttime button.primary-btn:disabled,
+html body.nighttime a.primary-btn:disabled {
+  color: #262d33;
+  border: solid 2px #262d33;
+  background-color: transparent;
+}
+
+html body.nighttime button.primary-btn:hover,
+html body.nighttime a.primary-btn:hover {
+  color: #fff;
+  border: solid 2px #1f2c39;
+  background-color: rgba(31, 44, 57, 0.7);
+}
+
+html body.nighttime button.primary-btn:active,
+html body.nighttime a.primary-btn:active {
+  color: #1f2c39;
+  border: solid 2px #1f2c39;
+  background-color: transparent;
+}
+
 html body.nighttime button.green-btn,
 html body.nighttime a.green-btn {
+  color: #f7f7f7;
   border: solid 2px #75d891;
   background-color: transparent;
-  color: #75d891;
 }
 
 html body.nighttime button.green-btn:disabled,
 html body.nighttime a.green-btn:disabled {
+  color: #262d33;
   border: solid 2px #262d33;
   background-color: transparent;
-  color: #262d33;
 }
 
 html body.nighttime button.green-btn:hover,
 html body.nighttime a.green-btn:hover {
+  color: #fff;
   border: solid 2px #75d891;
   background-color: rgba(117, 216, 145, 0.7);
-  color: #fff;
 }
 
 html body.nighttime button.green-btn:active,
 html body.nighttime a.green-btn:active {
+  color: #75d891;
   border: solid 2px #75d891;
   background-color: transparent;
-  color: #75d891;
 }
 
 html body.nighttime button.red-btn,
 html body.nighttime a.red-btn {
+  color: #f7f7f7;
   border: solid 2px #f56537;
   background-color: transparent;
-  color: #f56537;
 }
 
 html body.nighttime button.red-btn:disabled,
 html body.nighttime a.red-btn:disabled {
+  color: #262d33;
   border: solid 2px #262d33;
   background-color: transparent;
-  color: #262d33;
 }
 
 html body.nighttime button.red-btn:hover,
 html body.nighttime a.red-btn:hover {
+  color: #fff;
   border: solid 2px #f56537;
   background-color: rgba(245, 101, 55, 0.7);
-  color: #fff;
 }
 
 html body.nighttime button.red-btn:active,
 html body.nighttime a.red-btn:active {
+  color: #f56537;
   border: solid 2px #f56537;
   background-color: transparent;
-  color: #f56537;
 }
 
 html body.nighttime button.blue-btn,
 html body.nighttime a.blue-btn {
-  border: solid 2px #5ec4ff;
+  color: #f7f7f7;
+  border: solid 2px #8feee8;
   background-color: transparent;
-  color: #5ec4ff;
 }
 
 html body.nighttime button.blue-btn:disabled,
 html body.nighttime a.blue-btn:disabled {
+  color: #262d33;
   border: solid 2px #262d33;
   background-color: transparent;
-  color: #262d33;
 }
 
 html body.nighttime button.blue-btn:hover,
 html body.nighttime a.blue-btn:hover {
-  border: solid 2px #5ec4ff;
-  background-color: rgba(94, 196, 255, 0.7);
   color: #fff;
+  border: solid 2px #8feee8;
+  background-color: rgba(143, 238, 232, 0.7);
 }
 
 html body.nighttime button.blue-btn:active,
 html body.nighttime a.blue-btn:active {
-  border: solid 2px #5ec4ff;
+  color: #8feee8;
+  border: solid 2px #8feee8;
   background-color: transparent;
-  color: #5ec4ff;
 }
 
 html body.nighttime input[type=text],
@@ -1365,7 +1394,6 @@ html body.nighttime #chatcoronavirus #main #left-bar .left-bar-container .left-b
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 50%;
   border-right: solid 1px #262d33;
   background-color: #f56537;
   color: #fff;
@@ -1376,13 +1404,18 @@ html body.nighttime #chatcoronavirus #main #left-bar .left-bar-container .left-b
   cursor: default;
 }
 
-html body.nighttime #chatcoronavirus #main #left-bar .left-bar-container .left-bar-stats .left-bar-stat-alerts .left-bar-stat-alert:last-child {
+html body.nighttime #chatcoronavirus #main #left-bar .left-bar-container .left-bar-stats .left-bar-stat-alerts .left-bar-stat-alert.w-100 {
+  width: 100%;
+}
+
+html body.nighttime #chatcoronavirus #main #left-bar .left-bar-container .left-bar-stats .left-bar-stat-alerts .left-bar-stat-alert.w-50 {
+  width: 50%;
   border: none;
   background-color: #111b20;
   color: #f7f7f7;
 }
 
-html body.nighttime #chatcoronavirus #main #left-bar .left-bar-container .left-bar-stats .left-bar-stat-alerts .left-bar-stat-alert:last-child span {
+html body.nighttime #chatcoronavirus #main #left-bar .left-bar-container .left-bar-stats .left-bar-stat-alerts .left-bar-stat-alert.w-50 span {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -1393,8 +1426,7 @@ html body.nighttime #chatcoronavirus #main #left-bar .left-bar-container .left-b
   padding: 0 0 0 1rem;
 }
 
-html body.nighttime #chatcoronavirus #main #left-bar .left-bar-container .left-bar-stats .left-bar-stat-alerts .left-bar-stat-alert:last-child span i {
-  color: #75d891;
+html body.nighttime #chatcoronavirus #main #left-bar .left-bar-container .left-bar-stats .left-bar-stat-alerts .left-bar-stat-alert.w-50 span i {
   width: 20px;
   text-align: left;
   font-size: 1.75rem;
@@ -1402,14 +1434,29 @@ html body.nighttime #chatcoronavirus #main #left-bar .left-bar-container .left-b
   font-weight: 500;
 }
 
-html body.nighttime #chatcoronavirus #main #left-bar .left-bar-container .left-bar-stats .left-bar-stat-alerts .left-bar-stat-alert:last-child span:last-child {
+html body.nighttime #chatcoronavirus #main #left-bar .left-bar-container .left-bar-stats .left-bar-stat-alerts .left-bar-stat-alert.w-50 span:last-child {
   border-bottom: none;
 }
 
-html body.nighttime #chatcoronavirus #main #left-bar .left-bar-container .left-bar-stats .left-bar-stat-alerts .left-bar-stat-alert:last-child span:last-child i {
-  color: #f56537;
+html body.nighttime #chatcoronavirus #main #left-bar .left-bar-container .left-bar-stats .left-bar-stat-alerts .left-bar-stat-alert.w-50 span:last-child i {
   position: relative;
   left: 1px;
+}
+
+html body.nighttime #chatcoronavirus #main #left-bar .left-bar-container .left-bar-stats .left-bar-stat-alerts .left-bar-stat-alert.w-50 span.green i {
+  color: #75d891;
+}
+
+html body.nighttime #chatcoronavirus #main #left-bar .left-bar-container .left-bar-stats .left-bar-stat-alerts .left-bar-stat-alert.w-50 span.red i {
+  color: #f56537;
+}
+
+html body.nighttime #chatcoronavirus #main #left-bar .left-bar-container .left-bar-stats .left-bar-stat-alerts .left-bar-stat-alert.w-50 span.blue i {
+  color: #8feee8;
+}
+
+html body.nighttime #chatcoronavirus #main #left-bar .left-bar-container .left-bar-stats .left-bar-stat-alerts .left-bar-stat-alert.w-50 span.yellow i {
+  color: #ffe059;
 }
 
 html body.nighttime #chatcoronavirus #main #left-bar .left-bar-container .left-bar-stats .left-bar-stat-updates {
@@ -2341,7 +2388,7 @@ html body.nighttime #chatcoronavirus .resource-excerpt {
   position: relative;
   background-color: #1f2c39;
   box-shadow: 2px 2px 15px -10px rgba(0, 0, 0, 0.75);
-  border-left: solid 4px rgba(94, 196, 255, 0.7);
+  border-left: solid 4px rgba(143, 238, 232, 0.7);
 }
 
 @media (max-width: 991px) {
@@ -3004,7 +3051,7 @@ html body.nighttime #chatcoronavirus .article .article-single .article-header .a
   padding: 1rem;
   font-weight: 700;
   background-color: #121c28;
-  color: #5ec4ff;
+  color: #8feee8;
   cursor: pointer;
   transition: 0.2s;
   display: flex;
@@ -3014,7 +3061,7 @@ html body.nighttime #chatcoronavirus .article .article-single .article-header .a
 }
 
 html body.nighttime #chatcoronavirus .article .article-single .article-header .article-details .article-meta .article-meta-content .article-user .article-usermeta span.article-subscribe:visited {
-  color: #5ec4ff;
+  color: #8feee8;
 }
 
 html body.nighttime #chatcoronavirus .article .article-single .article-header .article-details .article-meta .article-meta-content .article-user .article-usermeta span.article-subscribe:hover {
@@ -3022,7 +3069,7 @@ html body.nighttime #chatcoronavirus .article .article-single .article-header .a
 }
 
 html body.nighttime #chatcoronavirus .article .article-single .article-header .article-details .article-meta .article-meta-content .article-user .article-usermeta span.article-subscribe:active {
-  color: #5ec4ff;
+  color: #8feee8;
 }
 
 html body.nighttime #chatcoronavirus .article .article-single .article-header .article-details .article-meta .article-meta-content .article-user .article-usermeta span.article-subscribe i {
@@ -3426,7 +3473,7 @@ html body.nighttime #chatcoronavirus .snippet .snippet-meta .snippet-icon i {
 }
 
 html body.nighttime #chatcoronavirus .snippet .snippet-meta .snippet-icon.snippet-icon-hover {
-  color: #5ec4ff;
+  color: #8feee8;
   cursor: pointer;
   transition: 0.2s;
   display: flex;
@@ -3436,7 +3483,7 @@ html body.nighttime #chatcoronavirus .snippet .snippet-meta .snippet-icon.snippe
 }
 
 html body.nighttime #chatcoronavirus .snippet .snippet-meta .snippet-icon.snippet-icon-hover:visited {
-  color: #5ec4ff;
+  color: #8feee8;
 }
 
 html body.nighttime #chatcoronavirus .snippet .snippet-meta .snippet-icon.snippet-icon-hover:hover {
@@ -3444,7 +3491,7 @@ html body.nighttime #chatcoronavirus .snippet .snippet-meta .snippet-icon.snippe
 }
 
 html body.nighttime #chatcoronavirus .snippet .snippet-meta .snippet-icon.snippet-icon-hover:active {
-  color: #5ec4ff;
+  color: #8feee8;
 }
 
 html body.nighttime #chatcoronavirus .snippet .snippet-meta .snippet-icon.snippet-icon-hover i {
@@ -4006,19 +4053,19 @@ html body.nighttime #chatcoronavirus .current-nav-item.current-green:active.curr
 }
 
 html body.nighttime #chatcoronavirus .current-nav-item.current-yellow {
-  color: #5ec4ff;
+  color: #8feee8;
 }
 
 html body.nighttime #chatcoronavirus .current-nav-item.current-yellow.current-border {
-  border-bottom: solid 2px #5ec4ff;
+  border-bottom: solid 2px #8feee8;
 }
 
 html body.nighttime #chatcoronavirus .current-nav-item.current-yellow:visited {
-  color: #5ec4ff;
+  color: #8feee8;
 }
 
 html body.nighttime #chatcoronavirus .current-nav-item.current-yellow:visited.current-border {
-  border-bottom: solid 2px #5ec4ff;
+  border-bottom: solid 2px #8feee8;
 }
 
 html body.nighttime #chatcoronavirus .current-nav-item.current-yellow:hover {
@@ -4030,11 +4077,11 @@ html body.nighttime #chatcoronavirus .current-nav-item.current-yellow:hover.curr
 }
 
 html body.nighttime #chatcoronavirus .current-nav-item.current-yellow:active {
-  color: #5ec4ff;
+  color: #8feee8;
 }
 
 html body.nighttime #chatcoronavirus .current-nav-item.current-yellow:active.current-border {
-  border-bottom: solid 2px #5ec4ff;
+  border-bottom: solid 2px #8feee8;
 }
 
 html body.nighttime #chatcoronavirus .toggleWrapper {
@@ -4057,7 +4104,7 @@ html body.nighttime #chatcoronavirus .toggleWrapper .toggle {
   position: relative;
   width: 70px;
   height: 24px;
-  background-color: #5ec4ff;
+  background-color: #8feee8;
   border-radius: 90px;
   transition: background-color 200ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
 }
@@ -4218,6 +4265,64 @@ html body.nighttime #chatcoronavirus .toggleWrapper input:checked + .toggle .sta
 
 html body.nighttime #chatcoronavirus .toggleWrapper input:checked + .toggle .star--6 {
   transition: all 300ms 400ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+
+html body.nighttime #chatcoronavirus .simple-dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(17, 27, 32, 0.7);
+  transition: 0.2s;
+  cursor: default;
+  visibility: hidden;
+  opacity: 0;
+  z-index: -1;
+}
+
+html body.nighttime #chatcoronavirus .simple-dialog-overlay.simple-dialog-active {
+  visibility: visible;
+  opacity: 1;
+  z-index: 99999;
+}
+
+html body.nighttime #chatcoronavirus .simple-dialog-overlay .simple-dialog {
+  max-width: 400px;
+  width: 100%;
+  max-height: 300px;
+  height: auto;
+  padding: 1rem;
+}
+
+html body.nighttime #chatcoronavirus .simple-dialog-overlay .simple-dialog .simple-dialog-content {
+  width: 100%;
+  max-height: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #1f2c39;
+  border-radius: 10px;
+  box-shadow: 2px 2px 30px -16px rgba(0, 0, 0, 0.75);
+}
+
+html body.nighttime #chatcoronavirus .simple-dialog-overlay .simple-dialog .simple-dialog-content .simple-dialog-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
+}
+
+html body.nighttime #chatcoronavirus .simple-dialog-overlay .simple-dialog .simple-dialog-content .simple-dialog-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
 }
 
 html body.nighttime #chatcoronavirus #page-wrapper.archive {
@@ -4731,7 +4836,7 @@ html body.nighttime #chatcoronavirus #page-wrapper.resource #page-content .resou
   justify-content: center;
   align-items: center;
   font-weight: 800;
-  color: #5ec4ff;
+  color: #8feee8;
   cursor: pointer;
   transition: 0.2s;
 }
@@ -4741,7 +4846,7 @@ html body.nighttime #chatcoronavirus #page-wrapper.resource #page-content .resou
 }
 
 html body.nighttime #chatcoronavirus #page-wrapper.resource #page-content .resource-single .resource-subheader .resource-user .resource-usermeta .resource-subscribe:visited {
-  color: #5ec4ff;
+  color: #8feee8;
 }
 
 html body.nighttime #chatcoronavirus #page-wrapper.resource #page-content .resource-single .resource-subheader .resource-user .resource-usermeta .resource-subscribe:hover {
@@ -4749,7 +4854,7 @@ html body.nighttime #chatcoronavirus #page-wrapper.resource #page-content .resou
 }
 
 html body.nighttime #chatcoronavirus #page-wrapper.resource #page-content .resource-single .resource-subheader .resource-user .resource-usermeta .resource-subscribe:active {
-  color: #5ec4ff;
+  color: #8feee8;
 }
 
 html body.nighttime #chatcoronavirus #page-wrapper.resource #page-content .resource-single .resource-subheader .resource-user .resource-usermeta .resource-health_points {
@@ -5162,7 +5267,7 @@ html body.nighttime #chatcoronavirus #page-wrapper.thread #page-content .thread-
   justify-content: center;
   align-items: center;
   font-weight: 800;
-  color: #5ec4ff;
+  color: #8feee8;
   cursor: pointer;
   transition: 0.2s;
 }
@@ -5172,7 +5277,7 @@ html body.nighttime #chatcoronavirus #page-wrapper.thread #page-content .thread-
 }
 
 html body.nighttime #chatcoronavirus #page-wrapper.thread #page-content .thread-single .thread-subheader .thread-user .thread-usermeta .thread-subscribe:visited {
-  color: #5ec4ff;
+  color: #8feee8;
 }
 
 html body.nighttime #chatcoronavirus #page-wrapper.thread #page-content .thread-single .thread-subheader .thread-user .thread-usermeta .thread-subscribe:hover {
@@ -5180,7 +5285,7 @@ html body.nighttime #chatcoronavirus #page-wrapper.thread #page-content .thread-
 }
 
 html body.nighttime #chatcoronavirus #page-wrapper.thread #page-content .thread-single .thread-subheader .thread-user .thread-usermeta .thread-subscribe:active {
-  color: #5ec4ff;
+  color: #8feee8;
 }
 
 html body.nighttime #chatcoronavirus #page-wrapper.thread #page-content .thread-single .thread-subheader .thread-user .thread-usermeta .thread-health_points {
@@ -5959,9 +6064,10 @@ html body.daytime a {
   font-size: 1rem;
   margin: 0.5rem 0;
   line-height: 1.5rem;
-  transition: 0.2s;
-  color: #f96939;
   text-decoration: none;
+  color: #f96939;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
 html body.daytime a:visited {
@@ -6034,7 +6140,7 @@ html body.daytime a.link-btn {
 
 html body.daytime button.link-btn.green-link-btn,
 html body.daytime a.link-btn.green-link-btn {
-  color: #39a858;
+  color: #4c4c4c;
 }
 
 html body.daytime button.link-btn.green-link-btn:disabled,
@@ -6054,7 +6160,7 @@ html body.daytime a.link-btn.green-link-btn:active {
 
 html body.daytime button.link-btn.red-link-btn,
 html body.daytime a.link-btn.red-link-btn {
-  color: #f96939;
+  color: #4c4c4c;
 }
 
 html body.daytime button.link-btn.red-link-btn:disabled,
@@ -6074,7 +6180,7 @@ html body.daytime a.link-btn.red-link-btn:active {
 
 html body.daytime button.link-btn.blue-link-btn,
 html body.daytime a.link-btn.blue-link-btn {
-  color: #16a9ff;
+  color: #4c4c4c;
 }
 
 html body.daytime button.link-btn.blue-link-btn:disabled,
@@ -6089,7 +6195,7 @@ html body.daytime a.link-btn.blue-link-btn:hover {
 
 html body.daytime button.link-btn.blue-link-btn:active,
 html body.daytime a.link-btn.blue-link-btn:active {
-  color: #16a9ff;
+  color: #398fa8;
 }
 
 html body.daytime button.link-btn.std-link-btn,
@@ -6104,7 +6210,7 @@ html body.daytime a.link-btn.std-link-btn:disabled {
 
 html body.daytime button.link-btn.std-link-btn:hover,
 html body.daytime a.link-btn.std-link-btn:hover {
-  color: #f96939;
+  color: #fff;
 }
 
 html body.daytime button.link-btn.std-link-btn:active,
@@ -6112,88 +6218,116 @@ html body.daytime a.link-btn.std-link-btn:active {
   color: #4c4c4c;
 }
 
+html body.daytime button.primary-btn,
+html body.daytime a.primary-btn {
+  color: #4c4c4c;
+  border: solid 2px #f4f4f4;
+  background-color: transparent;
+}
+
+html body.daytime button.primary-btn:disabled,
+html body.daytime a.primary-btn:disabled {
+  color: #e8e8e8;
+  border: solid 2px #e8e8e8;
+  background-color: transparent;
+}
+
+html body.daytime button.primary-btn:hover,
+html body.daytime a.primary-btn:hover {
+  color: #fff;
+  border: solid 2px #f4f4f4;
+  background-color: rgba(244, 244, 244, 0.7);
+}
+
+html body.daytime button.primary-btn:active,
+html body.daytime a.primary-btn:active {
+  color: #f4f4f4;
+  border: solid 2px #f4f4f4;
+  background-color: transparent;
+}
+
 html body.daytime button.green-btn,
 html body.daytime a.green-btn {
+  color: #4c4c4c;
   border: solid 2px #39a858;
   background-color: transparent;
-  color: #39a858;
 }
 
 html body.daytime button.green-btn:disabled,
 html body.daytime a.green-btn:disabled {
+  color: #e8e8e8;
   border: solid 2px #e8e8e8;
   background-color: transparent;
-  color: #e8e8e8;
 }
 
 html body.daytime button.green-btn:hover,
 html body.daytime a.green-btn:hover {
+  color: #fff;
   border: solid 2px #39a858;
   background-color: rgba(57, 168, 88, 0.7);
-  color: #fff;
 }
 
 html body.daytime button.green-btn:active,
 html body.daytime a.green-btn:active {
+  color: #39a858;
   border: solid 2px #39a858;
   background-color: transparent;
-  color: #39a858;
 }
 
 html body.daytime button.red-btn,
 html body.daytime a.red-btn {
+  color: #4c4c4c;
   border: solid 2px #f96939;
   background-color: transparent;
-  color: #f96939;
 }
 
 html body.daytime button.red-btn:disabled,
 html body.daytime a.red-btn:disabled {
+  color: #e8e8e8;
   border: solid 2px #e8e8e8;
   background-color: transparent;
-  color: #e8e8e8;
 }
 
 html body.daytime button.red-btn:hover,
 html body.daytime a.red-btn:hover {
+  color: #fff;
   border: solid 2px #f96939;
   background-color: rgba(249, 105, 57, 0.7);
-  color: #fff;
 }
 
 html body.daytime button.red-btn:active,
 html body.daytime a.red-btn:active {
+  color: #f96939;
   border: solid 2px #f96939;
   background-color: transparent;
-  color: #f96939;
 }
 
 html body.daytime button.blue-btn,
 html body.daytime a.blue-btn {
-  border: solid 2px #16a9ff;
+  color: #4c4c4c;
+  border: solid 2px #398fa8;
   background-color: transparent;
-  color: #16a9ff;
 }
 
 html body.daytime button.blue-btn:disabled,
 html body.daytime a.blue-btn:disabled {
+  color: #e8e8e8;
   border: solid 2px #e8e8e8;
   background-color: transparent;
-  color: #e8e8e8;
 }
 
 html body.daytime button.blue-btn:hover,
 html body.daytime a.blue-btn:hover {
-  border: solid 2px #16a9ff;
-  background-color: rgba(22, 169, 255, 0.7);
   color: #fff;
+  border: solid 2px #398fa8;
+  background-color: rgba(57, 143, 168, 0.7);
 }
 
 html body.daytime button.blue-btn:active,
 html body.daytime a.blue-btn:active {
-  border: solid 2px #16a9ff;
+  color: #398fa8;
+  border: solid 2px #398fa8;
   background-color: transparent;
-  color: #16a9ff;
 }
 
 html body.daytime input[type=text],
@@ -6798,7 +6932,6 @@ html body.daytime #chatcoronavirus #main #left-bar .left-bar-container .left-bar
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 50%;
   border-right: solid 1px #e8e8e8;
   background-color: #f96939;
   color: #fff;
@@ -6809,13 +6942,18 @@ html body.daytime #chatcoronavirus #main #left-bar .left-bar-container .left-bar
   cursor: default;
 }
 
-html body.daytime #chatcoronavirus #main #left-bar .left-bar-container .left-bar-stats .left-bar-stat-alerts .left-bar-stat-alert:last-child {
+html body.daytime #chatcoronavirus #main #left-bar .left-bar-container .left-bar-stats .left-bar-stat-alerts .left-bar-stat-alert.w-100 {
+  width: 100%;
+}
+
+html body.daytime #chatcoronavirus #main #left-bar .left-bar-container .left-bar-stats .left-bar-stat-alerts .left-bar-stat-alert.w-50 {
+  width: 50%;
   border: none;
   background-color: #ffffff;
   color: #4c4c4c;
 }
 
-html body.daytime #chatcoronavirus #main #left-bar .left-bar-container .left-bar-stats .left-bar-stat-alerts .left-bar-stat-alert:last-child span {
+html body.daytime #chatcoronavirus #main #left-bar .left-bar-container .left-bar-stats .left-bar-stat-alerts .left-bar-stat-alert.w-50 span {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -6826,8 +6964,7 @@ html body.daytime #chatcoronavirus #main #left-bar .left-bar-container .left-bar
   padding: 0 0 0 1rem;
 }
 
-html body.daytime #chatcoronavirus #main #left-bar .left-bar-container .left-bar-stats .left-bar-stat-alerts .left-bar-stat-alert:last-child span i {
-  color: #39a858;
+html body.daytime #chatcoronavirus #main #left-bar .left-bar-container .left-bar-stats .left-bar-stat-alerts .left-bar-stat-alert.w-50 span i {
   width: 20px;
   text-align: left;
   font-size: 1.75rem;
@@ -6835,14 +6972,29 @@ html body.daytime #chatcoronavirus #main #left-bar .left-bar-container .left-bar
   font-weight: 500;
 }
 
-html body.daytime #chatcoronavirus #main #left-bar .left-bar-container .left-bar-stats .left-bar-stat-alerts .left-bar-stat-alert:last-child span:last-child {
+html body.daytime #chatcoronavirus #main #left-bar .left-bar-container .left-bar-stats .left-bar-stat-alerts .left-bar-stat-alert.w-50 span:last-child {
   border-bottom: none;
 }
 
-html body.daytime #chatcoronavirus #main #left-bar .left-bar-container .left-bar-stats .left-bar-stat-alerts .left-bar-stat-alert:last-child span:last-child i {
-  color: #f96939;
+html body.daytime #chatcoronavirus #main #left-bar .left-bar-container .left-bar-stats .left-bar-stat-alerts .left-bar-stat-alert.w-50 span:last-child i {
   position: relative;
   left: 1px;
+}
+
+html body.daytime #chatcoronavirus #main #left-bar .left-bar-container .left-bar-stats .left-bar-stat-alerts .left-bar-stat-alert.w-50 span.green i {
+  color: #39a858;
+}
+
+html body.daytime #chatcoronavirus #main #left-bar .left-bar-container .left-bar-stats .left-bar-stat-alerts .left-bar-stat-alert.w-50 span.red i {
+  color: #f96939;
+}
+
+html body.daytime #chatcoronavirus #main #left-bar .left-bar-container .left-bar-stats .left-bar-stat-alerts .left-bar-stat-alert.w-50 span.blue i {
+  color: #398fa8;
+}
+
+html body.daytime #chatcoronavirus #main #left-bar .left-bar-container .left-bar-stats .left-bar-stat-alerts .left-bar-stat-alert.w-50 span.yellow i {
+  color: #ffe059;
 }
 
 html body.daytime #chatcoronavirus #main #left-bar .left-bar-container .left-bar-stats .left-bar-stat-updates {
@@ -7756,7 +7908,7 @@ html body.daytime #chatcoronavirus .resource-excerpt {
   position: relative;
   background-color: #f4f4f4;
   box-shadow: 2px 2px 15px -10px rgba(0, 0, 0, 0.75);
-  border-left: solid 4px rgba(22, 169, 255, 0.7);
+  border-left: solid 4px rgba(57, 143, 168, 0.7);
 }
 
 @media (max-width: 991px) {
@@ -8419,7 +8571,7 @@ html body.daytime #chatcoronavirus .article .article-single .article-header .art
   padding: 1rem;
   font-weight: 700;
   background-color: #efefef;
-  color: #16a9ff;
+  color: #398fa8;
   cursor: pointer;
   transition: 0.2s;
   display: flex;
@@ -8429,7 +8581,7 @@ html body.daytime #chatcoronavirus .article .article-single .article-header .art
 }
 
 html body.daytime #chatcoronavirus .article .article-single .article-header .article-details .article-meta .article-meta-content .article-user .article-usermeta span.article-subscribe:visited {
-  color: #16a9ff;
+  color: #398fa8;
 }
 
 html body.daytime #chatcoronavirus .article .article-single .article-header .article-details .article-meta .article-meta-content .article-user .article-usermeta span.article-subscribe:hover {
@@ -8437,7 +8589,7 @@ html body.daytime #chatcoronavirus .article .article-single .article-header .art
 }
 
 html body.daytime #chatcoronavirus .article .article-single .article-header .article-details .article-meta .article-meta-content .article-user .article-usermeta span.article-subscribe:active {
-  color: #16a9ff;
+  color: #398fa8;
 }
 
 html body.daytime #chatcoronavirus .article .article-single .article-header .article-details .article-meta .article-meta-content .article-user .article-usermeta span.article-subscribe i {
@@ -8841,7 +8993,7 @@ html body.daytime #chatcoronavirus .snippet .snippet-meta .snippet-icon i {
 }
 
 html body.daytime #chatcoronavirus .snippet .snippet-meta .snippet-icon.snippet-icon-hover {
-  color: #16a9ff;
+  color: #398fa8;
   cursor: pointer;
   transition: 0.2s;
   display: flex;
@@ -8851,7 +9003,7 @@ html body.daytime #chatcoronavirus .snippet .snippet-meta .snippet-icon.snippet-
 }
 
 html body.daytime #chatcoronavirus .snippet .snippet-meta .snippet-icon.snippet-icon-hover:visited {
-  color: #16a9ff;
+  color: #398fa8;
 }
 
 html body.daytime #chatcoronavirus .snippet .snippet-meta .snippet-icon.snippet-icon-hover:hover {
@@ -8859,7 +9011,7 @@ html body.daytime #chatcoronavirus .snippet .snippet-meta .snippet-icon.snippet-
 }
 
 html body.daytime #chatcoronavirus .snippet .snippet-meta .snippet-icon.snippet-icon-hover:active {
-  color: #16a9ff;
+  color: #398fa8;
 }
 
 html body.daytime #chatcoronavirus .snippet .snippet-meta .snippet-icon.snippet-icon-hover i {
@@ -9421,19 +9573,19 @@ html body.daytime #chatcoronavirus .current-nav-item.current-green:active.curren
 }
 
 html body.daytime #chatcoronavirus .current-nav-item.current-yellow {
-  color: #16a9ff;
+  color: #398fa8;
 }
 
 html body.daytime #chatcoronavirus .current-nav-item.current-yellow.current-border {
-  border-bottom: solid 2px #16a9ff;
+  border-bottom: solid 2px #398fa8;
 }
 
 html body.daytime #chatcoronavirus .current-nav-item.current-yellow:visited {
-  color: #16a9ff;
+  color: #398fa8;
 }
 
 html body.daytime #chatcoronavirus .current-nav-item.current-yellow:visited.current-border {
-  border-bottom: solid 2px #16a9ff;
+  border-bottom: solid 2px #398fa8;
 }
 
 html body.daytime #chatcoronavirus .current-nav-item.current-yellow:hover {
@@ -9445,11 +9597,11 @@ html body.daytime #chatcoronavirus .current-nav-item.current-yellow:hover.curren
 }
 
 html body.daytime #chatcoronavirus .current-nav-item.current-yellow:active {
-  color: #16a9ff;
+  color: #398fa8;
 }
 
 html body.daytime #chatcoronavirus .current-nav-item.current-yellow:active.current-border {
-  border-bottom: solid 2px #16a9ff;
+  border-bottom: solid 2px #398fa8;
 }
 
 html body.daytime #chatcoronavirus .toggleWrapper {
@@ -9472,7 +9624,7 @@ html body.daytime #chatcoronavirus .toggleWrapper .toggle {
   position: relative;
   width: 70px;
   height: 24px;
-  background-color: #16a9ff;
+  background-color: #398fa8;
   border-radius: 90px;
   transition: background-color 200ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
 }
@@ -9633,6 +9785,64 @@ html body.daytime #chatcoronavirus .toggleWrapper input:checked + .toggle .star-
 
 html body.daytime #chatcoronavirus .toggleWrapper input:checked + .toggle .star--6 {
   transition: all 300ms 400ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+
+html body.daytime #chatcoronavirus .simple-dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.7);
+  transition: 0.2s;
+  cursor: default;
+  visibility: hidden;
+  opacity: 0;
+  z-index: -1;
+}
+
+html body.daytime #chatcoronavirus .simple-dialog-overlay.simple-dialog-active {
+  visibility: visible;
+  opacity: 1;
+  z-index: 99999;
+}
+
+html body.daytime #chatcoronavirus .simple-dialog-overlay .simple-dialog {
+  max-width: 400px;
+  width: 100%;
+  max-height: 300px;
+  height: auto;
+  padding: 1rem;
+}
+
+html body.daytime #chatcoronavirus .simple-dialog-overlay .simple-dialog .simple-dialog-content {
+  width: 100%;
+  max-height: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #f4f4f4;
+  border-radius: 10px;
+  box-shadow: 2px 2px 30px -16px rgba(0, 0, 0, 0.75);
+}
+
+html body.daytime #chatcoronavirus .simple-dialog-overlay .simple-dialog .simple-dialog-content .simple-dialog-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
+}
+
+html body.daytime #chatcoronavirus .simple-dialog-overlay .simple-dialog .simple-dialog-content .simple-dialog-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
 }
 
 html body.daytime #chatcoronavirus #page-wrapper.archive {
@@ -10146,7 +10356,7 @@ html body.daytime #chatcoronavirus #page-wrapper.resource #page-content .resourc
   justify-content: center;
   align-items: center;
   font-weight: 800;
-  color: #16a9ff;
+  color: #398fa8;
   cursor: pointer;
   transition: 0.2s;
 }
@@ -10156,7 +10366,7 @@ html body.daytime #chatcoronavirus #page-wrapper.resource #page-content .resourc
 }
 
 html body.daytime #chatcoronavirus #page-wrapper.resource #page-content .resource-single .resource-subheader .resource-user .resource-usermeta .resource-subscribe:visited {
-  color: #16a9ff;
+  color: #398fa8;
 }
 
 html body.daytime #chatcoronavirus #page-wrapper.resource #page-content .resource-single .resource-subheader .resource-user .resource-usermeta .resource-subscribe:hover {
@@ -10164,7 +10374,7 @@ html body.daytime #chatcoronavirus #page-wrapper.resource #page-content .resourc
 }
 
 html body.daytime #chatcoronavirus #page-wrapper.resource #page-content .resource-single .resource-subheader .resource-user .resource-usermeta .resource-subscribe:active {
-  color: #16a9ff;
+  color: #398fa8;
 }
 
 html body.daytime #chatcoronavirus #page-wrapper.resource #page-content .resource-single .resource-subheader .resource-user .resource-usermeta .resource-health_points {
@@ -10577,7 +10787,7 @@ html body.daytime #chatcoronavirus #page-wrapper.thread #page-content .thread-si
   justify-content: center;
   align-items: center;
   font-weight: 800;
-  color: #16a9ff;
+  color: #398fa8;
   cursor: pointer;
   transition: 0.2s;
 }
@@ -10587,7 +10797,7 @@ html body.daytime #chatcoronavirus #page-wrapper.thread #page-content .thread-si
 }
 
 html body.daytime #chatcoronavirus #page-wrapper.thread #page-content .thread-single .thread-subheader .thread-user .thread-usermeta .thread-subscribe:visited {
-  color: #16a9ff;
+  color: #398fa8;
 }
 
 html body.daytime #chatcoronavirus #page-wrapper.thread #page-content .thread-single .thread-subheader .thread-user .thread-usermeta .thread-subscribe:hover {
@@ -10595,7 +10805,7 @@ html body.daytime #chatcoronavirus #page-wrapper.thread #page-content .thread-si
 }
 
 html body.daytime #chatcoronavirus #page-wrapper.thread #page-content .thread-single .thread-subheader .thread-user .thread-usermeta .thread-subscribe:active {
-  color: #16a9ff;
+  color: #398fa8;
 }
 
 html body.daytime #chatcoronavirus #page-wrapper.thread #page-content .thread-single .thread-subheader .thread-user .thread-usermeta .thread-health_points {

@@ -27,17 +27,18 @@ trait FullTextSearch {
     return $query->selectRaw("*, MATCH ({$columns}) AGAINST (? IN NATURAL LANGUAGE MODE WITH QUERY EXPANSION) AS relevance", [$searchableTerm]);
   }
 
-  public function scopeSearch($query, $term) {
+  public function scopeSearch($query, $term, $cutoff = 3) {
     if (!$term) {
       return $query;
     }
 
     $columns = implode(',',$this->searchable);
     $searchableTerm = $this->fullTextWildcards($term);
-    return $query->whereRaw("MATCH ({$columns}) AGAINST (? IN NATURAL LANGUAGE MODE WITH QUERY EXPANSION) > 0", $searchableTerm);
+    return $query->whereRaw("MATCH ({$columns}) AGAINST (? IN NATURAL LANGUAGE MODE WITH QUERY EXPANSION) > ?", [$searchableTerm, $cutoff]);
   }
 
   public function scopeRelevance($query, $order = 'DESC') {
     $query->orderBy('relevance', $order);
+    return $query;
   }
 }

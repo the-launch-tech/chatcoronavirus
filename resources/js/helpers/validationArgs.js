@@ -103,12 +103,12 @@ export default {
   write: {
     articles: {
       title: {
-        validation: data => Validate.isLength(data, { min: 10, max: 255 }),
+        validation: data => Validate.isLength(data, { min: 2, max: 255 }),
         required: true,
         error: 'Please enter a title between 10 and 255 characters!',
       },
       content: {
-        validation: data => Validate.isLength(data, { min: 270, max: 100000 }),
+        validation: data => Validate.isLength(data, { min: 0, max: 100000 }),
         required: true,
         error: 'Body must be at least 100 characters!',
       },
@@ -120,12 +120,12 @@ export default {
     },
     threads: {
       title: {
-        validation: data => Validate.isLength(data, { min: 10, max: 255 }),
+        validation: data => Validate.isLength(data, { min: 2, max: 255 }),
         required: true,
         error: 'Please enter a title between 10 and 255 characters!',
       },
       content: {
-        validation: data => Validate.isLength(data, { min: 0, max: 1000 }),
+        validation: data => Validate.isLength(data, { min: 0, max: 100000 }),
         required: true,
         error: 'Body must be at least 100 characters!',
       },
@@ -137,12 +137,12 @@ export default {
     },
     resources: {
       title: {
-        validation: data => Validate.isLength(data, { min: 10, max: 255 }),
+        validation: data => Validate.isLength(data, { min: 2, max: 255 }),
         required: true,
         error: 'Please enter a title between 10 and 255 characters!',
       },
       content: {
-        validation: data => Validate.isLength(data, { min: 0, max: 1000 }),
+        validation: data => Validate.isLength(data, { min: 0, max: 100000 }),
         required: true,
         error: 'Body must be at least 100 characters!',
       },
@@ -155,7 +155,7 @@ export default {
   },
   addTopic: {
     label: {
-      validation: data => Validate.isLength(data, { min: 4, max: 255 }),
+      validation: data => Validate.isLength(data, { min: 2, max: 255 }),
       required: true,
       error: 'Please enter a label between 4 and 255 characters!',
     },
