@@ -13,7 +13,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "node-cron": "^2.0.3",
-    "puppeteer": "^2.1.1",
-    "the_launch-mysql-layer": "^1.0.1"
+    "pm2": "^4.2.3",
+    "puppeteer": "^2.1.1"
   }
 }
