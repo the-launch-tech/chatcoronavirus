@@ -108,6 +108,17 @@
           .dashboard-contrubtion-link {
             padding: 0 0.5rem;
           }
+
+          @media (max-width: 599px) {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-end;
+
+            a {
+              margin: 0;
+            }
+          }
         }
       }
     }
