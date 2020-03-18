@@ -5,6 +5,10 @@
   justify-content: center;
   align-items: center;
 
+  @media (max-width: 599px) {
+    width: 60px;
+  }
+
   input {
     position: absolute;
     left: -99em;
@@ -21,6 +25,11 @@
     border-radius: 90px;
     transition: background-color 200ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
 
+    @media (max-width: 599px) {
+      width: 46px;
+      height: 14px;
+    }
+
     .toggle__handler {
       display: inline-block;
       position: relative;
@@ -35,6 +44,11 @@
       transition: all 400ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
       transform: rotate(-45deg);
 
+      @media (max-width: 599px) {
+        width: 12px;
+        height: 12px;
+      }
+
       .crater {
         position: absolute;
         background-color: darken($hl_red, 14%);
@@ -48,6 +62,13 @@
         left: 5px;
         width: 4px;
         height: 4px;
+
+        @media (max-width: 599px) {
+          top: 1px;
+          left: 3px;
+          width: 2px;
+          height: 2px;
+        }
       }
 
       .crater--2 {
@@ -55,6 +76,13 @@
         left: 8px;
         width: 6px;
         height: 6px;
+
+        @media (max-width: 599px) {
+          top: 7px;
+          left: 3px;
+          width: 4px;
+          height: 4px;
+        }
       }
 
       .crater--3 {
@@ -62,6 +90,13 @@
         left: 13px;
         width: 8px;
         height: 8px;
+
+        @media (max-width: 599px) {
+          top: 3px;
+          left: 5px;
+          width: 5px;
+          height: 5px;
+        }
       }
     }
 
@@ -77,13 +112,30 @@
         z-index: 0;
         width: 30px;
         height: 4px;
+
+        @media (max-width: 599px) {
+          top: 2px;
+          left: 10px;
+          z-index: 0;
+          width: 23px;
+          height: 3px;
+        }
       }
+
       &.star--2 {
         top: 11px;
         left: 5px;
         z-index: 1;
         width: 30px;
         height: 3px;
+
+        @media (max-width: 599px) {
+          top: 6px;
+          left: 1px;
+          z-index: 1;
+          width: 30px;
+          height: 2px;
+        }
       }
 
       &.star--3 {
@@ -92,6 +144,14 @@
         z-index: 0;
         width: 30px;
         height: 3px;
+
+        @media (max-width: 599px) {
+          top: 10px;
+          left: 11px;
+          z-index: 0;
+          width: 30px;
+          height: 2px;
+        }
       }
 
       &.star--4,
@@ -108,6 +168,11 @@
         width: 2px;
         height: 2px;
         transform: translate3d(3px, 0, 0);
+
+        @media (max-width: 599px) {
+          top: 6px;
+          left: 18px;
+        }
       }
 
       &.star--5 {
@@ -117,6 +182,11 @@
         width: 3px;
         height: 3px;
         transform: translate3d(3px, 0, 0);
+
+        @media (max-width: 599px) {
+          top: 2px;
+          left: 25px;
+        }
       }
 
       &.star--6 {
@@ -126,6 +196,10 @@
         width: 2px;
         height: 2px;
         transform: translate3d(3px, 0, 0);
+
+        @media (max-width: 599px) {
+          top: -2px;
+        }
       }
     }
   }
@@ -137,6 +211,10 @@
       .toggle__handler {
         background-color: $hl_red;
         transform: translate3d(46px, 0, 0) rotate(0);
+
+        @media (max-width: 599px) {
+          transform: translate3d(32px, 0, 0) rotate(0);
+        }
 
         .crater {
           opacity: 1;

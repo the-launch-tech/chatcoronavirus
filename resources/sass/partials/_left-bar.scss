@@ -8,14 +8,14 @@
     visibility: hidden;
     opacity: 1;
     position: absolute;
-    top: 10px;
-    right: -44px;
+    top: 6px;
+    right: -29px;
     transition: 0.2s;
     cursor: pointer;
-    width: 34px;
-    height: 34px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
-    border: solid 2px $std_copy;
+    border: solid 1px $std_copy;
     background-color: $primary;
     color: $std_copy;
     display: flex;
@@ -28,24 +28,20 @@
     box-shadow: 1px 1px 15px -5px rgba(0, 0, 0, 0.8);
 
     &:hover {
-      border: solid 2px $hl_green;
+      border: solid 1px $hl_green;
       background-color: $primary;
       color: $hl_green;
     }
 
     &:active {
-      border: solid 2px $hl_green;
+      border: solid 1px $hl_green;
       background-color: $primary;
       color: $hl_green;
     }
 
     &.active-bar {
-      top: 2px;
-      right: -26px;
-      width: 24px;
-      height: 24px;
       padding-right: 1px;
-      border: solid 2px $hl_green;
+      border: solid 1px $hl_green;
       background-color: $primary;
       color: $hl_green;
 
@@ -56,7 +52,7 @@
       }
 
       &:active {
-        border: solid 2px $hl_green;
+        border: solid 1px $hl_green;
         background-color: $primary;
         color: $hl_green;
       }

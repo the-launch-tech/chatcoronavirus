@@ -22,3 +22,6 @@ yarn-error.log
 /scraper/.env
 /scraper/node_modules
 /scraper/package-lock.json
+/bootstrap/cache/config.php
+/public/css/app.css
+/public/js/app.js

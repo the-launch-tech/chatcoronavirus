@@ -63,7 +63,9 @@ function Home({ isAuthenticated, auth, dispatch, page, loading }) {
   return (
     <div id="page-wrapper" className={`page-wrapper ${page}`}>
       <div id="page-content" className={`page-content ${page}`}>
-        <h3 className="home-title">Chat Coronavirus</h3>
+        <h2 className="home-title">
+          ChatCoronavirus <sup>(beta)</sup>
+        </h2>
         {!isAuthenticated ? (
           <div className="home-intro">
             <ul className="home-features">

@@ -319,3 +319,15 @@
     }
   }
 }
+
+@mixin left-width-responsive {
+  width: $leftWidth;
+
+  @media (max-width: 991px) {
+    width: $leftWidth - 5%;
+  }
+
+  @media (max-width: 599px) {
+    width: $leftWidth - 10%;
+  }
+}

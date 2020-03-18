@@ -54,6 +54,25 @@ function Header({
     setToggled(!toggled)
   }
 
+  function toggleSubMenu(event, className) {
+    event.preventDefault()
+    const menuOptions = [
+      '.formats-sub-menu',
+      '.realms-sub-menu',
+      '.topics-sub-menu',
+      '.auth-sub-menu',
+    ]
+    menuOptions.map(option => {
+      if (option === className) {
+        const subMenu = document.querySelector(option)
+        subMenu.classList.toggle('toggled-sub-menu')
+      } else {
+        const subMenu = document.querySelector(option)
+        subMenu.classList.remove('toggled-sub-menu')
+      }
+    })
+  }
+
   return (
     <React.Fragment>
       <div className="logo-margin">
@@ -61,7 +80,7 @@ function Header({
       </div>
       <nav className="left-nav">
         <div className={`left-nav-toggle ${toggled ? 'toggled-nav' : ''}`} onClick={toggleNav}>
-          <i className="fal fa-bars"></i> Menu
+          <i className="fal fa-bars"></i>
         </div>
         <ul className={`nav-menu left-menu ${toggled ? 'toggled-nav' : ''}`}>
           <li className="nav-menu-item">
@@ -75,6 +94,7 @@ function Header({
           </li>
           <li className="nav-menu-item sub-menu-parent">
             <span
+              onClick={e => toggleSubMenu(e, '.formats-sub-menu')}
               className={`sub-menu-label ${currentNav(
                 location,
                 ['/threads', '/articles', '/resources'],
@@ -83,7 +103,7 @@ function Header({
             >
               Formats
             </span>
-            <ul className="sub-menu">
+            <ul className="sub-menu formats-sub-menu">
               <li className="sub-menu-item">
                 <Link
                   className={`sub-menu-anchor ${currentNav(location, ['/threads'], 'green')}`}
@@ -122,6 +142,7 @@ function Header({
           </li>
           <li className="nav-menu-item sub-menu-parent">
             <span
+              onClick={e => toggleSubMenu(e, '.realms-sub-menu')}
               className={`sub-menu-label ${currentNav(
                 location,
                 realms.map(realm => `/realms/${realm.slug}`),
@@ -130,7 +151,7 @@ function Header({
             >
               Realms
             </span>
-            <ul className="sub-menu">
+            <ul className="sub-menu realms-sub-menu">
               {realms.map((realm, i) => (
                 <li key={i} className="sub-menu-item">
                   <Link
@@ -151,6 +172,7 @@ function Header({
           </li>
           <li className="nav-menu-item sub-menu-parent">
             <span
+              onClick={e => toggleSubMenu(e, '.topics-sub-menu')}
               className={`sub-menu-label ${currentNav(
                 location,
                 topics.map(topic => `/topics/${topic.slug}`),
@@ -159,7 +181,7 @@ function Header({
             >
               Topics
             </span>
-            <ul className="sub-menu">
+            <ul className="sub-menu topics-sub-menu">
               {topics.map((topic, i) => (
                 <li key={i} className="sub-menu-item">
                   <Link
@@ -226,6 +248,7 @@ function Header({
           {isAuthenticated ? (
             <li className="nav-menu-item sub-menu-parent">
               <span
+                onClick={e => toggleSubMenu(e, '.auth-sub-menu')}
                 className={`sub-menu-label ${currentNav(
                   location,
                   [
@@ -243,7 +266,7 @@ function Header({
               >
                 {auth ? auth.username : 'Dashboard'}
               </span>
-              <ul className="sub-menu" style={{ width: 160 }}>
+              <ul className="sub-menu auth-sub-menu" style={{ width: 160 }}>
                 <li className="sub-menu-item">
                   <Link
                     className={`sub-menu-anchor nav-white ${currentNav(
@@ -293,7 +316,8 @@ function Header({
                   to="/login"
                   onClick={e => load('/login')}
                 >
-                  <i className="fal fa-user"></i> Login
+                  <i className="fal fa-user"></i>
+                  {desktop ? 'Login' : ''}
                 </Link>
               </li>
               <li className="nav-menu-item register">
@@ -302,7 +326,8 @@ function Header({
                   to="/register"
                   onClick={e => load('/register')}
                 >
-                  <i className="fal fa-sign-in"></i> Register
+                  <i className="fal fa-sign-in"></i>
+                  {desktop ? 'Register' : ''}
                 </Link>
               </li>
             </React.Fragment>
@@ -313,7 +338,7 @@ function Header({
               to="/donate"
               onClick={e => load('/donate')}
             >
-              donate
+              {desktop ? 'donate' : <i className="fal fa-hands-usd"></i>}
             </Link>
           </li>
         </ul>
