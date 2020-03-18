@@ -171,10 +171,13 @@
   width: 100%;
   position: relative;
   background-color: $primary;
-  -webkit-box-shadow: 2px 2px 15px -10px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 2px 2px 15px -10px rgba(0, 0, 0, 0.75);
-  box-shadow: 2px 2px 15px -10px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 1px 1px 13px -10px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 1px 1px 13px -10px rgba(0, 0, 0, 0.75);
+  box-shadow: 1px 1px 13px -10px rgba(0, 0, 0, 0.75);
   border-left: solid 4px transparentize($borderColor, 0.3);
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  overflow: hidden;
 
   @media (max-width: 991px) {
     margin: 1.5rem auto 3rem;
