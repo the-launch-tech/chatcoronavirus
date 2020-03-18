@@ -1,5 +1,6 @@
 @mixin page-wrapper {
   overflow-y: scroll;
+  overflow-x: hidden;
   width: 100%;
   height: 100%;
   padding-bottom: 2rem;

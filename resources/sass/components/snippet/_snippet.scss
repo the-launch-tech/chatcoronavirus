@@ -12,6 +12,10 @@
   justify-content: flex-start;
   align-items: stretch;
 
+  @media (max-width: 599px) {
+    margin: 2rem 0 0;
+  }
+
   .snippet-meta {
     display: flex;
     flex-wrap: wrap;
@@ -62,10 +66,15 @@
   }
 
   .snippet-thumbnail {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
+    @include avatar(50px, 0);
+
+    @media (max-width: 991px) {
+      @include avatar(42px, 0);
+    }
+
+    @media (max-width: 599px) {
+      @include avatar(34px, 0);
+    }
   }
 
   .snippet-main-wrapper {
@@ -75,12 +84,21 @@
     justify-content: center;
     padding: 0.5rem 0.2rem 0.3rem 0.5rem;
 
+    @media (max-width: 991px) {
+      padding: 0.5rem;
+    }
+
     .snippet-title {
       margin: 0;
       font-size: 0.9rem;
       color: $std_copy;
       line-height: 1.15rem;
       text-transform: uppercase;
+
+      @media (max-width: 599px) {
+        font-size: 0.8rem;
+        line-height: 1rem;
+      }
     }
 
     .snippet-title-anchor {
