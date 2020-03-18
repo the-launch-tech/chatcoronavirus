@@ -3,33 +3,19 @@
   justify-content: space-between;
   align-items: flex-end;
   flex-wrap: wrap;
-
-  .excerpt-footer-items {
-    width: 60%;
-    padding: 1rem;
-
-    .excerpt-footer-item {
-      font-weight: 500;
-      font-size: 0.9rem;
-
-      .excerpt-footer-anchor {
-        font-size: 0.9rem;
-        font-weight: 500;
-      }
-    }
-  }
+  border-top: solid 1px darken($base, 2%);
 
   .excerpt-meta {
-    width: 160px;
-
-    @media (max-width: 599px) {
-      width: 40%;
-    }
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
 
     .excerpt-format {
-      width: 100%;
+      width: 33%;
       display: block;
-      text-align: right;
+      text-align: left;
       font-weight: 500;
       color: $std_copy;
       text-transform: uppercase;
@@ -37,9 +23,10 @@
     }
 
     .excerpt-icons {
+      width: 33%;
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
+      justify-content: center;
       align-items: stretch;
       padding: 0 0.2rem;
 
@@ -57,16 +44,16 @@
     }
 
     .excerpt-created {
-      width: 100%;
+      width: 33%;
       text-align: right;
       font-size: 0.85rem;
       padding: 0.3rem 0.3rem 0.3rem 1rem;
       color: $std_copy;
       display: flex;
-      justify-content: flex-end;
       align-items: center;
       font-weight: 600;
       @include icon-spacing(0.3rem);
+      justify-content: flex-end;
     }
   }
 }

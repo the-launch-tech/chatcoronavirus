@@ -39,7 +39,6 @@
       align-items: center;
       padding: 0.3rem 1rem 0.2rem;
       background-color: darken($hl_primary, 2%);
-      cursor: default;
       font-weight: 600;
 
       &.comment-snippet {
@@ -54,7 +53,6 @@
       i {
         font-size: 1rem;
         margin-right: 6px;
-        cursor: default;
         font-weight: 500;
       }
 

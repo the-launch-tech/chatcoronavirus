@@ -10,24 +10,6 @@ const { log, error } = console
 export default ({ post, dispatch, format }) => {
   return (
     <div className="excerpt-footer">
-      <div className="excerpt-footer-items">
-        <TaxonomyList
-          classNames={{
-            wrapper: ['excerpt-footer-item'],
-            link: ['excerpt-footer-anchor'],
-          }}
-          terms={post.topics}
-          slug="topics"
-        />
-        <TaxonomyList
-          classNames={{
-            wrapper: ['excerpt-footer-item'],
-            link: ['excerpt-footer-anchor'],
-          }}
-          terms={post.realms}
-          slug="realms"
-        />
-      </div>
       <div className="excerpt-meta">
         <span className="excerpt-format">{format}</span>
         <div className="excerpt-icons">

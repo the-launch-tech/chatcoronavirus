@@ -318,6 +318,24 @@ a {
   }
 }
 
+button {
+  font-size: 1rem;
+  outline: none;
+
+  @media (max-width: 991px) {
+    font-size: 0.975rem;
+  }
+  @media (max-width: 781px) {
+    font-size: 0.95rem;
+  }
+  @media (max-width: 599px) {
+    font-size: 0.9rem;
+  }
+  @media (max-width: 399px) {
+    font-size: 0.875rem;
+  }
+}
+
 button,
 a {
   outline: none;
