@@ -30,43 +30,43 @@ class ImageUploader {
   }
 
   public function compress() : self {
-    // Debugbar::info('compress');
-    // $filepath = $this->resize ? $this->fullThumbnailPath : $this->fullOriginalPath;
-    // $mime = mime_content_type($filepath);
-    // $output = new \CURLFile($filepath, $mime, $this->resize ? $this->thumbnailname : $this->originalname);
-    // $data = ["files" => $output];
-    // $ch = curl_init();
-    // curl_setopt($ch, CURLOPT_URL, 'http://api.resmush.it/?qlty=60');
-    // curl_setopt($ch, CURLOPT_POST, 1);
-    // curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    // curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-    // curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-    // $result = curl_exec($ch);
-    // if (curl_errno($ch)) {
-    //     $result = curl_error($ch);
-    // }
-    // curl_close ($ch);
-    // $arr_result = json_decode($result);
-    // $ch = curl_init($arr_result->dest);
-    // $fp = fopen($filepath, 'wb');
-    // curl_setopt($ch, CURLOPT_FILE, $fp);
-    // curl_setopt($ch, CURLOPT_HEADER, 0);
-    // curl_exec($ch);
-    // curl_close($ch);
-    // fclose($fp);
+    Debugbar::info('compress');
+    $filepath = $this->resize ? $this->fullThumbnailPath : $this->fullOriginalPath;
+    $mime = mime_content_type($filepath);
+    $output = new \CURLFile($filepath, $mime, $this->resize ? $this->thumbnailname : $this->originalname);
+    $data = ["files" => $output];
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, 'http://api.resmush.it/?qlty=60');
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    $result = curl_exec($ch);
+    if (curl_errno($ch)) {
+        $result = curl_error($ch);
+    }
+    curl_close ($ch);
+    $arr_result = json_decode($result);
+    $ch = curl_init($arr_result->dest);
+    $fp = fopen($filepath, 'wb');
+    curl_setopt($ch, CURLOPT_FILE, $fp);
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_exec($ch);
+    curl_close($ch);
+    fclose($fp);
     return $this;
   }
 
   public function resize() : self {
-    // Debugbar::info('resize', $this->fullThumbnailPath, Image::make($this->file));
-    // $imager = Image::make($this->file);
-    // Debugbar::info('$imager::make', $imager);
-    // $imager->resize($this->width, $this->height, function ($constraints) {
-    //   $constraints->aspectRatio();
-    // });
-    // Debugbar::info('$imager::resize', $imager);
-    // $this->resizedImage = $imager->save($this->fullThumbnailPath);
-    // Debugbar::info('$this->resizedImage', $this->resizedImage);
+    Debugbar::info('resize', $this->fullThumbnailPath, Image::make($this->file));
+    $imager = Image::make($this->file);
+    Debugbar::info('$imager::make', $imager);
+    $imager->resize($this->width, $this->height, function ($constraints) {
+      $constraints->aspectRatio();
+    });
+    Debugbar::info('$imager::resize', $imager);
+    $this->resizedImage = $imager->save($this->fullThumbnailPath);
+    Debugbar::info('$this->resizedImage', $this->resizedImage);
     return $this;
   }
 
