@@ -8,7 +8,6 @@ use Hash;
 use Mail;
 use Crypt;
 use JWTAuth;
-use Debugbar;
 use Carbon\Carbon;
 use Exception;
 use App\User;
@@ -144,8 +143,6 @@ class AuthController extends Controller {
       'comment_cure_updates'
     );
     $file = $request->file('avatar');
-    Debugbar::info($credentials);
-    Debugbar::info($file);
     try {
       $auth = User::where('email', $credentials['email'])->first();
       $auth->setAvatar($file, true);
