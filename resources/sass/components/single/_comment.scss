@@ -9,10 +9,14 @@
 
   > button:first-child {
     margin-bottom: 2rem;
+
+    @media (max-width: 599px) {
+      margin-bottom: 1rem;
+    }
   }
 
   .load-more-button {
-    margin: 4rem auto;
+    margin: 2rem auto;
   }
 
   .write-comment {
@@ -46,11 +50,19 @@
     }
 
     .recursive-subject {
+      margin-bottom: 1rem;
+
       .comment-header {
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        padding: 0.3rem 1rem 0.3rem 0.3rem;
+        padding: 0.2rem 1rem;
+        background-color: transparentize($primary, 0.2);
+        margin-bottom: 1rem;
+
+        @media (max-width: 599px) {
+          margin-bottom: 0.5rem;
+        }
 
         .comment-user {
           display: flex;
@@ -68,11 +80,14 @@
               @include avatar(40px, 1rem);
 
               @media (max-width: 599px) {
-                @include avatar(34px, 0.5rem);
+                @include avatar(24px, 0.3rem);
               }
             }
 
             .comment-user-username {
+              @media (max-width: 599px) {
+                font-size: 0.7rem;
+              }
             }
           }
 
@@ -81,6 +96,11 @@
             display: flex;
             justify-content: center;
             align-items: center;
+
+            @media (max-width: 599px) {
+              font-size: 0.7rem;
+              margin-left: 0.75rem;
+            }
           }
         }
 
@@ -92,14 +112,28 @@
           &.hoverable {
             @include hover-transition($hl_green, $std_copy);
           }
+
+          @media (max-width: 599px) {
+            font-size: 0.7rem;
+            margin-left: 0.75rem;
+          }
         }
       }
 
       .comment-content {
         @include rich-snippet;
         padding: 1rem;
-        margin: 1rem;
-        background-color: $primary;
+        border: solid 1px $primary;
+        background-color: darken($base, 1%);
+        border-radius: 8px;
+        margin-left: 1rem;
+        margin-right: 1rem;
+        @include editor-content-styles('small');
+
+        @media (max-width: 599px) {
+          margin-left: 0.5rem;
+          margin-right: 0.5rem;
+        }
       }
 
       .comment-actions {

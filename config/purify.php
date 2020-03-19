@@ -26,7 +26,7 @@ return [
 
         'HTML.ForbiddenElements' => 'script',
 
-        'CSS.AllowedProperties' => 'font,font-size,font-weight,font-style,font-family,text-decoration,padding-left,color,background-color,text-align',
+        'CSS.AllowedProperties' => 'font,font-size,font-weight,font-style,font-family,text-decoration,text-align,margin-left,margin-right,margin-top,margin-bottom,padding-left,padding-right,padding-top,padding-bottom,margin,padding,border,border-left,border-right,border-top,border-bottom',
 
         'AutoFormat.AutoParagraph' => false,
 

@@ -190,8 +190,7 @@
         }
 
         .thread-body {
-          font-size: 1.2rem;
-          line-height: 2.1rem;
+          @include editor-content-styles('large');
 
           img {
             max-width: 100%;
@@ -203,15 +202,7 @@
             height: 360px;
           }
 
-          @media (max-width: 991px) {
-            font-size: 1.1rem;
-            line-height: 1.9rem;
-          }
-
           @media (max-width: 599px) {
-            font-size: 1rem;
-            line-height: 1.7rem;
-
             iframe {
               width: 320px;
               height: 240px;

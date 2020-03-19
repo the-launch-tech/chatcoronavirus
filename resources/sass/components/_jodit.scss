@@ -320,3 +320,11 @@ table {
 .jodit_placeholder {
   color: $std_copy !important;
 }
+
+.jodit_wysiwyg {
+  @include editor-content-styles('small');
+}
+
+.jodit_resizer {
+  border-color: transparentize($hl_red, 0.4);
+}

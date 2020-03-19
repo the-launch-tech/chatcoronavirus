@@ -333,3 +333,74 @@
     width: $leftWidth - 10%;
   }
 }
+
+@mixin editor-content-styles($size) {
+  ul {
+    list-style-position: outside;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+  }
+
+  table,
+  th,
+  td,
+  tr,
+  tbody,
+  thead {
+    border-color: $std_copy;
+  }
+
+  @media (max-width: 599px) {
+    table td {
+      padding: 0.35rem 0.5rem;
+    }
+  }
+
+  @if $size == large {
+    p,
+    span,
+    li,
+    a,
+    div,
+    strong,
+    i,
+    em,
+    b,
+    pre {
+      font-size: 1.2rem;
+
+      @media (max-width: 991px) {
+        font-size: 1.1rem;
+      }
+
+      @media (max-width: 599px) {
+        font-size: 1rem;
+      }
+    }
+  } @else if ($size == small) {
+    p,
+    span,
+    li,
+    a,
+    div,
+    strong,
+    i,
+    em,
+    b,
+    pre {
+      font-size: 1rem;
+
+      @media (max-width: 991px) {
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 599px) {
+        font-size: 0.8rem;
+      }
+    }
+  }
+}

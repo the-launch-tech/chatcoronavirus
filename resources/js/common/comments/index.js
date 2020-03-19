@@ -184,7 +184,7 @@ function Comments({
       />
       {(!empty && fresh) || (empty && !fresh) ? (
         <button type="button" onClick={loadMore} className="load-more-button green-btn md-btn">
-          Load More
+          <i className="fad fa-spinner"></i> Load More
         </button>
       ) : (
         ''

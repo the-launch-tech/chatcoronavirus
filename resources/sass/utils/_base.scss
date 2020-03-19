@@ -372,7 +372,6 @@ a {
   }
 
   &.link-btn {
-    padding: 0.2rem 1rem;
     text-transform: uppercase;
     background-color: transparent;
     border: none;
@@ -395,6 +394,14 @@ a {
 
     &.std-link-btn {
       @include button-color($std_copy, 'link');
+    }
+
+    @media (max-width: 991px) {
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 599px) {
+      font-size: 0.7rem;
     }
   }
 
