@@ -58,7 +58,7 @@ class ImageUploader {
 
   public function resize() : self {
     Debugbar::info('resize', $this->fullThumbnailPath);
-    $imager = Image::make($this->file);
+    $imager = Image::make($this->fullThumbnailPath);
     Debugbar::info('$imager::make', $imager);
     $imager->resize($this->width, $this->height, function ($constraints) {
       $constraints->aspectRatio();
