@@ -62,15 +62,15 @@ class ImageUploader {
   }
 
   public function resize() : self {
-    Debugbar::info('resize', $this->fullThumbnailPath, Image::make($this->file));
-    $imager = Image::make($this->file);
-    Debugbar::info('$imager::make', $imager);
-    $imager->resize($this->width, $this->height, function ($constraints) {
-      $constraints->aspectRatio();
-    });
-    Debugbar::info('$imager::resize', $imager);
-    $this->resizedImage = $imager->save($this->fullThumbnailPath);
-    Debugbar::info('$this->resizedImage', $this->resizedImage);
+    // Debugbar::info('resize', $this->fullThumbnailPath, Image::make($this->file));
+    // $imager = Image::make($this->file);
+    // Debugbar::info('$imager::make', $imager);
+    // $imager->resize($this->width, $this->height, function ($constraints) {
+    //   $constraints->aspectRatio();
+    // });
+    // Debugbar::info('$imager::resize', $imager);
+    // $this->resizedImage = $imager->save($this->fullThumbnailPath);
+    // Debugbar::info('$this->resizedImage', $this->resizedImage);
     return $this;
   }
 
