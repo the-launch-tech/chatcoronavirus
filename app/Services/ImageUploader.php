@@ -28,7 +28,6 @@ class ImageUploader {
     $this->fullOriginalPath = public_path('storage/' . $this->prefix . '/' . $this->originalname);
     $this->fullThumbnailPath = public_path('storage/' . $this->prefix . '/' . $this->thumbnailname);
     $this->file->storeAs($this->prefix, $this->originalname, ['disk' => 'public']);
-    $this->file->storeAs($this->prefix, $this->thumbnailname, ['disk' => 'public']);
     Debugbar::info($this);
     return $this;
   }
@@ -62,12 +61,12 @@ class ImageUploader {
   }
 
   public function resize() : self {
-    Debugbar::info('resize');
-    $this->resizedImage = Image::make("{$this->prefix}/{$this->thumbnailname}")
+    Debugbar::info('resize', $this->fullThumbnailPath);
+    $this->resizedImage = Image::make($this->file)
       ->resize($this->width, $this->height, function ($constraints) {
         $constraints->aspectRatio();
       })
-      ->save("{$this->prefix}/{$this->thumbnailname}");
+      ->save($this->fullThumbnailPath);
     Debugbar::info('$this->resizedImage', $this->resizedImage);
     return $this;
   }
