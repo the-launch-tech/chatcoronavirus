@@ -92,7 +92,7 @@ class ImageUploader {
   }
 
   public function resize() : self {
-    $this->resizedImage = self::resize_image($this->file, $this->fullThumbnailPath, 70, 70);
+    $this->resizedImage = self::resize_image($this->file, $this->fullThumbnailPath, $this->width, $this->height);
     return $this;
   }
 

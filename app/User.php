@@ -294,8 +294,8 @@ class User extends Authenticatable implements JWTSubject {
         'file' => $file,
         'prefix' => 'avatars',
         'edit' => $edit,
-        'width' => 150,
-        'height' => 150,
+        'width' => 100,
+        'height' => 100,
         'compress' => true,
         'resize' => true,
         'model' => $this
