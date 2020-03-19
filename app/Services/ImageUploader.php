@@ -63,11 +63,11 @@ class ImageUploader {
 
   public function resize() : self {
     Debugbar::info('resize');
-    $this->resizedImage = Image::make($this->fullThumbnailPath)
+    $this->resizedImage = Image::make("{$this->prefix}/{$this->thumbnailname}")
       ->resize($this->width, $this->height, function ($constraints) {
         $constraints->aspectRatio();
       })
-      ->save($this->fullThumbnailPath);
+      ->save("{$this->prefix}/{$this->thumbnailname}");
     Debugbar::info('$this->resizedImage', $this->resizedImage);
     return $this;
   }
