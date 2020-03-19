@@ -68,6 +68,7 @@ class ImageUploader {
         $constraints->aspectRatio();
       })
       ->save($this->fullThumbnailPath);
+    Debugbar::info('$this->resizedImage', $this->resizedImage);
     return $this;
   }
 
