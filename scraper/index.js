@@ -16,9 +16,7 @@ app.listen(5001, async function() {
     console.log('browser', browser)
     const page = await browser.newPage()
     console.log('page', page)
-    await page.goto(
-      'https://www.google.com/search?hl=en&as_q=coronavirus+covid-19+updates&as_epq=&as_oq=&as_eq=&as_nlo=&as_nhi=&lr=&cr=&as_qdr=d&as_sitesearch=&as_occt=any&safe=images&as_filetype=&as_rights='
-    )
+    await page.goto('https://banned.video/')
     const results = await page.evaluate(() => {
       let els = document.querySelectorAll('.rc')
       console.log('els', els)
@@ -33,14 +31,14 @@ app.listen(5001, async function() {
     console.log('browser.close()', browser.close())
     results.map(result => {
       console.log('result', result)
-      axios
-        .post(`${process.env.API_POST_RESOURCE}google`, result, {
-          headers: {
-            'x-scraper-token': process.env.SCRAPER_TOKEN,
-          },
-        })
-        .then(console.log)
-        .catch(console.error)
+      // axios
+      //   .post(`${process.env.API_POST_RESOURCE}google`, result, {
+      //     headers: {
+      //       'x-scraper-token': process.env.SCRAPER_TOKEN,
+      //     },
+      //   })
+      //   .then(console.log)
+      //   .catch(console.error)
     })
   } catch (e) {
     console.error(e)
