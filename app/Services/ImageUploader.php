@@ -77,13 +77,19 @@ class ImageUploader {
         }
     }
     if ($fileObj->getClientOriginalExtension() === 'jpg' || $fileObj->getClientOriginalExtension() === 'jpeg') {
+      Debugbar::info("JPG");
       $src = imagecreatefromjpeg($file);
+      Debugbar::info($src);
       $dst = imagecreatetruecolor($newwidth, $newheight);
+      Debugbar::info($dst);
       imagecopyresampled($dst, $src, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
       return $dst;
     } else if ($fileObj->getClientOriginalExtension() === 'png') {
+      Debugbar::info("PNG");
       $src = imagecreatefrompng($file);
+      Debugbar::info($src);
       $dst = imagecreatetruecolor($newwidth, $newheight);
+      Debugbar::info($dst);
       imagecopyresampled($dst, $src, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
       return $dst;
     } else {
