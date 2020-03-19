@@ -143,6 +143,8 @@
     }
 
     .snippet-content {
+      @include editor-content-styles('small');
+
       &.comment-snippet {
         img {
           width: 100%;
