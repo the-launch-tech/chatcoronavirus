@@ -56,15 +56,43 @@ class ImageUploader {
     return $this;
   }
 
+  public static function resize_image($file, $w, $h, $crop=FALSE) {
+    list($width, $height) = getimagesize($file);
+    $r = $width / $height;
+    if ($crop) {
+        if ($width > $height) {
+            $width = ceil($width-($width*abs($r-$w/$h)));
+        } else {
+            $height = ceil($height-($height*abs($r-$w/$h)));
+        }
+        $newwidth = $w;
+        $newheight = $h;
+    } else {
+        if ($w/$h > $r) {
+            $newwidth = $h*$r;
+            $newheight = $h;
+        } else {
+            $newheight = $w/$r;
+            $newwidth = $w;
+        }
+    }
+    if ($this->file->getClientOriginalExtension() === 'jpg' || $this->file->getClientOriginalExtension() === 'jpeg') {
+      $src = imagecreatefromjpeg($file);
+      $dst = imagecreatetruecolor($newwidth, $newheight);
+      imagecopyresampled($dst, $src, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+      return $dst;
+    } else if ($this->file->getClientOriginalExtension() === 'png') {
+      $src = imagecreatefrompng($file);
+      $dst = imagecreatetruecolor($newwidth, $newheight);
+      imagecopyresampled($dst, $src, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+      return $dst;
+    } else {
+      return false;
+    }
+  }
+
   public function resize() : self {
-    Debugbar::info('resize', $this->fullThumbnailPath);
-    $imager = Image::make($this->fullThumbnailPath);
-    Debugbar::info('$imager::make', $imager);
-    $imager->resize($this->width, $this->height, function ($constraints) {
-      $constraints->aspectRatio();
-    });
-    Debugbar::info('$imager::resize', $imager);
-    $this->resizedImage = $imager->save($this->fullThumbnailPath);
+    $this->resizedImage = self::resize_image($this->fullThumbnailPath, $this->width, $this->height);
     Debugbar::info('$this->resizedImage', $this->resizedImage);
     return $this;
   }
