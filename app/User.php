@@ -290,6 +290,7 @@ class User extends Authenticatable implements JWTSubject {
   }
 
   public function setAvatar($file, bool $edit = false) : self {
+    Debugbar::info('setAvatar ($file, $edit)', $file, $edit);
     if ($file) {
       $uploader = new ImageUploader([
         'file' => $file,
@@ -301,6 +302,7 @@ class User extends Authenticatable implements JWTSubject {
         'resize' => true,
         'model' => $this
       ]);
+      Debugbar::info('$uploader', $uploader);
       if ($edit) {
         $uploader->unstoreFeaturedImage();
       }
@@ -312,6 +314,7 @@ class User extends Authenticatable implements JWTSubject {
     } elseif (!$this->avatar) {
       $this->avatar = 'avatars/default-avatar-1.png';
     }
+    Debugbar::info('end setAvatar');
     return $this;
   }
 
