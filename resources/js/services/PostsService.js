@@ -88,7 +88,7 @@ export default {
   },
   update: async function(formData, user_id, format, id) {
     try {
-      const { data } = await Http.put(`/api/${format}/${user_id}/${id}`, formData)
+      const { data } = await Http.post(`/api/update/${format}/${user_id}/${id}`, formData)
       return data
     } catch (err) {
       const statusCode = err.response.status
@@ -108,7 +108,7 @@ export default {
   },
   delete: async function(user_id, format, id) {
     try {
-      const { data } = await Http.delete(`/api/${format}/${user_id}/${id}`, credentials)
+      const { data } = await Http.delete(`/api/${format}/${user_id}/${id}`)
       return data
     } catch (err) {
       throw err

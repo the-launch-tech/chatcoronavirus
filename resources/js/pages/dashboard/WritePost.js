@@ -6,6 +6,7 @@ import validationArgs from '../../helpers/validationArgs'
 import Validator from '../../helpers/validator'
 import mapTopics from '../../helpers/mapTopics'
 import loader from '../../helpers/loader'
+import * as actions from '../../store/actions'
 import defaultCredentials from '../../helpers/defaultCredentials'
 import resetFormFields from '../../helpers/resetFormFields'
 import PostsService from '../../services/PostsService'
@@ -52,6 +53,17 @@ function WritePost({
   })
   const [isSuccess, setIsSuccess] = useState(false)
   const [availableTopics, setAvailableTopics] = useState([])
+
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(
+        actions.auxSimpleDialog({
+          active: true,
+          content: '<p>Success Publishing!</p>',
+        })
+      )
+    }
+  }, [isSuccess])
 
   useEffect(() => {
     RealmService.get(dispatch)
@@ -144,11 +156,6 @@ function WritePost({
       {responseError.isError && (
         <div className="form-notification">
           <p className="form-notification-text notification-failure">{responseError.text}</p>
-        </div>
-      )}
-      {isSuccess && (
-        <div className="form-notification">
-          <p className="form-notification-text notification-success">Published!</p>
         </div>
       )}
       <div className="form-content">

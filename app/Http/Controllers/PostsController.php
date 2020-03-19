@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DB;
 use Str;
+use File;
 use Debugbar;
 use Carbon\Carbon;
 use App\Cure;
@@ -86,7 +87,7 @@ class PostsController extends Controller {
     }
   }
 
-  public function updatePost(Request $request, string $format, string $user_id, string $id) {
+  public function editPost(Request $request, string $format, string $user_id, string $id) {
     $params = $request->all();
     $file = $request->file('featured_image');
     try {
@@ -108,10 +109,10 @@ class PostsController extends Controller {
         if ($resaved) {
           return response()->json(['message' => self::success('updating')], 200);
         } else {
-          throw new Error();
+          throw new Exception('Unable To Save');
         }
       } else {
-        throw new Error();
+        throw new Exception('Unable To Save');
       }
     } catch (Exception $e) {
       return response()->json(['message' => self::error('updating')], 500);
@@ -121,9 +122,12 @@ class PostsController extends Controller {
   public function deletePost(Request $request, string $format, string $user_id, string $id) {
     try {
       $post = Post::findOrFail($id);
-      $deleted = $post
-        ->unstoreFeaturedImage()
-        ->delete();
+      if ($post->featured_image && strpos($post->featured_image, 'default-post') !== true) {
+        if (File::exists($post->featured_image)) {
+          File::delete($post->featured_image);
+        }
+      }
+      $deleted = $post->delete();
       User::incrementHealthPoints($user_id);
       if ($deleted) {
         return response()->json(['message' => self::success('deleting')], 200);

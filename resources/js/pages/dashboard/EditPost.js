@@ -6,6 +6,8 @@ import validationArgs from '../../helpers/validationArgs'
 import Validator from '../../helpers/validator'
 import mapTopics from '../../helpers/mapTopics'
 import loader from '../../helpers/loader'
+import getUrl from '../../helpers/getUrl'
+import * as actions from '../../store/actions'
 import defaultCredentials from '../../helpers/defaultCredentials'
 import resetFormFields from '../../helpers/resetFormFields'
 import PostsService from '../../services/PostsService'
@@ -40,12 +42,11 @@ function EditPost({
   match,
 }) {
   const defCreds = defaultCredentials[match.params.format]
-
   const validator = new Validator(validationArgs.write[match.params.format])
   let formData = new FormData()
   const [post, setPost] = useState({})
   const [errors, setErrors] = useState({})
-  const [credentials, setCredentials] = useState(defCreds(post))
+  const [credentials, setCredentials] = useState({})
   const [responseError, setResponseError] = useState({
     isError: false,
     code: '',
@@ -53,6 +54,21 @@ function EditPost({
   })
   const [isSuccess, setIsSuccess] = useState(false)
   const [availableTopics, setAvailableTopics] = useState([])
+
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(
+        actions.auxSimpleDialog({
+          active: true,
+          content: '<p>Success Updating Post</p>',
+        })
+      )
+    }
+  }, [isSuccess])
+
+  useEffect(() => {
+    setCredentials(defCreds(post))
+  }, [post])
 
   useEffect(() => {
     RealmService.get(dispatch)
@@ -75,7 +91,14 @@ function EditPost({
     if (!credentials[name]) {
       credentials[name] = []
     }
-    credentials[name].push(value)
+    if (event.target.checked && credentials[name].indexOf(value) < 0) {
+      credentials[name].push(value)
+    } else if (!event.target.checked) {
+      const index = credentials[name].indexOf(value)
+      if (index > -1) {
+        credentials[name].splice(index, 1)
+      }
+    }
     setCredentials(credentials)
   }
 
@@ -114,26 +137,20 @@ function EditPost({
     try {
       const { message } = await PostsService.update(formData, auth.id, match.params.format, post.id)
       setIsSuccess(true)
-      validator.reset()
-      setCredentials(defCreds(post))
       setResponseError({
         isError: false,
         code: '',
         text: '',
       })
-      resetFormFields()
       formData = new FormData()
       loader(dispatch, false)
       return message
     } catch (err) {
-      validator.reset()
-      setCredentials(defCreds(post))
       setResponseError({
         isError: true,
         code: err.statusCode,
         text: err.error,
       })
-      resetFormFields()
       formData = new FormData()
       loader(dispatch, false)
     }
@@ -144,20 +161,16 @@ function EditPost({
     PostsService.delete(auth.id, match.params.format, post.id)
       .then(res => {
         setIsSuccess(true)
-        validator.reset()
-        setCredentials(defCreds(null))
         setResponseError({
           isError: false,
           code: '',
           text: '',
         })
-        resetFormFields()
         formData = new FormData()
         loader(dispatch, false)
+        window.location.href = getUrl('/dashboard/' + auth.id)
       })
       .catch(err => {
-        validator.reset()
-        setCredentials(defCreds(null))
         setResponseError({
           isError: true,
           code: err.statusCode,
@@ -173,11 +186,6 @@ function EditPost({
       {responseError.isError && (
         <div className="form-notification">
           <p className="form-notification-text notification-failure">{responseError.text}</p>
-        </div>
-      )}
-      {isSuccess && (
-        <div className="form-notification">
-          <p className="form-notification-text notification-success">Published!</p>
         </div>
       )}
       {post ? (
@@ -225,7 +233,7 @@ function EditPost({
             <div className="form-row">
               <div className="form-cell w-50">
                 <button className="form-button md-btn green-btn" onClick={handleSubmit}>
-                  Publish
+                  Update
                 </button>
               </div>
               <div className="form-cell w-50 flex-end-btn">

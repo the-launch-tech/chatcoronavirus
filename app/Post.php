@@ -169,8 +169,6 @@ class Post extends Model {
       $this->title = !$edit || $this->title !== $params['title'] ?
         Str::title($params['title']) :
         $this->title;
-    } else {
-      throw new Exception();
     }
     return $this;
   }
@@ -186,8 +184,6 @@ class Post extends Model {
   public function setContent(array $params, bool $edit = false) : self {
     if (array_key_exists('content', $params)) {
       $this->content = $params['content'];
-    } else {
-      throw new Exception();
     }
     return $this;
   }
@@ -237,10 +233,11 @@ class Post extends Model {
   }
 
   public function attachRealms(array $params, bool $edit = false) : self {
+    Debugbar::info($params);
     if (array_key_exists('realms', $params)) {
       if ($edit) {
-        foreach ($this->realms() as $oldRealm) {
-          $oldRealm->detach($this->getId());
+        foreach ($this->realms as $oldRealm) {
+          $this->realms()->detach($oldRealm);
         }
       }
       foreach (explode(',', $params['realms']) as $slug) {
@@ -249,8 +246,6 @@ class Post extends Model {
           $this->withRealm($Realm);
         }
       }
-    } else {
-      throw new Exception();
     }
     return $this;
   }
@@ -258,8 +253,8 @@ class Post extends Model {
   public function attachTopics(array $params, bool $edit = false) : self {
     if (array_key_exists('topics', $params)) {
       if ($edit) {
-        foreach ($this->topics() as $oldTopic) {
-          $oldTopic->detach($this->getId());
+        foreach ($this->topics as $oldTopic) {
+          $this->topics()->detach($oldTopic);
         }
       }
       if (count(explode(',', $params['topics'])) > 0) {
@@ -272,8 +267,6 @@ class Post extends Model {
           }
         }
       }
-    } else {
-      throw new Exception();
     }
     return $this;
   }
@@ -284,8 +277,6 @@ class Post extends Model {
       $this->withUser($User, false);
     } else if ($User) {
       $this->withUser($User, true);
-    } else {
-      throw new Exception();
     }
     return $this;
   }

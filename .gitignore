@@ -28,3 +28,4 @@ yarn-error.log
 bootstrap/cache/config.php
 public/css/app.css
 public/js/app.js
+bootstrap/cache/routes.php

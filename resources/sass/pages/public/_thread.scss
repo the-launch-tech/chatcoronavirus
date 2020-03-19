@@ -49,11 +49,11 @@
             background-color: $primary;
             border-radius: 40px;
             padding: 0.4rem 1rem 0.4rem 0.4rem;
-            margin-bottom: 1rem;
 
             @media (max-width: 599px) {
               width: 100%;
               justify-content: space-between;
+              margin-bottom: 1rem;
             }
 
             .thread-user-anchor {
@@ -124,11 +124,11 @@
             background-color: $primary;
             border-radius: 40px;
             padding: 0.4rem 1rem 0.4rem 0.4rem;
-            margin-bottom: 1rem;
 
             @media (max-width: 599px) {
               width: 100%;
               margin-top: 1rem;
+              margin-bottom: 1rem;
               justify-content: space-between;
             }
 

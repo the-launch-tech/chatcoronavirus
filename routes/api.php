@@ -114,9 +114,9 @@ Route::group(['middleware' => ['throttle:100000']], function () {
 
     Route::post('/{format}/{user_id}', 'PostsController@savePost');
     Route::get('/{format}/{user_id}', 'PostsController@getUserPosts');
-    Route::put('/{format}/{user_id}/{id}', 'PostsController@editPost');
     Route::delete('/{format}/{user_id}/{id}', 'PostsController@deletePost');
     Route::get('/{format}/{user_id}/{slug}', 'PostsController@getUserPost');
+    Route::post('/update/{format}/{user_id}/{id}', 'PostsController@editPost');
 
   });
 

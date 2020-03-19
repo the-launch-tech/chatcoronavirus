@@ -6,6 +6,7 @@ import validationArgs from '../../helpers/validationArgs'
 import Validator from '../../helpers/validator'
 import mapAuth from '../../helpers/mapAuth'
 import loader from '../../helpers/loader'
+import * as actions from '../../store/actions'
 import AuthService from '../../services/AuthService'
 import DashboardHeader from '../../common/DashboardHeader'
 import * as action from '../../store/actions'
@@ -46,6 +47,17 @@ function Profile(props) {
     text: '',
   })
   const [isSuccess, setIsSuccess] = useState(false)
+
+  useEffect(() => {
+    if (isSuccess) {
+      props.dispatch(
+        actions.auxSimpleDialog({
+          active: true,
+          content: '<p>Success Updating Profile!</p>',
+        })
+      )
+    }
+  }, [isSuccess])
 
   function handleChange(event) {
     const name = event.target.name
@@ -144,11 +156,6 @@ function Profile(props) {
       {responseError.isError && (
         <div className="form-notification">
           <p className="form-notification-text notification-failure">{responseError.text}</p>
-        </div>
-      )}
-      {isSuccess && (
-        <div className="form-notification">
-          <p className="form-notification-text notification-success">Profile updated!</p>
         </div>
       )}
       <div className="form-content">
