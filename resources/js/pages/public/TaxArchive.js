@@ -64,7 +64,7 @@ function TaxArchive({ title, page, dispatch, type, loading }) {
           </div>
           {!loading && !empty && (
             <button className="load-more-button green-btn md-btn" onClick={loadMore}>
-              Load More
+              <i className="fad fa-spinner"></i> Load More
             </button>
           )}
         </div>

@@ -76,7 +76,7 @@
       padding: 0.8rem;
     }
 
-    @media (max-width: 991px) {
+    @media (max-width: 599px) {
       min-height: 70px;
       max-height: 70px;
       padding: 0.7rem;
@@ -91,8 +91,8 @@
       padding: 0.8rem;
     }
 
-    @media (max-width: 991px) {
-      height: 36px;
+    @media (max-width: 599px) {
+      height: 34px;
       padding: 0.7rem;
     }
   } @else if $size == small {
@@ -105,7 +105,7 @@
       padding: 0.4rem;
     }
 
-    @media (max-width: 991px) {
+    @media (max-width: 599px) {
       height: 28px;
       padding: 0.35rem;
     }

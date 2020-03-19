@@ -63,12 +63,12 @@
     }
 
     &.active {
-      height: 200px;
+      height: 120px;
       visibility: visible;
       opacity: 1;
 
       @media (max-width: 991px) {
-        height: 240px;
+        height: 290px;
       }
     }
 
@@ -80,9 +80,9 @@
       margin: 2rem auto;
       position: relative;
       padding: 1rem;
-      -webkit-box-shadow: 2px 2px 33px -10px rgba(0, 0, 0, 0.75);
-      -moz-box-shadow: 2px 2px 33px -10px rgba(0, 0, 0, 0.75);
-      box-shadow: 2px 2px 33px -10px rgba(0, 0, 0, 0.75);
+      -webkit-box-shadow: 1px 1px 20px -10px rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: 1px 1px 20px -10px rgba(0, 0, 0, 0.75);
+      box-shadow: 1px 1px 20px -10px rgba(0, 0, 0, 0.75);
 
       .form-row {
         margin-bottom: 0.5rem;

@@ -3,6 +3,10 @@
   margin: auto;
   position: relative;
 
+  @media (max-width: 599px) {
+    padding: 0.5rem;
+  }
+
   .form-title {
     text-align: center;
     text-transform: uppercase;
@@ -93,6 +97,14 @@
           label {
             font-family: $display;
             font-weight: 500;
+
+            @media (max-width: 991px) {
+              font-size: 0.9rem;
+            }
+
+            @media (max-width: 599px) {
+              font-size: 0.8rem;
+            }
           }
 
           .form-file-output {

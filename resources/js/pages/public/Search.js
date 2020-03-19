@@ -224,7 +224,7 @@ function Search({ title, page, dispatch, loading }) {
           </div>
           {!loading && !empty && posts.length ? (
             <button className="load-more-button md-btn green-btn" onClick={loadMore}>
-              Load More
+              <i className="fad fa-spinner"></i> Load More
             </button>
           ) : (
             ''

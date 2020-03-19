@@ -153,7 +153,7 @@ function Thread({ title, page, dispatch, auth, isAuthenticated, access, match })
             <Comments initialComments={comments} initialMaxPages={maxPages} postId={thread.id} />
           ) : (
             <button type="button" onClick={handleShowComments} className="md-btn green-btn">
-              Show Comments
+              <i className="fal fa-comments"></i> Show Comments
             </button>
           )}
         </section>

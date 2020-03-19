@@ -105,6 +105,11 @@
                     border-right: solid 1px $primary;
                     @include hover-transition($hl_blue, $std_copy);
                     @include icon-spacing(0.5rem);
+
+                    @media (max-width: 599px) {
+                      font-size: 0.7rem;
+                      @include icon-spacing(0.3rem);
+                    }
                   }
 
                   &.article-health_points {
@@ -116,6 +121,11 @@
                     font-weight: 700;
                     border-right: solid 1px $primary;
                     @include icon-spacing(0.5rem);
+
+                    @media (max-width: 599px) {
+                      font-size: 0.7rem;
+                      @include icon-spacing(0.3rem);
+                    }
                   }
 
                   &.article-access {
@@ -129,6 +139,7 @@
 
                     @media (max-width: 599px) {
                       border-right: solid 1px $primary;
+                      font-size: 0.7rem;
                     }
                   }
                 }
@@ -145,6 +156,8 @@
 
               @media (max-width: 599px) {
                 height: 46px;
+                font-size: 0.7rem;
+                @include icon-spacing(0.3rem);
               }
             }
 
@@ -174,6 +187,11 @@
 
                 &:last-child {
                   border-right: none;
+                }
+
+                @media (max-width: 599px) {
+                  font-size: 0.7rem;
+                  @include icon-spacing(0.3rem);
                 }
               }
             }
