@@ -2,8 +2,6 @@
 
 namespace App\Services;
 
-use Debugbar;
-use Image;
 use File;
 use Carbon\Carbon;
 
@@ -77,20 +75,14 @@ class ImageUploader {
         }
     }
     if ($fileObj->getClientOriginalExtension() === 'jpg' || $fileObj->getClientOriginalExtension() === 'jpeg') {
-      Debugbar::info("JPG");
       $src = imagecreatefromjpeg($file);
-      Debugbar::info($src);
       $dst = imagecreatetruecolor($newwidth, $newheight);
-      Debugbar::info($dst);
       imagecopyresampled($dst, $src, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
       imagejpeg($dst, $file);
       return $dst;
     } else if ($fileObj->getClientOriginalExtension() === 'png') {
-      Debugbar::info("PNG");
       $src = imagecreatefrompng($file);
-      Debugbar::info($src);
       $dst = imagecreatetruecolor($newwidth, $newheight);
-      Debugbar::info($dst);
       imagecopyresampled($dst, $src, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
       imagejpeg($dst, $file);
       return $dst;
@@ -100,8 +92,7 @@ class ImageUploader {
   }
 
   public function resize() : self {
-    $this->resizedImage = self::resize_image($this->file, $this->fullThumbnailPath, $this->width, $this->height);
-    Debugbar::info('$this->resizedImage', $this->resizedImage);
+    $this->resizedImage = self::resize_image($this->file, $this->fullThumbnailPath, 70, 70);
     return $this;
   }
 
