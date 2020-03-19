@@ -83,6 +83,7 @@ class ImageUploader {
       $dst = imagecreatetruecolor($newwidth, $newheight);
       Debugbar::info($dst);
       imagecopyresampled($dst, $src, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+      imagejpeg($dst, $file);
       return $dst;
     } else if ($fileObj->getClientOriginalExtension() === 'png') {
       Debugbar::info("PNG");
@@ -91,6 +92,7 @@ class ImageUploader {
       $dst = imagecreatetruecolor($newwidth, $newheight);
       Debugbar::info($dst);
       imagecopyresampled($dst, $src, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+      imagejpeg($dst, $file);
       return $dst;
     } else {
       return false;
