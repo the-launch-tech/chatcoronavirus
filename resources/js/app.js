@@ -9,6 +9,7 @@ import Routes from './routes/Routes'
 import Main from './Main'
 import mainRoutes from './routes/main'
 import Http from './Http'
+import getScreenSize from './helpers/getScreenSize'
 import jwtToken from './store/utilities/token'
 import isExpired from './store/utilities/isExpired'
 import unsetAuth from './store/utilities/unsetAuth'
@@ -36,11 +37,13 @@ if (token) {
 
 store.dispatch(action.authCheck())
 
-if (localStorage.getItem('theme')) {
-  store.dispatch(action.auxTheme(localStorage.getItem('theme')))
+if (localStorage.getItem('cc_theme')) {
+  store.dispatch(action.auxTheme(localStorage.getItem('cc_theme')))
 } else {
   store.dispatch(action.auxTheme('nighttime'))
 }
+
+getScreenSize(store.dispatch)
 
 Http.defaults.headers.common['Authorization'] = `Bearer ${jwtToken()}`
 

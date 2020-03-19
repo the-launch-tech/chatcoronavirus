@@ -7,10 +7,11 @@ import getUrl from '../helpers/getUrl'
 import mapAuth from '../helpers/mapAuth'
 import iconCount from '../helpers/iconCount'
 import currentNav from '../helpers/currentNav'
+import roleParse from '../helpers/roleParse'
 
 export default withRouter(connect(mapAuth)(DashboardHeader))
 
-function DashboardHeader({ auth, dispatch, location }) {
+function DashboardHeader({ auth, dispatch, location, screen }) {
   if (!auth) {
     return <React.Fragment />
   }
@@ -75,7 +76,7 @@ function DashboardHeader({ auth, dispatch, location }) {
             <h5 id="dashboard-user-name" className="dashboard-user-name">
               {auth ? auth.username : ''}
             </h5>
-            <small className="dashboard-user-level">Level: {auth.role}</small>
+            <small className="dashboard-user-level">Level: {roleParse(auth.role, screen)}</small>
           </div>
         </div>
         <div className="dashboard-user-right">

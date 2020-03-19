@@ -23,6 +23,8 @@ export default (state = initialState.aux, { type, payload = null }) => {
       return auxTheme(state, payload)
     case ActionTypes.AUX_SIMPLE_DIALOG:
       return auxSimpleDialog(state, payload)
+    case ActionTypes.AUX_SCREEN:
+      return auxScreen(state, payload)
     default:
       return state
   }
@@ -73,7 +75,7 @@ const auxUpdateCommentCureStore = (state, { initial, itemId, newCount }) => {
 }
 
 const auxTheme = (state, theme) => {
-  localStorage.setItem('theme', theme)
+  localStorage.setItem('cc_theme', theme)
   document.querySelector('body').classList.remove(theme === 'daytime' ? 'nighttime' : 'daytime')
   document.querySelector('body').classList.add(theme)
   return merge(state, {
@@ -84,5 +86,12 @@ const auxTheme = (state, theme) => {
 const auxSimpleDialog = (state, payload) => {
   return merge(state, {
     simpleDialogArgs: payload,
+  })
+}
+
+const auxScreen = (state, payload) => {
+  localStorage.setItem('cc_screen', payload)
+  return merge(state, {
+    screen: payload,
   })
 }

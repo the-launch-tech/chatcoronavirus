@@ -5,11 +5,12 @@ import loader from '../../helpers/loader'
 import mapAuth from '../../helpers/mapAuth'
 import iconCount from '../../helpers/iconCount'
 import getUrl from '../../helpers/getUrl'
+import roleParse from '../../helpers/roleParse'
 import ButtonSubscription from '../utils/ButtonSubscription'
 
 const { log, error } = console
 
-export default connect(mapAuth)(({ post, user, dispatch }) => {
+export default connect(mapAuth)(({ post, user, dispatch, screen }) => {
   return (
     <header className="excerpt-header">
       {user && (
@@ -38,7 +39,7 @@ export default connect(mapAuth)(({ post, user, dispatch }) => {
             <span className="excerpt-health_points">
               <i className="fal fa-user-md"></i> {iconCount(user.health_points)}
             </span>
-            <span className="excerpt-access">{user.role ? user.role : 'Patient'}</span>
+            <span className="excerpt-access">{roleParse(user.role, screen)}</span>
           </div>
         </React.Fragment>
       )}

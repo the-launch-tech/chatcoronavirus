@@ -8,6 +8,7 @@ import RenderComments from './RenderComments'
 import ButtonCure from '../utils/ButtonCure'
 import ButtonSubscription from '../utils/ButtonSubscription'
 import iconCount from '../../helpers/iconCount'
+import roleParse from '../../helpers/roleParse'
 import loader from '../../helpers/loader'
 import mapAuth from '../../helpers/mapAuth'
 
@@ -31,6 +32,7 @@ function Comment({
   commentId,
   dispatch,
   depth,
+  screen,
 }) {
   return (
     <div

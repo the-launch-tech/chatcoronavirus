@@ -36,6 +36,7 @@ export default {
     commentCureStore: {},
     theme: 'nighttime',
     simpleDialogArgs: { active: false, content: '' },
+    screen: localStorage.getItem('cc_screen') ? localStorage.getItem('cc_screen') : 'desktop',
   },
   posts: {
     recentPosts: [],

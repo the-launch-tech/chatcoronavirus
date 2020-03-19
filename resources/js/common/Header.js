@@ -17,6 +17,7 @@ const mapStateToProps = ({ Auth, Topic, Realm, Aux }) => {
     topics: Topic.primaryTopics,
     realms: Realm.realms,
     theme: Aux.theme,
+    screen: Aux.screen,
   }
 }
 
@@ -31,7 +32,7 @@ function Header({
   dispatch,
   match,
   location,
-  desktop,
+  screen,
   theme,
 }) {
   const [toggled, setToggled] = useState(false)
@@ -76,7 +77,7 @@ function Header({
   return (
     <React.Fragment>
       <div className="logo-margin">
-        <span className="logo">{desktop ? 'Chat Coronavirus' : 'CC'}</span>
+        <span className="logo">{screen === 'desktop' ? 'Chat Coronavirus' : 'CC'}</span>
       </div>
       <nav className="left-nav">
         <div className={`left-nav-toggle ${toggled ? 'toggled-nav' : ''}`} onClick={toggleNav}>
@@ -227,7 +228,9 @@ function Header({
             type="checkbox"
             className="dn"
             id="dn"
-            defaultChecked={theme === 'nighttime' || localStorage.getItem('theme') === 'nighttime'}
+            defaultChecked={
+              theme === 'nighttime' || localStorage.getItem('cc_theme') === 'nighttime'
+            }
             onClick={e => dispatch(actions.auxTheme(theme === 'daytime' ? 'nighttime' : 'daytime'))}
           />
           <label htmlFor="dn" className="toggle">
@@ -317,7 +320,7 @@ function Header({
                   onClick={e => load('/login')}
                 >
                   <i className="fal fa-user"></i>
-                  {desktop ? 'Login' : ''}
+                  {screen === 'desktop' ? 'Login' : ''}
                 </Link>
               </li>
               <li className="nav-menu-item register">
@@ -327,7 +330,7 @@ function Header({
                   onClick={e => load('/register')}
                 >
                   <i className="fal fa-sign-in"></i>
-                  {desktop ? 'Register' : ''}
+                  {screen === 'desktop' ? 'Register' : ''}
                 </Link>
               </li>
             </React.Fragment>
@@ -338,7 +341,7 @@ function Header({
               to="/donate"
               onClick={e => load('/donate')}
             >
-              {desktop ? 'donate' : <i className="fal fa-hands-usd"></i>}
+              {screen === 'desktop' ? 'donate' : <i className="fal fa-hands-usd"></i>}
             </Link>
           </li>
         </ul>

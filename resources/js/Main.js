@@ -7,31 +7,24 @@ import RightBar from './common/RightBar'
 import Footer from './common/Footer'
 import SimpleDialog from './common/utils/SimpleDialog'
 import mapAuth from './helpers/mapAuth'
+import getScreenSize from './helpers/getScreenSize'
 
 const { log, error } = console
 
 const mapStateToProps = ({ Aux }) => {
   return {
     loading: Aux.loading,
+    screen: Aux.screen,
   }
 }
 
-export default connect(mapStateToProps)(function({ loading, children }) {
+export default connect(mapStateToProps)(function({ loading, children, dispatch }) {
   const [pane, setPane] = useState(false)
-  const [desktop, setDesktop] = useState(true)
 
   useEffect(() => {
-    checkSize()
-    window.addEventListener('resize', () => checkSize())
+    getScreenSize(dispatch)
+    window.addEventListener('resize', () => getScreenSize(dispatch))
   }, [])
-
-  function checkSize() {
-    if (window.innerWidth > 991) {
-      setDesktop(true)
-    } else if (window.innerWidth < 992) {
-      setDesktop(false)
-    }
-  }
 
   function togglePane() {
     setPane(!pane)
@@ -49,19 +42,19 @@ export default connect(mapStateToProps)(function({ loading, children }) {
         </div>
       </div>
       <header id="header">
-        <Header desktop={desktop} />
+        <Header />
       </header>
       <section id="sub-header">
-        <SubHeader desktop={desktop} />
+        <SubHeader />
       </section>
       <main id="main">
         <section id="left-bar" className={pane ? 'active-bar' : ''}>
-          <LeftBar pane={pane} togglePane={togglePane} desktop={desktop} />
+          <LeftBar pane={pane} togglePane={togglePane} />
         </section>
         <article id="center">{children}</article>
       </main>
       <footer id="footer">
-        <Footer desktop={desktop} />
+        <Footer />
       </footer>
       <SimpleDialog />
     </React.Fragment>

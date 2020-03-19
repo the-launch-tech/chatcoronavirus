@@ -15,6 +15,7 @@ import PostsService from '../../services/PostsService'
 import CommentsService from '../../services/CommentsService'
 import Comments from '../../common/comments/index'
 import iconCount from '../../helpers/iconCount'
+import roleParse from '../../helpers/roleParse'
 
 const { log, error } = console
 
@@ -112,9 +113,7 @@ function Article({ title, page, dispatch, auth, isAuthenticated, access, match }
                           <span className="article-health_points">
                             <i className="fal fa-user-md"></i> {iconCount(user.health_points)}
                           </span>
-                          <span className="article-access">
-                            {user.role ? user.role : 'Patient'}
-                          </span>
+                          <span className="article-access">{roleParse(user.role, screen)}</span>
                         </div>
                       </div>
                     ))}

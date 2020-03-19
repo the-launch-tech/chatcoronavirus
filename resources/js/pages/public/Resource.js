@@ -14,6 +14,7 @@ import PostsService from '../../services/PostsService'
 import CommentsService from '../../services/CommentsService'
 import Comments from '../../common/comments/index'
 import iconCount from '../../helpers/iconCount'
+import roleParse from '../../helpers/roleParse'
 
 const { log, error } = console
 
@@ -77,7 +78,7 @@ function Resource({ title, page, dispatch, auth, isAuthenticated, access, match 
             <div className="resource-user">
               {resource.users &&
                 resource.users.map((user, i) => (
-                  <React.Fragment>
+                  <React.Fragment key={i}>
                     <Link
                       key={i}
                       className="resource-user-anchor"
@@ -102,7 +103,7 @@ function Resource({ title, page, dispatch, auth, isAuthenticated, access, match 
                       <span className="resource-health_points">
                         <i className="fal fa-user-md"></i> {iconCount(user.health_points)}
                       </span>
-                      <span className="resource-access">{user.role ? user.role : 'Patient'}</span>
+                      <span className="resource-access">{roleParse(user.role, screen)}</span>
                     </div>
                   </React.Fragment>
                 ))}

@@ -6,18 +6,19 @@ const { log } = console
 const mapStateToProps = ({ Aux }) => {
   return {
     googleUpdates: Aux.googleUpdates,
+    screen: Aux.screen,
   }
 }
 
 export default connect(mapStateToProps)(SubHeader)
 
-function SubHeader({ googleUpdates, desktop }) {
+function SubHeader({ googleUpdates, screen }) {
   return (
     <div className="sub-header-container">
       <div className="sub-header-left">
         <h6 className="sub-header-left-title">
           <i className="fal fa-lightbulb-exclamation"></i>
-          {desktop ? 'Current Updates' : ''}
+          {screen === 'desktop' ? 'Current Updates' : ''}
         </h6>
       </div>
       <div className="sub-header-roll">

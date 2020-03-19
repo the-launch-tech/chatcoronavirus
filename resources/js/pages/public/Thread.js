@@ -13,6 +13,7 @@ import PostsService from '../../services/PostsService'
 import CommentsService from '../../services/CommentsService'
 import Comments from '../../common/comments/index'
 import iconCount from '../../helpers/iconCount'
+import roleParse from '../../helpers/roleParse'
 
 const { log, error } = console
 
@@ -100,7 +101,7 @@ function Thread({ title, page, dispatch, auth, isAuthenticated, access, match })
                       <span className="thread-health_points">
                         <i className="fal fa-user-md"></i> {iconCount(user.health_points)}
                       </span>
-                      <span className="thread-access">{user.role ? user.role : 'Patient'}</span>
+                      <span className="thread-access">{roleParse(user.role, screen)}</span>
                     </div>
                   </React.Fragment>
                 ))}

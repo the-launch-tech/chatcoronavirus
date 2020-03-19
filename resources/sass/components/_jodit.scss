@@ -4,6 +4,18 @@
   background: $primary;
   width: 100% !important;
 
+  @media (max-width: 599px) {
+    min-height: 160px !important;
+
+    .jodit_workplace {
+      min-height: 100px !important;
+
+      .jodit_wysiwyg {
+        min-height: 100px !important;
+      }
+    }
+  }
+
   .jodit_toolbar_container {
     background-color: $base;
 
@@ -14,6 +26,10 @@
 
       .jodit_icon {
         fill: $std_copy;
+
+        @media (max-width: 599px) {
+          width: 12px;
+        }
       }
 
       .jodit_with_dropdownlist-trigger {
@@ -36,6 +52,18 @@
       .jodit_toolbar_btn {
         a {
           margin: 0;
+        }
+
+        @media (max-width: 599px) {
+          min-width: 24px;
+          height: 24px;
+          line-height: 24px;
+
+          span {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
         }
       }
 
@@ -89,6 +117,10 @@
     .jodit_toolbar_popup {
       background-color: $base;
       border: 1px solid $primary;
+
+      @media (max-width: 599px) {
+        margin: 0.2rem;
+      }
 
       .jodit_popup_triangle {
         background-color: $base;
@@ -277,6 +309,14 @@
 
       svg {
         fill: $std_copy;
+      }
+
+      @media (max-width: 599px) {
+        span,
+        a,
+        svg {
+          font-size: 0.7rem;
+        }
       }
     }
   }

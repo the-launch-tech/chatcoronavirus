@@ -159,6 +159,13 @@ export function auxSimpleDialog(payload) {
   }
 }
 
+export function auxScreen(payload) {
+  return {
+    type: ActionTypes.AUX_SCREEN,
+    payload,
+  }
+}
+
 export function commentsRecent(payload) {
   return {
     type: ActionTypes.COMMENTS_RECENT,

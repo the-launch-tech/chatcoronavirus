@@ -24,6 +24,10 @@
 
     .write-comment-actions {
       padding: 1rem 0;
+
+      @media (max-width: 599px) {
+        padding: 0.5rem 0;
+      }
     }
   }
 
@@ -32,6 +36,10 @@
 
     .edit-comment-actions {
       padding: 1rem 0;
+
+      @media (max-width: 599px) {
+        padding: 0.5rem 0;
+      }
     }
   }
 
