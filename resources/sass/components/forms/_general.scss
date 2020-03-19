@@ -98,6 +98,11 @@
             font-family: $display;
             font-weight: 500;
 
+            sup {
+              color: $hl_red;
+              font-size: 0.7rem;
+            }
+
             @media (max-width: 991px) {
               font-size: 0.9rem;
             }

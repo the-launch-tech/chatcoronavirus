@@ -106,7 +106,9 @@ function Register(props) {
             <div className="form-block">
               <div className="form-row">
                 <div className="form-cell">
-                  <label className="form-label">Username</label>
+                  <label className="form-label">
+                    Username <sup>(Permanent)</sup>
+                  </label>
                   <input
                     className="form-input"
                     name="username"

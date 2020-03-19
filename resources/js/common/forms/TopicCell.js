@@ -5,12 +5,7 @@ const { log, error } = console
 export default function({ newTopics, topics, handleCheckboxChange, width = 'w-100', defaults }) {
   return (
     <div className={'form-cell ' + width}>
-      <label>
-        Topics{' '}
-        {defaults && defaults.topics
-          ? '(Current: ' + defaults.topics.map(topic => topic.label).join(', ') + ')'
-          : ''}
-      </label>
+      <label>Topics</label>
       <div className="form-checkboxes">
         {defaults && [...newTopics, ...topics].length ? (
           [...newTopics, ...topics].map((topic, i) => (

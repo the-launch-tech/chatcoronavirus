@@ -20,7 +20,9 @@ export default ({
     <React.Fragment>
       <div className="form-row">
         <div className="form-cell w-100">
-          <label>Thread Title</label>
+          <label>
+            Thread Title <sup>required</sup>
+          </label>
           <input
             className="form-input"
             name="title"
@@ -53,7 +55,9 @@ export default ({
       </div>
       <div className="form-row">
         <div className="form-cell w-100">
-          <label className="form-label">Initial Thread Content</label>
+          <label className="form-label">
+            Initial Thread Content <sup>required</sup>
+          </label>
           <JoditEditor
             ref={null}
             value={item.content ? item.content : '<p>Provide some initial content...</p>'}

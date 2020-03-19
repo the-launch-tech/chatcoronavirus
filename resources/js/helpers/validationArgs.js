@@ -73,12 +73,6 @@ export default {
     },
   },
   updateProfile: {
-    username: {
-      validation: data =>
-        Validate.isLength(data, { min: 4, max: 70 }) && Validate.isAlphanumeric(data),
-      required: true,
-      error: 'Please enter a username (between 4 and 70 alphanumeric characters)!',
-    },
     email: {
       validation: Validate.isEmail,
       required: true,

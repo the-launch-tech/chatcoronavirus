@@ -6,10 +6,7 @@ export default function({ realms, handleCheckboxChange, errors, width = 'w-100',
   return (
     <div className={'form-cell ' + width}>
       <label>
-        Content Realms{' '}
-        {defaults && defaults.realms
-          ? '(Current: ' + defaults.realms.map(realm => realm.label).join(', ') + ')'
-          : ''}
+        Content Realms <sup>required</sup>
       </label>
       <div className="form-checkboxes">
         {defaults && realms.length ? (

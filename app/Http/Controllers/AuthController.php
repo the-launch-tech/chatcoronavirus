@@ -131,7 +131,6 @@ class AuthController extends Controller {
 
   public function updateProfile(Request $request) {
     $credentials = $request->only(
-      'username',
       'email',
       'password',
       'country',
@@ -146,9 +145,6 @@ class AuthController extends Controller {
     try {
       $auth = User::where('email', $credentials['email'])->first();
       $auth->setAvatar($file, true);
-      if ($credentials['username'] !== $auth->getUsername()) {
-        $auth->username = $credentials['username'];
-      }
       if ($credentials['email'] !== $auth->getEmail()) {
         $auth->email = $credentials['email'];
       }

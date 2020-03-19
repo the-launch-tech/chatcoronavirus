@@ -54,6 +54,38 @@ function EditPost({
   })
   const [isSuccess, setIsSuccess] = useState(false)
   const [availableTopics, setAvailableTopics] = useState([])
+  const [hasErrors, setHasErrors] = useState(false)
+
+  useEffect(() => {
+    if (responseError.isError) {
+      dispatch(
+        actions.auxSimpleDialog({
+          active: true,
+          content: '<p>' + responseError.text + '</p>',
+        })
+      )
+    }
+  }, [responseError.isError])
+
+  useEffect(() => {
+    if (!Object.keys(errors).length) {
+      return
+    }
+    let error = ''
+    if (errors.content) {
+      error = errors.content
+    } else if (errors.realms) {
+      error = errors.realms
+    } else if (errors.title) {
+      error = errors.title
+    }
+    dispatch(
+      actions.auxSimpleDialog({
+        active: true,
+        content: '<p>' + error + '</p>',
+      })
+    )
+  }, [errors.content, errors.realms, errors.title])
 
   useEffect(() => {
     if (isSuccess) {
@@ -63,6 +95,7 @@ function EditPost({
           content: '<p>Success Updating Post</p>',
         })
       )
+      setIsSuccess(false)
     }
   }, [isSuccess])
 
@@ -73,9 +106,9 @@ function EditPost({
   useEffect(() => {
     RealmService.get(dispatch)
     TopicService.get(dispatch)
-    PostsService.getUserPost(auth.id, match.params.format, match.params.slug).then(data =>
+    PostsService.getUserPost(auth.id, match.params.format, match.params.slug).then(data => {
       setPost(data.post)
-    )
+    })
   }, [])
 
   function handleChange(event) {
@@ -83,6 +116,7 @@ function EditPost({
     const value = event.target.value
     credentials[name] = value
     setCredentials(credentials)
+    checkErrors()
   }
 
   function handleCheckboxChange(event) {
@@ -100,6 +134,7 @@ function EditPost({
       }
     }
     setCredentials(credentials)
+    checkErrors()
   }
 
   function handleFileChange(event) {
@@ -180,14 +215,13 @@ function EditPost({
       })
   }
 
+  function checkErrors() {
+    validator.validateAll(credentials).then(success => setHasErrors(!success))
+  }
+
   return (
     <div className="form-wrapper">
-      <h5 className="form-title">Edit {post.title ? post.title : '(pending)'}</h5>
-      {responseError.isError && (
-        <div className="form-notification">
-          <p className="form-notification-text notification-failure">{responseError.text}</p>
-        </div>
-      )}
+      <h5 className="form-title">Edit {post && post.title ? post.title : '(pending)'}</h5>
       {post ? (
         <div className="form-content">
           <div className="form-block">
@@ -232,7 +266,11 @@ function EditPost({
             )}
             <div className="form-row">
               <div className="form-cell w-50">
-                <button className="form-button md-btn green-btn" onClick={handleSubmit}>
+                <button
+                  className="form-button md-btn green-btn"
+                  onClick={handleSubmit}
+                  disabled={hasErrors}
+                >
                   Update
                 </button>
               </div>

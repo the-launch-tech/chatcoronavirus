@@ -79,18 +79,18 @@ Route::group(['middleware' => ['throttle:100000']], function () {
     Route::post('login', 'AuthController@authenticate');
     Route::post('logout', 'AuthController@logout');
 
+    Route::group(['prefix' => 'password'], function () {
+
+      Route::post('email', 'AuthController@resetLink');
+      Route::post('reset', 'AuthController@resetPassword');
+
+    });
+
     Route::group(['middleware' => ['jwt.user']], function() {
 
       Route::get('refresh', 'AuthController@refresh');
       Route::get('user', 'AuthController@getAuthenticatedUser');
       Route::post('update', 'AuthController@updateProfile');
-
-      Route::group(['prefix' => 'password'], function () {
-
-        Route::post('email', 'AuthController@resetLink');
-        Route::post('reset', 'AuthController@resetPassword');
-
-      });
 
     });
 

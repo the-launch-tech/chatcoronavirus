@@ -28,7 +28,6 @@ function Profile(props) {
   let formData = new FormData()
   const [errors, setErrors] = useState({})
   const [credentials, setCredentials] = useState({
-    username: props.auth ? props.auth.username : '',
     email: props.auth ? props.auth.email : '',
     password: '',
     password_confirmation: '',
@@ -47,6 +46,40 @@ function Profile(props) {
     text: '',
   })
   const [isSuccess, setIsSuccess] = useState(false)
+  const [hasErrors, setHasErrors] = useState(true)
+
+  useEffect(() => {
+    if (responseError.isError) {
+      dispatch(
+        actions.auxSimpleDialog({
+          active: true,
+          content: '<p>' + responseError.text + '</p>',
+        })
+      )
+    }
+  }, [responseError.isError])
+
+  useEffect(() => {
+    if (!Object.keys(errors).length) {
+      return
+    }
+    let error = ''
+    if (errors.username) {
+      error = errors.username
+    } else if (errors.email) {
+      error = errors.email
+    } else if (errors.password) {
+      error = errors.password
+    } else if (errors.password_confirmation) {
+      error = errors.password_confirmation
+    }
+    dispatch(
+      actions.auxSimpleDialog({
+        active: true,
+        content: '<p>' + error + '</p>',
+      })
+    )
+  }, [errors.content, errors.realms, errors.title])
 
   useEffect(() => {
     if (isSuccess) {
@@ -56,6 +89,7 @@ function Profile(props) {
           content: '<p>Success Updating Profile!</p>',
         })
       )
+      setIsSuccess(false)
     }
   }, [isSuccess])
 
@@ -64,6 +98,7 @@ function Profile(props) {
     const value = event.target.value
     credentials[name] = value
     setCredentials(credentials)
+    checkErrors()
   }
 
   function handleSelectChange(event) {
@@ -71,6 +106,7 @@ function Profile(props) {
     const values = Array.from(event.target.children).filter(child => child.selected)
     credentials[name] = values.length ? values[0].value : null
     setCredentials(credentials)
+    checkErrors()
   }
 
   function handleFileChange(event) {
@@ -84,6 +120,7 @@ function Profile(props) {
         '<img class="form-file-display" src="' + e.target.result + '" />'
     }
     reader.readAsDataURL(value)
+    checkErrors()
   }
 
   function handleCheckboxChange(event) {
@@ -91,6 +128,7 @@ function Profile(props) {
     const value = event.target.checked ? true : false
     credentials[name] = value
     setCredentials(credentials)
+    checkErrors()
   }
 
   function handleSubmit(event) {
@@ -116,26 +154,11 @@ function Profile(props) {
       .then(data => props.dispatch(action.authUpdate(data)))
       .then(result => {
         setIsSuccess(true)
-        setCredentials({
-          username: '',
-          email: '',
-          password: '',
-          password_confirmation: '',
-          country: '',
-          state: '',
-          avatar: '',
-          subscriber_updates: false,
-          malpractice_updates: false,
-          pin_updates: false,
-          post_cure_updates: false,
-          comment_cure_updates: false,
-        })
         setResponseError({
           isError: false,
           code: '',
           text: '',
         })
-        validator.reset()
         formData = new FormData()
         loader(props.dispatch, false)
       })
@@ -150,30 +173,17 @@ function Profile(props) {
       })
   }
 
+  function checkErrors() {
+    validator.validateAll(credentials).then(success => setHasErrors(!success))
+  }
+
   return (
     <div className="form-wrapper">
       <h5 className="form-title">Update Your Profile</h5>
-      {responseError.isError && (
-        <div className="form-notification">
-          <p className="form-notification-text notification-failure">{responseError.text}</p>
-        </div>
-      )}
       <div className="form-content">
         <div className="form-block">
           <div className="form-row">
-            <div className="form-cell">
-              <label className="form-label">Username</label>
-              <input
-                className="form-input"
-                name="username"
-                type="text"
-                placeholder="User Name"
-                onChange={handleChange}
-                defaultValue={props.auth ? props.auth.username : ''}
-              />
-              {errors.username && <span className="form-error sm-text">{errors.username}</span>}
-            </div>
-            <div className="form-cell">
+            <div className="form-cell w-33">
               <label>Email</label>
               <input
                 className="form-input"
@@ -185,9 +195,7 @@ function Profile(props) {
               />
               {errors.email && <span className="form-error sm-text">{errors.email}</span>}
             </div>
-          </div>
-          <div className="form-row">
-            <div className="form-cell">
+            <div className="form-cell w-33">
               <label className="form-label">Password</label>
               <input
                 className="form-input"
@@ -198,7 +206,7 @@ function Profile(props) {
               />
               {errors.password && <span className="form-error sm-text">{errors.password}</span>}
             </div>
-            <div className="form-cell">
+            <div className="form-cell w-33">
               <label className="form-label">Confirm Password</label>
               <input
                 className="form-input"
@@ -267,7 +275,11 @@ function Profile(props) {
           </div>
           <div className="form-row">
             <div className="form-cell">
-              <button className="form-button md-btn green-btn" onClick={handleSubmit}>
+              <button
+                className="form-button md-btn green-btn"
+                onClick={handleSubmit}
+                disabled={hasErrors}
+              >
                 Update
               </button>
             </div>

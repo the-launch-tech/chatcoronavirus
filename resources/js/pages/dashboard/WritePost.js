@@ -53,6 +53,38 @@ function WritePost({
   })
   const [isSuccess, setIsSuccess] = useState(false)
   const [availableTopics, setAvailableTopics] = useState([])
+  const [hasErrors, setHasErrors] = useState(true)
+
+  useEffect(() => {
+    if (responseError.isError) {
+      dispatch(
+        actions.auxSimpleDialog({
+          active: true,
+          content: '<p>' + responseError.text + '</p>',
+        })
+      )
+    }
+  }, [responseError.isError])
+
+  useEffect(() => {
+    if (!Object.keys(errors).length) {
+      return
+    }
+    let error = ''
+    if (errors.content) {
+      error = errors.content
+    } else if (errors.realms) {
+      error = errors.realms
+    } else if (errors.title) {
+      error = errors.title
+    }
+    dispatch(
+      actions.auxSimpleDialog({
+        active: true,
+        content: '<p>' + error + '</p>',
+      })
+    )
+  }, [errors.content, errors.realms, errors.title])
 
   useEffect(() => {
     if (isSuccess) {
@@ -62,6 +94,7 @@ function WritePost({
           content: '<p>Success Publishing!</p>',
         })
       )
+      setIsSuccess(false)
     }
   }, [isSuccess])
 
@@ -75,16 +108,21 @@ function WritePost({
     const value = event.target.value
     credentials[name] = value
     setCredentials(credentials)
+    checkErrors()
   }
 
   function handleCheckboxChange(event) {
     const name = event.target.name
     const value = event.target.value
-    if (!credentials[name]) {
-      credentials[name] = []
+    credentials[name] = !credentials[name] ? [] : credentials[name]
+    const index = credentials[name].indexOf(value)
+    if (index > -1 && !event.target.checked) {
+      credentials[name].splice(index, 1)
+    } else if (event.target.checked) {
+      credentials[name].push(value)
     }
-    credentials[name].push(value)
     setCredentials(credentials)
+    checkErrors()
   }
 
   function handleFileChange(event) {
@@ -102,13 +140,9 @@ function WritePost({
 
   function handleSubmit(event) {
     event.preventDefault()
-
-    log('credentials', credentials)
-
     Object.keys(credentials).map(key => {
       formData.append(key, credentials[key])
     })
-
     validator.validateAll(credentials).then(success => {
       if (success) {
         setErrors(validator.errors)
@@ -136,28 +170,24 @@ function WritePost({
         loader(dispatch, false)
       })
       .catch(err => {
-        validator.reset()
-        setCredentials(defCreds(null))
         setResponseError({
           isError: true,
           code: err.statusCode,
           text: err.error,
         })
-        resetFormFields()
         formData = new FormData()
         loader(dispatch, false)
         log(err)
       })
   }
 
+  function checkErrors() {
+    validator.validateAll(credentials).then(success => setHasErrors(!success))
+  }
+
   return (
     <div className="form-wrapper">
       <WritePostHeader format={match.params.format} />
-      {responseError.isError && (
-        <div className="form-notification">
-          <p className="form-notification-text notification-failure">{responseError.text}</p>
-        </div>
-      )}
       <div className="form-content">
         <div className="form-block">
           {match.params.format === 'articles' && (
@@ -198,7 +228,11 @@ function WritePost({
           )}
           <div className="form-row">
             <div className="form-cell">
-              <button className="form-button md-btn green-btn" onClick={handleSubmit}>
+              <button
+                className="form-button md-btn green-btn"
+                onClick={handleSubmit}
+                disabled={hasErrors}
+              >
                 Publish
               </button>
             </div>

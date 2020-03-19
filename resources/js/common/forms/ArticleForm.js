@@ -21,7 +21,9 @@ export default ({
     <React.Fragment>
       <div className="form-row">
         <div className="form-cell w-100">
-          <label>Article Title</label>
+          <label>
+            Article Title <sup>required</sup>
+          </label>
           <input
             className="form-input"
             name="title"
@@ -108,7 +110,9 @@ export default ({
       </div>
       <div className="form-row">
         <div className="form-cell w-100">
-          <label className="form-label">Article Body</label>
+          <label className="form-label">
+            Article Body <sup>required</sup>
+          </label>
           <JoditEditor
             ref={null}
             value={item.content ? item.content : '<p>Enter the body content!</p>'}
@@ -127,8 +131,9 @@ export default ({
               ],
             }}
             tabIndex={1}
-            onBlur={newContent => handleChange({ target: { name: 'content', value: newContent } })}
-            onChange={null}
+            onChange={newContent =>
+              handleChange({ target: { name: 'content', value: newContent } })
+            }
           />
           {errors.content && <span className="form-error sm-text">{errors.content}</span>}
         </div>
