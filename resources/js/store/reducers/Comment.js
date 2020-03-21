@@ -23,7 +23,6 @@ const commentsRecent = (state, payload) => {
 }
 
 const commentEmptyChildren = (state, payload) => {
-  log('[...state.emptyCommentChildren, payload]', [...state.emptyCommentChildren, payload])
   return merge(state, {
     emptyCommentChildren: [...state.emptyCommentChildren, payload],
   })

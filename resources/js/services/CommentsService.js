@@ -5,12 +5,10 @@ const { log } = console
 
 export default {
   getComments: async ({ paged, posts_per_page, post_id, has_children, parent_id, order }) => {
-    log('getComments', { paged, posts_per_page, post_id, has_children, parent_id, order })
     try {
       const { data } = await Http.get(`/api/comments/${post_id}`, {
         params: { paged, posts_per_page, has_children, parent_id, order },
       })
-      log('data', data)
       return data
     } catch (err) {
       throw err
