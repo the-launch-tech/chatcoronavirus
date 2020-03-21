@@ -9,6 +9,8 @@ export default (state = initialState.comments, { type, payload = null }) => {
   switch (type) {
     case ActionTypes.COMMENTS_RECENT:
       return commentsRecent(state, payload)
+    case ActionTypes.COMMENT_EMPTY_CHILDREN:
+      return commentEmptyChildren(state, payload)
     default:
       return state
   }
@@ -17,5 +19,12 @@ export default (state = initialState.comments, { type, payload = null }) => {
 const commentsRecent = (state, payload) => {
   return merge(state, {
     recentComments: payload.comments,
+  })
+}
+
+const commentEmptyChildren = (state, payload) => {
+  log('[...state.emptyCommentChildren, payload]', [...state.emptyCommentChildren, payload])
+  return merge(state, {
+    emptyCommentChildren: [...state.emptyCommentChildren, payload],
   })
 }

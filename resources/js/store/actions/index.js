@@ -173,6 +173,13 @@ export function commentsRecent(payload) {
   }
 }
 
+export function commentEmptyChildren(payload) {
+  return {
+    type: ActionTypes.COMMENT_EMPTY_CHILDREN,
+    payload,
+  }
+}
+
 export function postsTrending(payload) {
   return {
     type: ActionTypes.POSTS_TRENDING,

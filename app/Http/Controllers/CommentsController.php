@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Debugbar;
 use App\User;
 use App\Post;
 use App\Comment;
@@ -31,22 +30,41 @@ class CommentsController extends Controller {
     $params = $request->all();
 
     try {
-      $query = Comment::where('post_id', '=', $post_id)
-        ->where('comment_id', '=', null);
-
+      $order = $params['order'];
+      $parent_id = $params['parent_id'] !== $post_id ? $params['parent_id'] : null;
+      $has_children = $params['has_children'];
       $posts_per_page = (int)$params['posts_per_page'];
       $paged = (int)$params['paged'];
 
+      $query = Comment::where('post_id', '=', $post_id);
+      $query->where('comment_id', '=', $parent_id);
+      $query->withCount('recursiveChildren');
+
       $total = round($query->count() / $posts_per_page);
 
-      $comments = $query->with('user')
-        ->with(['recursiveChildren' => function ($q) {
+      $query->with('user');
+      $query->withCount('cures');
+
+      if ($has_children > 0) {
+        $query->with(['recursiveChildren' => function ($q) {
           $q->with('user');
-        }])
-        ->skip($paged * $posts_per_page)
-        ->take($posts_per_page)
-        ->orderBy('created_at', 'DESC')
-        ->get();
+        }]);
+      }
+
+      $query->skip($paged * $posts_per_page)
+        ->take($posts_per_page);
+
+      if (!$parent_id) {
+        if ($order === 'popularity') {
+          $query->orderBy('cures_count', 'DESC');
+        } else {
+          $query->orderBy('created_at', $order);
+        }
+      } else {
+        $query->orderBy('created_at', 'DESC');
+      }
+
+      $comments = $query->get();
 
       return response()->json(['comments' => $comments, 'total' => $total], 200);
     } catch (Exception $e) {
@@ -61,7 +79,7 @@ class CommentsController extends Controller {
       $comment->content = $params['content'];
       $comment->withPost(Post::find($post_id));
       $comment->withUser(User::find($user_id));
-      if ($params['comment_id'] && strlen($params['comment_id']) > 2) {
+      if ($post_id !== $params['comment_id'] && strlen($params['comment_id']) > 2) {
         $comment->withComment(Comment::find($params['comment_id']));
       }
       $comment->push();
@@ -82,7 +100,7 @@ class CommentsController extends Controller {
       }
       $updated = $comment->save();
       User::incrementHealthPoints($user_id);
-      return response()->json(['comment' => ['content' => $params['content'], 'id' => $id]], 200);
+      return response()->json(['content' => $params['content'], 'id' => $id], 200);
     } catch (Exception $e) {
       return response()->json(['message' => $e->getMessage()], 500);
     }
@@ -93,7 +111,7 @@ class CommentsController extends Controller {
       $comment = Comment::find($id);
       $deleted = $comment->delete();
       User::incrementHealthPoints($user_id);
-      return response()->json(['comment' => ['id' => $id]], 200);
+      return response()->json(['id' => $id], 200);
     } catch (Exception $e) {
       return response()->json(['message' => $e->getMessage()], 500);
     }

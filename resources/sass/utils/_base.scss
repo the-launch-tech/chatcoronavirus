@@ -362,6 +362,23 @@ a {
     }
   }
 
+  &.tiny-btn {
+    border-radius: 3px;
+    padding: 0.5rem 1rem;
+    text-transform: uppercase;
+    font-size: 1rem;
+
+    @media (max-width: 991px) {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 599px) {
+      padding: 0.35rem 0.6rem;
+      font-size: 0.7rem;
+    }
+  }
+
   &.sm-btn {
     padding: 0.5rem 2rem;
     text-transform: uppercase;
@@ -411,6 +428,14 @@ a {
 
   &.green-btn {
     @include button-color($hl_green, 'full');
+  }
+
+  &.yellow-btn {
+    @include button-color($hl_yellow, 'full');
+  }
+
+  &.orange-btn {
+    @include button-color($hl_orange, 'full');
   }
 
   &.red-btn {

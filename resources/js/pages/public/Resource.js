@@ -10,8 +10,8 @@ import TaxonomyList from '../../common/utils/TaxonomyList'
 import mapAuth from '../../helpers/mapAuth'
 import dateParse from '../../helpers/dateParse'
 import loader from '../../helpers/loader'
+import getUrl from '../../helpers/getUrl'
 import PostsService from '../../services/PostsService'
-import CommentsService from '../../services/CommentsService'
 import Comments from '../../common/comments/index'
 import iconCount from '../../helpers/iconCount'
 import roleParse from '../../helpers/roleParse'
@@ -21,12 +21,7 @@ const { log, error } = console
 export default withRouter(connect(mapAuth)(Resource))
 
 function Resource({ title, page, dispatch, auth, isAuthenticated, access, match }) {
-  const withChildren = false
-  const comments_per_page = 2
   const [resource, setResource] = useState({})
-  const [showComments, setShowComments] = useState(false)
-  const [comments, setComments] = useState([])
-  const [maxPages, setMaxPages] = useState(-1)
 
   useEffect(() => {
     PostsService.getPost('resource', match.params.slug)
@@ -40,32 +35,6 @@ function Resource({ title, page, dispatch, auth, isAuthenticated, access, match 
         error(err)
       })
   }, [])
-
-  useEffect(() => {
-    if (showComments) {
-      loader(dispatch, true)
-      CommentsService.getComments({
-        paged: 0,
-        posts_per_page: comments_per_page,
-        post_id: resource.id,
-        has_children: withChildren,
-        comment_id: null,
-      })
-        .then(data => {
-          setComments(data.comments)
-          setMaxPages(data.total)
-          loader(dispatch, false)
-        })
-        .catch(err => {
-          loader(dispatch, false)
-          error(err)
-        })
-    }
-  }, [showComments])
-
-  function handleShowComments(event) {
-    setShowComments(true)
-  }
 
   return (
     <div id="page-wrapper" className={`page-wrapper ${page}`}>
@@ -151,15 +120,7 @@ function Resource({ title, page, dispatch, auth, isAuthenticated, access, match 
             />
           </footer>
         </div>
-        <section className="comments">
-          {showComments && maxPages >= 0 ? (
-            <Comments initialComments={comments} initialMaxPages={maxPages} postId={resource.id} />
-          ) : (
-            <button type="button" onClick={handleShowComments} className="md-btn green-btn">
-              <i className="fal fa-comments"></i> Show Comments
-            </button>
-          )}
-        </section>
+        {resource ? <Comments postId={resource.id} postComments={resource.comments_count} /> : ''}
       </div>
     </div>
   )

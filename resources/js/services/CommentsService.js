@@ -4,20 +4,22 @@ import * as action from '../store/actions'
 const { log } = console
 
 export default {
-  getComments: async ({ paged, posts_per_page, post_id, has_children, comment_id }) => {
+  getComments: async ({ paged, posts_per_page, post_id, has_children, parent_id, order }) => {
+    log('getComments', { paged, posts_per_page, post_id, has_children, parent_id, order })
     try {
       const { data } = await Http.get(`/api/comments/${post_id}`, {
-        params: { paged, posts_per_page, has_children, comment_id },
+        params: { paged, posts_per_page, has_children, parent_id, order },
       })
+      log('data', data)
       return data
     } catch (err) {
       throw err
     }
   },
-  save: async ({ commentId, postId, authId, content }) => {
+  save: async ({ parentId, postId, authId, content }) => {
     try {
       const { data } = await Http.post(`/api/comments/${postId}/${authId}`, {
-        comment_id: commentId,
+        comment_id: parentId,
         content,
       })
       return data

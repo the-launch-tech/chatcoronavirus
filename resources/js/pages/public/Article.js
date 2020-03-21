@@ -12,7 +12,6 @@ import dateParse from '../../helpers/dateParse'
 import loader from '../../helpers/loader'
 import getUrl from '../../helpers/getUrl'
 import PostsService from '../../services/PostsService'
-import CommentsService from '../../services/CommentsService'
 import Comments from '../../common/comments/index'
 import iconCount from '../../helpers/iconCount'
 import roleParse from '../../helpers/roleParse'
@@ -22,12 +21,7 @@ const { log, error } = console
 export default withRouter(connect(mapAuth)(Article))
 
 function Article({ title, page, dispatch, auth, isAuthenticated, access, match }) {
-  const withChildren = false
-  const comments_per_page = 2
   const [article, setArticle] = useState({})
-  const [showComments, setShowComments] = useState(false)
-  const [comments, setComments] = useState([])
-  const [maxPages, setMaxPages] = useState(-1)
 
   useEffect(() => {
     PostsService.getPost('article', match.params.slug)
@@ -41,32 +35,6 @@ function Article({ title, page, dispatch, auth, isAuthenticated, access, match }
         error(err)
       })
   }, [])
-
-  useEffect(() => {
-    if (showComments) {
-      loader(dispatch, true)
-      CommentsService.getComments({
-        paged: 0,
-        posts_per_page: comments_per_page,
-        post_id: article.id,
-        has_children: withChildren,
-        comment_id: null,
-      })
-        .then(data => {
-          setComments(data.comments)
-          setMaxPages(data.total)
-          loader(dispatch, false)
-        })
-        .catch(err => {
-          loader(dispatch, false)
-          error(err)
-        })
-    }
-  }, [showComments])
-
-  function handleShowComments(event) {
-    setShowComments(true)
-  }
 
   return (
     <div id="page-wrapper" className={`page-wrapper ${page}`}>
@@ -162,15 +130,7 @@ function Article({ title, page, dispatch, auth, isAuthenticated, access, match }
             />
           </footer>
         </article>
-        <section className="comments">
-          {showComments && maxPages >= 0 ? (
-            <Comments initialComments={comments} initialMaxPages={maxPages} postId={article.id} />
-          ) : (
-            <button type="button" onClick={handleShowComments} className="md-btn green-btn">
-              <i className="fal fa-comments"></i> Show Comments
-            </button>
-          )}
-        </section>
+        {article ? <Comments postId={article.id} postComments={article.comments_count} /> : ''}
       </div>
     </div>
   )

@@ -130,11 +130,11 @@
       .jodit_tabs {
         .jodit_tabs_buttons {
           a {
-            color: $hl_red;
+            color: $white;
             background-color: $primary;
             border: 1px solid $primary;
             svg {
-              color: $hl_red;
+              color: $white;
             }
           }
         }
@@ -367,4 +367,12 @@ table {
 
 .jodit_resizer {
   border-color: transparentize($hl_red, 0.4);
+}
+
+.jodit_toolbar .jodit_toolbar_btn-break {
+  border-top: 1px solid #1f2d3a;
+}
+
+.jodit_toolbar_btn-separator {
+  display: none;
 }

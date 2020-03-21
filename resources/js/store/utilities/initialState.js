@@ -43,6 +43,7 @@ export default {
   },
   comments: {
     recentComments: [],
+    emptyCommentChildren: [],
   },
   users: {
     topUsers: [],

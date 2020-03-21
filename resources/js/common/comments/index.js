@@ -1,54 +1,118 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import WriteComment from './WriteComment'
-import RenderComments from './RenderComments'
+import CommentChildren from './CommentChildren'
+import WriteButtonEditor from './WriteButtonEditor'
+import recursiveReducer from './utils/recursiveReducer'
 import CommentsService from '../../services/CommentsService'
 import mapAuth from '../../helpers/mapAuth'
 import loader from '../../helpers/loader'
 import getUrl from '../../helpers/getUrl'
 import * as actions from '../../store/actions'
-import recursiveSave from './utils/recursiveSave'
-import recursiveUpdate from './utils/recursiveUpdate'
-import recursiveDelete from './utils/recursiveDelete'
 
 const { log, error } = console
 
-export default connect(mapAuth)(Comments)
+const mapStateToProps = ({ Comment, Auth }) => {
+  return {
+    emptyCommentChildren: Comment.emptyCommentChildren,
+    auth: Auth.auth,
+  }
+}
 
-let fresh = true
-function Comments({
-  postId,
-  initialComments,
-  initialMaxPages,
-  auth,
-  isAuthenticated,
-  access,
-  dispatch,
-}) {
-  const comments_per_page = 2
-  const withChilren = false
-  const [paged, setPaged] = useState(1)
-  const [maxPages, setMaxPages] = useState(initialMaxPages)
-  const [empty, setEmpty] = useState(false)
+export default connect(mapStateToProps)(Comments)
+
+function Comments({ dispatch, postId, emptyCommentChildren, auth, postComments }) {
+  const [maxPages, setMaxPages] = useState({})
+  const [paged, setPaged] = useState({})
+  const [showChildren, setShowChildren] = useState({})
+  const [comments, setComments] = useState([])
   const [editingParams, setEditingParams] = useState(false)
   const [writingParams, setWritingParams] = useState(false)
-  const [comments, setComments] = useState(initialComments)
+  const [order, setOrder] = useState('DESC')
 
-  useEffect(() => setEmpty(maxPages <= paged), [paged, maxPages])
+  useEffect(() => {
+    const initialMaxPages = {}
+    const initialPaged = {}
+    const initialShowChildren = {}
+    initialMaxPages[postId] = -1
+    initialPaged[postId] = 0
+    initialShowChildren[postId] = false
+    setMaxPages(initialMaxPages)
+    setPaged(initialPaged)
+    setShowChildren(initialShowChildren)
+  }, [postId])
+
+  function getComments({ parent_id, has_children, posts_per_page }) {
+    if (emptyCommentChildren.indexOf(parent_id) < 0) {
+      loader(dispatch, true)
+      CommentsService.getComments({
+        paged: paged[parent_id] ? parseInt(paged[parent_id]) : 0,
+        posts_per_page,
+        post_id: postId,
+        parent_id,
+        has_children,
+        order,
+      })
+        .then(data => {
+          const renderData = {
+            data,
+            parent_id,
+            is_top_level: parent_id === postId,
+          }
+          recursiveMerge('RENDER', renderData)
+          const newPaged = paged[parent_id] ? parseInt(paged[parent_id]) + 1 : 1
+          handleEmpty(parent_id, data.total, newPaged)
+          handleMaxPages(parent_id, data.total)
+          handlePaged(parent_id, newPaged)
+        })
+        .catch(err => {
+          loader(dispatch, false)
+          handleEmpty(true)
+          error(err)
+        })
+    }
+  }
+
+  function handleMaxPages(parentId, total) {
+    maxPages[parentId] = parseInt(total)
+    setMaxPages(maxPages)
+  }
+
+  function handlePaged(parentId, newPaged) {
+    paged[parentId] = newPaged
+    setPaged(paged)
+  }
+
+  function handleShowChildren(event, parentId) {
+    event.preventDefault()
+    if (showChildren[parentId]) {
+      getComments({ parent_id: parentId, has_children: 0, posts_per_page: 5 })
+    } else {
+      showChildren[parentId] = true
+      setShowChildren(showChildren)
+      if (showChildren[parentId]) {
+        getComments({ parent_id: parentId, has_children: 0, posts_per_page: 5 })
+      }
+    }
+  }
+
+  function handleEmpty(parentId, total, newPaged) {
+    if (total > -1 && total <= newPaged) {
+      dispatch(actions.commentEmptyChildren(parentId))
+    }
+  }
 
   function handleCancel(event) {
     setWritingParams(false)
     setEditingParams(false)
   }
 
-  function handleEdit(event, { content, id, commentId }) {
+  function handleEdit(event, { content, id }) {
     event.preventDefault()
-    setEditingParams({ id, commentId, postId, authId: auth.id, content })
+    setEditingParams({ id, postId, authId: auth.id, content })
   }
 
-  function handleWrite(event, { commentId }) {
+  function handleWrite(event, { parentId }) {
     event.preventDefault()
-
     if (!auth) {
       dispatch(
         actions.auxSimpleDialog({
@@ -63,8 +127,7 @@ function Comments({
       )
       return
     }
-
-    setWritingParams({ commentId, postId, authId: auth.id, content: null })
+    setWritingParams({ parentId, postId, authId: auth.id, content: null })
   }
 
   function handleSave(event) {
@@ -72,9 +135,8 @@ function Comments({
     loader(dispatch, true)
     CommentsService.save(writingParams)
       .then(data => {
-        setComments(recursiveSave(data.comment, comments))
-        handleCancel()
-        loader(dispatch, false)
+        data.is_top_level = postId === writingParams.parentId
+        recursiveMerge('SAVE', data)
       })
       .catch(err => {
         loader(dispatch, false)
@@ -86,31 +148,35 @@ function Comments({
     event.preventDefault()
     loader(dispatch, true)
     CommentsService.update(editingParams)
-      .then(data => {
-        setComments(recursiveUpdate(data.comment, comments))
-        handleCancel()
-        loader(dispatch, false)
-      })
+      .then(data => recursiveMerge('UPDATE', data))
       .catch(err => {
         loader(dispatch, false)
         error(err)
       })
   }
 
-  function handleDelete(event) {
+  function handleDelete(event, args) {
     event.preventDefault()
     loader(dispatch, true)
-    CommentsService.delete(editingParams)
-      .then(data => {
-        setComments(recursiveDelete(data.comment, comments))
-        handleCancel()
-        setComments(comments.filter(comment => comment.id !== data.id))
-        loader(dispatch, false)
-      })
+    CommentsService.delete({
+      id: args.id,
+      postId,
+      authId: auth.id,
+    })
+      .then(data => recursiveMerge('DELETE', data))
       .catch(err => {
         loader(dispatch, false)
         error(err)
       })
+  }
+
+  function recursiveMerge(actionType, data) {
+    const action = recursiveReducer[actionType]
+    action(data, comments, mergedComments => {
+      setComments(mergedComments)
+    })
+    handleCancel()
+    loader(dispatch, false)
   }
 
   function handleWriteChange(content) {
@@ -123,72 +189,71 @@ function Comments({
     setEditingParams(editingParams)
   }
 
-  function loadMore() {
-    event.preventDefault()
-    if (!empty) {
-      loader(dispatch, true)
-      CommentsService.getComments({
-        paged,
-        posts_per_page: comments_per_page,
-        post_id: postId,
-        has_children: withChilren,
-        comment_id: null,
-      })
-        .then(data => {
-          setComments([...comments, ...data.comments])
-        })
-        .then(() => {
-          loader(dispatch, false)
-          setPaged(paged + 1)
-        })
-        .catch(err => {
-          loader(dispatch, false)
-          setEmpty(true)
-          error(err)
-        })
-    }
+  function handleSelectChange(event) {
+    Array.from(event.target.children).map(el => {
+      if (el.selected) {
+        if (event.target.name === 'order') {
+          setOrder(el.value)
+        }
+      }
+    })
   }
 
   return (
-    <React.Fragment>
-      {auth && writingParams && !writingParams.commentId && !editingParams ? (
-        <WriteComment
+    <div className="comment-section-wrapper">
+      <div className="form-wrapper">
+        <h6 className="form-title">Filter Discussion</h6>
+        <div className="form-content">
+          <div className="form-block">
+            <div className="form-row">
+              <div className="form-cell w-50">
+                <label>Display Order</label>
+                <select
+                  className="form-input"
+                  name="order"
+                  defaultValue="DESC"
+                  onChange={handleSelectChange}
+                >
+                  <option value="DESC">Most Recent</option>
+                  <option value="ASC">Oldest</option>
+                  <option value="popularity">Most Popular</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <section id={`recursive-tree-${postId}`} className="recursive-tree">
+        <WriteButtonEditor
+          parentId={postId}
+          writingParams={writingParams}
+          editingParams={editingParams}
           handleSave={handleSave}
           handleCancel={handleCancel}
           handleWriteChange={handleWriteChange}
+          handleWrite={handleWrite}
         />
-      ) : (
-        <button
-          type="button"
-          className="link-btn blue-link-btn"
-          onClick={e => handleWrite(e, { commentId: null })}
-        >
-          Write Comment
-        </button>
-      )}
-      <RenderComments
-        auth={auth}
-        comments={comments}
-        commentId={null}
-        editingParams={editingParams}
-        writingParams={writingParams}
-        handleWrite={handleWrite}
-        handleUpdate={handleUpdate}
-        handleCancel={handleCancel}
-        handleDelete={handleDelete}
-        handleEdit={handleEdit}
-        handleSave={handleSave}
-        handleWriteChange={handleWriteChange}
-        handleEditChange={handleEditChange}
-        depth={0}
-      />
-      {(!empty && fresh) || (empty && !fresh) ? (
-        <button type="button" onClick={loadMore} className="load-more-button green-btn md-btn">
-          <i className="fad fa-spinner"></i> Load More
-        </button>
-      ) : (
-        ''
-      )}
-    </React.Fragment>
+        <CommentChildren
+          isParent={true}
+          postComments={postComments}
+          comment={{ recursive_children_count: 1 }}
+          comments={comments}
+          parentId={postId}
+          maxPages={maxPages}
+          showChildren={showChildren}
+          depth={0}
+          handleShowChildren={handleShowChildren}
+          writingParams={writingParams}
+          editingParams={editingParams}
+          handleSave={handleSave}
+          handleCancel={handleCancel}
+          handleWriteChange={handleWriteChange}
+          handleWrite={handleWrite}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}
+          handleUpdate={handleUpdate}
+        />
+      </section>
+    </div>
   )
 }

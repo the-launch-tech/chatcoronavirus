@@ -1,56 +1,20 @@
 import React from 'react'
 import JoditEditor from 'jodit-react'
+import joditConfig from './utils/joditConfig'
+import CommentFooter from './comment/CommentFooter'
 
-export default ({ editingParams, handleUpdate, handleCancel, handleDelete, handleEditChange }) => {
+export default props => {
   return (
-    <div className="edit-comment">
+    <React.Fragment>
       <JoditEditor
         ref={null}
-        value={editingParams.content}
-        config={{
-          readonly: false,
-          removeButtons: [
-            'source',
-            'font',
-            'brush',
-            'copyformat',
-            'symbol',
-            'fullsize',
-            'print',
-            'about',
-            'eraser',
-            'fontsize',
-            'paragraph',
-            'file',
-            'left',
-            'right',
-            'center',
-            'justify',
-            'superscript',
-            'subscript',
-            'strikethrough',
-            'paste',
-            'copy',
-            'cut',
-            'selectall',
-            'break',
-          ],
-        }}
+        value={props.editingParams.content}
+        config={joditConfig}
         tabIndex={1}
-        onBlur={handleEditChange}
+        onBlur={props.handleEditChange}
         onChange={null}
       />
-      <div className="edit-comment-actions">
-        <button type="button" className="link-btn green-link-btn" onClick={handleUpdate}>
-          Update
-        </button>
-        <button type="button" className="link-btn blue-link-btn" onClick={handleCancel}>
-          Cancel
-        </button>
-        <button type="button" className="link-btn red-link-btn" onClick={handleDelete}>
-          Delete
-        </button>
-      </div>
-    </div>
+      <CommentFooter type="EDIT" {...props} />
+    </React.Fragment>
   )
 }

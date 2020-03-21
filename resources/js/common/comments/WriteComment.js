@@ -1,53 +1,20 @@
 import React from 'react'
 import JoditEditor from 'jodit-react'
+import joditConfig from './utils/joditConfig'
+import CommentFooter from './comment/CommentFooter'
 
-export default ({ handleCancel, handleSave, handleWriteChange }) => {
+export default props => {
   return (
-    <div className="write-comment">
+    <article className="recursion-proposal">
       <JoditEditor
         ref={null}
         value={''}
-        config={{
-          readonly: false,
-          removeButtons: [
-            'source',
-            'font',
-            'brush',
-            'copyformat',
-            'symbol',
-            'fullsize',
-            'print',
-            'about',
-            'eraser',
-            'fontsize',
-            'paragraph',
-            'file',
-            'left',
-            'right',
-            'center',
-            'justify',
-            'superscript',
-            'subscript',
-            'strikethrough',
-            'paste',
-            'copy',
-            'cut',
-            'selectall',
-            'break',
-          ],
-        }}
+        config={joditConfig}
         tabIndex={1}
-        onBlur={handleWriteChange}
+        onBlur={props.handleWriteChange}
         onChange={null}
       />
-      <div className="write-comment-actions">
-        <button type="button" className="link-btn green-link-btn" onClick={handleSave}>
-          Save
-        </button>
-        <button type="button" className="link-btn red-link-btn" onClick={handleCancel}>
-          Cancel
-        </button>
-      </div>
-    </div>
+      <CommentFooter type="WRITE" {...props} />
+    </article>
   )
 }

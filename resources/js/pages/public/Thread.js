@@ -2,15 +2,16 @@ import React, { useState, useEffect } from 'react'
 import { withRouter } from 'react-router'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import moment from 'moment'
 import ButtonPin from '../../common/utils/ButtonPin'
 import ButtonCure from '../../common/utils/ButtonCure'
 import ButtonSubscription from '../../common/utils/ButtonSubscription'
 import TaxonomyList from '../../common/utils/TaxonomyList'
 import mapAuth from '../../helpers/mapAuth'
-import loader from '../../helpers/loader'
 import dateParse from '../../helpers/dateParse'
+import loader from '../../helpers/loader'
+import getUrl from '../../helpers/getUrl'
 import PostsService from '../../services/PostsService'
-import CommentsService from '../../services/CommentsService'
 import Comments from '../../common/comments/index'
 import iconCount from '../../helpers/iconCount'
 import roleParse from '../../helpers/roleParse'
@@ -20,12 +21,7 @@ const { log, error } = console
 export default withRouter(connect(mapAuth)(Thread))
 
 function Thread({ title, page, dispatch, auth, isAuthenticated, access, match }) {
-  const withChildren = false
-  const comments_per_page = 2
   const [thread, setThread] = useState({})
-  const [showComments, setShowComments] = useState(false)
-  const [comments, setComments] = useState([])
-  const [maxPages, setMaxPages] = useState(-1)
 
   useEffect(() => {
     PostsService.getPost('thread', match.params.slug)
@@ -39,32 +35,6 @@ function Thread({ title, page, dispatch, auth, isAuthenticated, access, match })
         error(err)
       })
   }, [])
-
-  useEffect(() => {
-    if (showComments) {
-      loader(dispatch, true)
-      CommentsService.getComments({
-        paged: 0,
-        posts_per_page: comments_per_page,
-        post_id: thread.id,
-        has_children: withChildren,
-        comment_id: null,
-      })
-        .then(data => {
-          setComments([...comments, ...data.comments])
-          setMaxPages(data.total)
-          loader(dispatch, false)
-        })
-        .catch(err => {
-          loader(dispatch, false)
-          error(err)
-        })
-    }
-  }, [showComments])
-
-  function handleShowComments(event) {
-    setShowComments(true)
-  }
 
   return (
     <div id="page-wrapper" className={`page-wrapper ${page}`}>
@@ -149,15 +119,7 @@ function Thread({ title, page, dispatch, auth, isAuthenticated, access, match })
             />
           </footer>
         </div>
-        <section className="comments">
-          {showComments && maxPages >= 0 ? (
-            <Comments initialComments={comments} initialMaxPages={maxPages} postId={thread.id} />
-          ) : (
-            <button type="button" onClick={handleShowComments} className="md-btn green-btn">
-              <i className="fal fa-comments"></i> Show Comments
-            </button>
-          )}
-        </section>
+        {thread ? <Comments postId={thread.id} postComments={thread.comments_count} /> : ''}
       </div>
     </div>
   )
