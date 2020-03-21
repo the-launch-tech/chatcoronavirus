@@ -130,7 +130,11 @@ function Article({ title, page, dispatch, auth, isAuthenticated, access, match }
             />
           </footer>
         </article>
-        {article ? <Comments postId={article.id} postComments={article.comments_count} /> : ''}
+        {article && article.id ? (
+          <Comments postId={article.id} postComments={article.comments_count} />
+        ) : (
+          ''
+        )}
       </div>
     </div>
   )

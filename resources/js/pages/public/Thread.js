@@ -119,7 +119,11 @@ function Thread({ title, page, dispatch, auth, isAuthenticated, access, match })
             />
           </footer>
         </div>
-        {thread ? <Comments postId={thread.id} postComments={thread.comments_count} /> : ''}
+        {thread && thread.id ? (
+          <Comments postId={thread.id} postComments={thread.comments_count} />
+        ) : (
+          ''
+        )}
       </div>
     </div>
   )

@@ -120,7 +120,11 @@ function Resource({ title, page, dispatch, auth, isAuthenticated, access, match 
             />
           </footer>
         </div>
-        {resource ? <Comments postId={resource.id} postComments={resource.comments_count} /> : ''}
+        {resource && resource.id ? (
+          <Comments postId={resource.id} postComments={resource.comments_count} />
+        ) : (
+          ''
+        )}
       </div>
     </div>
   )
