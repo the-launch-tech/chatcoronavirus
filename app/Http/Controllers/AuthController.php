@@ -154,7 +154,7 @@ class AuthController extends Controller {
       if ($credentials['country'] && $credentials['country'] !== $auth->getCountry()) {
         $auth->country = Str::title($credentials['country']);
       }
-      if ($credentials['state'] && $credentials['state'] !== $auth->getState()) {
+      if ($credentials['state'] && Str::title($credentials['state']) !== 'Null' && $credentials['state'] !== $auth->getState()) {
         $auth->state = Str::title($credentials['state']);
       }
       if ($credentials['subscriber_updates'] !== $auth->subscriber_updates) {
