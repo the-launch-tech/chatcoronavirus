@@ -28,18 +28,18 @@ function LeftBar({ topUsers, trendingPosts, recentComments, togglePane, pane }) 
           <li className="left-bar-stat-alert w-100">Code</li>
           <li className="left-bar-stat-alert w-50">
             <span className="blue">
-              <i className="fal fa-notes-medical"></i> 276,339
+              <i className="fal fa-notes-medical"></i> 353,848
             </span>
             <span className="yellow">
-              <i className="fal fa-procedures"></i> 175,192
+              <i className="fal fa-procedures"></i> 239,222
             </span>
           </li>
           <li className="left-bar-stat-alert w-50">
             <span className="red">
-              <i className="fal fa-crosshairs"></i> 11,436
+              <i className="fal fa-crosshairs"></i> 15,358
             </span>
             <span className="green">
-              <i className="fal fa-shield-check"></i> 89,711
+              <i className="fal fa-shield-check"></i> 99,268
             </span>
           </li>
         </ul>
