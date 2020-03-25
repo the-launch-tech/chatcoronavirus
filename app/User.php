@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Debugbar;
 use Mail;
 use App\Mail\SubscriberUpdate;
 use App\Mail\MalpracticeUpdate;
@@ -301,9 +300,7 @@ class User extends Authenticatable implements JWTSubject {
   }
 
   public function setBanner($file, bool $edit = false) : self {
-    Debugbar::info('SET BANNER', $file, $edit);
     if ($file) {
-      Debugbar::info('HAS FILE', $file);
       $uploader = new ImageUploader([
         'file' => $file,
         'prefix' => 'banners',
@@ -314,18 +311,13 @@ class User extends Authenticatable implements JWTSubject {
         'resize' => true,
         'model' => $this
       ]);
-      Debugbar::info('UPLAODER CREATED', $uploader);
       $this->banner = $uploader
         ->upload()
         ->resize()
         ->compress()
         ->getFilename();
-      Debugbar::info('SAVE BANNER', $this->banner);
     } elseif (!$this->banner) {
       $this->banner = 'banners/default-banner-1.jpg';
-      Debugbar::info('DEFAULT BANNER', $this->banner);
-    } else {
-      Debugbar::info('NO BANNER');
     }
     return $this;
   }

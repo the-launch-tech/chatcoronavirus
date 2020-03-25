@@ -8,7 +8,6 @@ use Hash;
 use Mail;
 use Crypt;
 use JWTAuth;
-use Debugbar;
 use Carbon\Carbon;
 use Exception;
 use App\User;
@@ -149,8 +148,6 @@ class AuthController extends Controller {
     );
     $avatarFile = $request->file('avatar');
     $bannerFile = $request->file('banner');
-    Debugbar::find('$avatarFile', $avatarFile);
-    Debugbar::find('$bannerFile', $bannerFile);
     try {
       $auth = User::where('email', $credentials['email'])->first();
       $auth->setAvatar($avatarFile, true);
