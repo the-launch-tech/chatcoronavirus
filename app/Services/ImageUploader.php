@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Debugbar;
 use File;
 use Carbon\Carbon;
 
@@ -18,16 +19,19 @@ class ImageUploader {
   }
 
   public function upload() : self {
+    Debugbar::info('upload()');
     $this->originalname = Carbon::now()->format('YmdHHmmss') . '_' . $this->model->getId() . '.' . $this->file->getClientOriginalExtension();
     $this->thumbnailname = Carbon::now()->format('YmdHHmmss') . '_' . $this->model->getId() . '_thumbnail.' . $this->file->getClientOriginalExtension();
     $this->fullOriginalPath = public_path('storage/' . $this->prefix . '/' . $this->originalname);
     $this->fullThumbnailPath = public_path('storage/' . $this->prefix . '/' . $this->thumbnailname);
     $this->file->storeAs($this->prefix, $this->originalname, ['disk' => 'public']);
     $this->file->storeAs($this->prefix, $this->thumbnailname, ['disk' => 'public']);
+    Debugbar::info('uploaded', $this->originalname, $this->thumbnailname, $this->fullOriginalPath, $this->fullThumbnailPath);
     return $this;
   }
 
   public function compress() : self {
+    Debugbar::info('compress()');
     $filepath = $this->resize ? $this->fullThumbnailPath : $this->fullOriginalPath;
     $mime = mime_content_type($filepath);
     $output = new \CURLFile($filepath, $mime, $this->resize ? $this->thumbnailname : $this->originalname);
@@ -55,6 +59,7 @@ class ImageUploader {
   }
 
   public static function resize_image($fileObj, $file, $w, $h, $crop=FALSE) {
+    Debugbar::info('resize_image()');
     list($width, $height) = getimagesize($file);
     $r = $width / $height;
     if ($crop) {
@@ -92,11 +97,13 @@ class ImageUploader {
   }
 
   public function resize() : self {
+    Debugbar::info('resize()');
     $this->resizedImage = self::resize_image($this->file, $this->fullThumbnailPath, $this->width, $this->height);
     return $this;
   }
 
   public function getFilename() : string {
+    Debugbar::info('getFilename()');
     return $this->resize ? "{$this->prefix}/{$this->thumbnailname}" : "{$this->prefix}/{$this->originalname}";
   }
 

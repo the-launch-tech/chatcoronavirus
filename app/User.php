@@ -314,6 +314,7 @@ class User extends Authenticatable implements JWTSubject {
         'resize' => true,
         'model' => $this
       ]);
+      Debugbar::info('UPLAODER CREATED', $uploader);
       $this->banner = $uploader
         ->upload()
         ->resize()
