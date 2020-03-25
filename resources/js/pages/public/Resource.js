@@ -39,7 +39,7 @@ function Resource({ title, page, dispatch, auth, isAuthenticated, access, match 
 
   useEffect(() => {
     dispatch(actions.AUX.updatePageTitle({ pageTitle: `${resource.title}`, showCurrent: false }))
-  }, [thread])
+  }, [resource])
 
   return (
     <React.Fragment>
