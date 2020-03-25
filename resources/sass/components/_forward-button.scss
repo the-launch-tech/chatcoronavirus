@@ -1,0 +1,39 @@
+.forward-button {
+  position: absolute;
+  top: 40px;
+  left: 48px;
+  @include hover-transition($hl_red, $hl_orange);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 2px $primary;
+  z-index: 10;
+
+  i {
+    font-size: 1.2rem;
+    font-weight: 900;
+  }
+
+  @media (max-width: 991px) {
+    right: 3px;
+    left: unset;
+    top: 1px;
+    width: 30px;
+    height: 30px;
+  }
+
+  @media (max-width: 599px) {
+    right: 3px;
+    left: unset;
+    top: 1px;
+    width: 24px;
+    height: 24px;
+
+    i {
+      font-size: 0.8rem;
+    }
+  }
+}

@@ -1,0 +1,19 @@
+.absolute-title {
+  position: absolute;
+  top: 0;
+  left: 6px;
+  font-weight: 600;
+  cursor: default;
+  margin: 0.25rem 0;
+  z-index: 10;
+
+  @media (max-width: 991px) {
+    left: unset;
+    right: 90px;
+  }
+
+  @media (max-width: 599px) {
+    left: unset;
+    right: 60px;
+  }
+}

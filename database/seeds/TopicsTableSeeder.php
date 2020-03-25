@@ -8,7 +8,7 @@ use App\Topic;
 class TopicsTableSeeder extends Seeder {
   public function run() {
     $user_id = User::where('email', 'daniel@thelaunch.tech')->first()->getId();
-    
+
     $topics = [
       ['slug' => 'economy', 'label' => 'Economy', 'description' => 'General content about the economy.', 'primary' => 1, 'user_id' => $user_id],
       ['slug' => 'localities', 'label' => 'Localities', 'description' => 'Specific information about localities across the world.', 'primary' => 1, 'user_id' => $user_id],

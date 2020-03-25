@@ -6,8 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreatePostsTable extends Migration {
   public function up() {
-    Schema::dropIfExists('pin_user');
-
     Schema::create('posts', function (Blueprint $t) {
       $t->engine = 'InnoDB';
 
@@ -20,12 +18,16 @@ class CreatePostsTable extends Migration {
       $t->integer('views')->default(0);
 
       $t->uuid('format_id')->index();
+      $t->uuid('user_id')->index();
+      $t->uuid('chat_id')->index()->nullable();
 
       $t->timestampsTz();
     });
 
     Schema::table('posts', function($t) {
       $t->foreign('format_id')->references('id')->on('formats');
+      $t->foreign('user_id')->references('id')->on('users');
+      $t->foreign('chat_id')->references('id')->on('posts');
     });
   }
 

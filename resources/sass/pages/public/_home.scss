@@ -1,65 +1,58 @@
-#page-wrapper {
+#page-content {
   &.home {
-    @include page-wrapper;
+    @include page-content-started;
+    @include page-content-padding;
+    position: relative;
 
-    #page-content {
-      @include page-content-started;
-      @include page-content-padding;
+    .home-content {
+      @include page-content-centered;
 
-      .home-content {
-        @include page-content-centered;
+      .home-timeline {
+        text-align: center;
+      }
+    }
 
-        .home-timeline {
-          text-align: center;
-        }
+    .home-intro {
+      .home-features {
+        max-width: 700px;
+        margin: 2rem auto 4rem;
 
-        .home-timeline-list {
-          @include archive-list;
+        .home-feature {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+
+          &:before {
+            font-family: 'Font Awesome 5 Pro';
+            content: '\f00c';
+            font-weight: 900;
+            margin: 0 1rem 0 0;
+            color: $hl_green;
+          }
         }
       }
 
-      .home-intro {
-        .home-features {
-          max-width: 700px;
-          margin: 2rem auto 4rem;
+      .home-links {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 2rem 0;
+        flex-wrap: wrap;
+        text-align: center;
 
-          .home-feature {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
+        .home-link {
+          margin: 0 2%;
+          width: 40%;
+          padding-left: 0;
+          padding-right: 0;
 
-            &:before {
-              font-family: 'Font Awesome 5 Pro';
-              content: '\f00c';
-              font-weight: 900;
-              margin: 0 1rem 0 0;
-              color: $hl_green;
-            }
-          }
-        }
+          i {
+            margin-left: 0.7rem;
+            font-size: 1.2rem;
 
-        .home-links {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          margin: 2rem 0;
-          flex-wrap: wrap;
-          text-align: center;
-
-          .home-link {
-            margin: 0 2%;
-            width: 40%;
-            padding-left: 0;
-            padding-right: 0;
-
-            i {
-              margin-left: 0.7rem;
-              font-size: 1.2rem;
-
-              @media (max-width: 599px) {
-                margin-left: 0.3rem;
-                font-size: 1rem;
-              }
+            @media (max-width: 599px) {
+              margin-left: 0.3rem;
+              font-size: 1rem;
             }
           }
         }

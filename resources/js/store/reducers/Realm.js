@@ -1,22 +1,21 @@
-import * as ActionTypes from '../action-types'
-import Http from '../../Http'
+import TYPES from '../action-types'
+import merge from '../utilities/merge'
+import initialState from '../utilities/initialState'
 
-const { log } = console
+const { log, error } = console
 
-const initialState = {
-  realms: [],
-}
+const { REALM } = TYPES
 
-export default (state = initialState, { type, payload = null }) => {
+export default (state = initialState.REALM, { type, payload = null }) => {
   switch (type) {
-    case ActionTypes.REALMS_ALL:
-      return realmsAll(state, payload)
+    case REALM.ALL:
+      return getAll(state, payload)
     default:
       return state
   }
 }
 
-const realmsAll = (state, payload) => {
+const getAll = (state, payload) => {
   return Object.assign({}, state, {
     realms: payload.realms,
   })

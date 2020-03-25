@@ -9,11 +9,13 @@ import Routes from './routes/Routes'
 import Main from './Main'
 import mainRoutes from './routes/main'
 import Http from './Http'
-import getScreenSize from './helpers/getScreenSize'
+import getScreen from './store/utilities/getScreen'
+import getTimelineContent from './store/utilities/getTimelineContent'
+import getTheme from './store/utilities/getTheme'
 import jwtToken from './store/utilities/token'
 import isExpired from './store/utilities/isExpired'
 import unsetAuth from './store/utilities/unsetAuth'
-import * as action from './store/actions'
+import actions from './store/actions'
 
 const renderApp = () => {
   render(
@@ -35,50 +37,47 @@ if (token) {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token')
 }
 
-store.dispatch(action.authCheck())
+store.dispatch(actions.AUTH.check())
 
-if (localStorage.getItem('cc_theme')) {
-  store.dispatch(action.auxTheme(localStorage.getItem('cc_theme')))
-} else {
-  store.dispatch(action.auxTheme('nighttime'))
-}
-
-getScreenSize(store.dispatch)
+getTheme(store.dispatch)
+getTimelineContent(store.dispatch)
+getScreen(store.dispatch)
+window.addEventListener('resize', e => getScreen(store.dispatch))
 
 Http.defaults.headers.common['Authorization'] = `Bearer ${jwtToken()}`
 
 Http.get('/api/topics', { params: { primary: 1 } })
-  .then(({ data }) => store.dispatch(action.topicsPrimary(data)))
+  .then(({ data }) => store.dispatch(actions.TOPIC.getPrimary(data)))
   .catch(console.error)
 
 Http.get('/api/realms')
-  .then(({ data }) => store.dispatch(action.realmsAll(data)))
+  .then(({ data }) => store.dispatch(actions.REALM.getAll(data)))
   .catch(console.error)
 
 Http.get('/api/formats')
-  .then(({ data }) => store.dispatch(action.formatsAll(data)))
+  .then(({ data }) => store.dispatch(actions.FORMAT.getAll(data)))
   .catch(console.error)
 
 Http.get('/api/users', { params: { limit: 5, orderby: 'health_points', order: 'DESC' } })
-  .then(({ data }) => store.dispatch(action.usersTop(data)))
+  .then(({ data }) => store.dispatch(actions.USER.getTop(data)))
   .catch(console.error)
 
 Http.get('/api/posts/trending', {
   params: { limit: 5, formats: ['article', 'resource', 'thread'], trending_time: 10 },
 })
-  .then(({ data }) => store.dispatch(action.postsTrending(data)))
+  .then(({ data }) => store.dispatch(actions.POST.getTrending(data)))
   .catch(console.error)
 
 Http.get('/api/aux/google', { params: { limit: 10 } })
-  .then(({ data }) => store.dispatch(action.auxGoogle(data)))
+  .then(({ data }) => store.dispatch(actions.AUX.getGoogle(data)))
   .catch(console.error)
 
 if (!!jwtToken() && !isExpired()) {
   Http.get('/api/auth/user')
-    .then(({ data }) => store.dispatch(action.authGet(data.auth)))
+    .then(({ data }) => store.dispatch(actions.AUTH.get(data.auth)))
     .then(renderApp)
     .catch(err => {
-      store.dispatch(action.authGet(false))
+      store.dispatch(actions.AUTH.get(false))
       renderApp()
     })
 } else {

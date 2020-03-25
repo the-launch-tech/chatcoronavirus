@@ -24,7 +24,8 @@ class Post extends Model {
   const FORMATS = [
     'articles' => 'article',
     'threads' => 'thread',
-    'resources' => 'resource'
+    'resources' => 'resource',
+    'chats' => 'chat'
   ];
 
   protected $searchable = [
@@ -37,25 +38,26 @@ class Post extends Model {
 
   protected $table = 'posts';
 
-  protected $fillable = ['title', 'slug', 'excerpt', 'content', 'featured_image', 'views', 'format_id'];
+  protected $fillable = ['title', 'slug', 'excerpt', 'content', 'featured_image', 'views', 'format_id', 'user_id', 'chat_id'];
 
   public function format() {
     return $this->belongsTo('App\Format');
+  }
+
+  public function chat() {
+    return $this->belongsTo('App\Post', 'chat_id', 'id');
+  }
+
+  public function chats() {
+    return $this->hasMany('App\Post', 'chat_id', 'id');
   }
 
   public function comments() {
     return $this->hasMany('App\Comment');
   }
 
-  public function users() {
-    return $this->belongsToMany(
-      'App\User',
-      'post_user',
-      'post_id',
-      'user_id'
-      )
-      ->as('user')
-      ->withPivot(['primary']);
+  public function user() {
+    return $this->belongsTo('App\User');
   }
 
   public function topics() {
@@ -65,8 +67,7 @@ class Post extends Model {
       'post_id',
       'topic_id'
       )
-      ->as('topic')
-      ->withPivot(['primary']);
+      ->as('topic');
   }
 
   public function realms() {
@@ -86,8 +87,7 @@ class Post extends Model {
       'post_id',
       'user_id'
       )
-      ->as('pin')
-      ->withPivot(['email_updates']);
+      ->as('pin');
   }
 
   public function cures() {
@@ -149,13 +149,13 @@ class Post extends Model {
     return $this;
   }
 
-  public function withUser(User $User, bool $primary) {
-    $this->users()->attach($User, ['primary' => $primary]);
+  public function withUser(User $User) {
+    $this->user()->associate($User);
     return $this;
   }
 
-  public function withTopic(Topic $Topic, bool $primary = false) {
-    $this->topics()->attach($Topic, ['primary' => $primary]);
+  public function withTopic(Topic $Topic) {
+    $this->topics()->attach($Topic);
     return $this;
   }
 
@@ -209,6 +209,12 @@ class Post extends Model {
     return $this;
   }
 
+  public function associateUser($user_id, bool $edit = false) : self {
+    $User = User::findOrFail($user_id);
+    $this->withUser($User);
+    return $this;
+  }
+
   public function setFeaturedImage(string $format, $file, bool $edit = false) : self {
     if ($file) {
       $uploader = new ImageUploader([
@@ -233,7 +239,6 @@ class Post extends Model {
   }
 
   public function attachRealms(array $params, bool $edit = false) : self {
-    Debugbar::info($params);
     if (array_key_exists('realms', $params)) {
       if ($edit) {
         foreach ($this->realms as $oldRealm) {
@@ -271,25 +276,13 @@ class Post extends Model {
     return $this;
   }
 
-  public function attachUser($user_id, bool $edit = false) : self {
-    $User = User::findOrFail($user_id);
-    if ($edit && $User) {
-      $this->withUser($User, false);
-    } else if ($User) {
-      $this->withUser($User, true);
-    }
-    return $this;
-  }
-
   public static function getPosts(array $args = []) {
     $Format = Format::bySlug(self::FORMATS[$args['format']]);
 
     $query = self::where('format_id', $Format->getId());
 
     if (array_key_exists('user_id', $args)) {
-      $query->whereHas('users', function ($q) use ($args) {
-        $q->where('user_id', $args['user_id']);
-      });
+      $query->where('user_id', $args['user_id']);
     }
 
     if (array_key_exists('with', $args)) {
@@ -314,9 +307,7 @@ class Post extends Model {
     $query = self::where('format_id', $Format->getId());
 
     if (array_key_exists('user_id', $args)) {
-      $query->whereHas('users', function ($q) use ($args) {
-        $q->where('user_id', $args['user_id']);
-      });
+      $query->where('user_id', $args['user_id']);
     }
 
     if (array_key_exists('slug', $args)) {
@@ -333,6 +324,182 @@ class Post extends Model {
     $post = $query->first();
 
     return $post;
+  }
+
+  public static function error(string $type) : string {
+    return 'Error ' . $type . ' posts.';
+  }
+
+  public static function success(string $type) : string {
+    return 'Success ' . $type . ' posts.';
+  }
+
+  public function handleDelete() {
+    if ($this->featured_image && strpos($this->featured_image, 'default-post') !== true) {
+      if (File::exists($this->featured_image)) {
+        File::delete($this->featured_image);
+      }
+    }
+    return $this->delete();
+  }
+
+  public function incrementView() {
+    $this->views = $this->views += 1;
+    return $this->save();
+  }
+
+  public static function maxPages($query, $posts_per_page) {
+    return round($query->count() / $posts_per_page);
+  }
+
+  public function scopeWithRelations($query) {
+    return $query
+      ->withCount('comments')
+      ->withCount('cures')
+      ->withCount('pins')
+      ->withCount('chats')
+      ->with(['user' => function ($q) {
+        $q->withCount('subscribers');
+      }])
+      ->with(['topics' => function ($q) {
+        $q->select('slug', 'label');
+      }])
+      ->with(['realms' => function ($q) {
+        $q->select('slug', 'label');
+      }])
+      ->with('format');
+  }
+
+  public function scopeWithPagination($query, int $paged, int $posts_per_page) {
+    return $query
+      ->skip($posts_per_page * $paged)
+      ->take($posts_per_page);
+  }
+
+  public function scopeUserCured($query, User $User) {
+    return $query->orWhereHas('cures', function ($q) use ($User) {
+      $q->where('user_id', $User->getId());
+    });
+  }
+
+  public function scopeUserPinned($query, User $User) {
+    return $query->orWhereHas('pins', function ($q) use ($User) {
+      $q->where('user_id', $User->getId());
+    });
+  }
+
+  public function scopeUserAuthored($query, User $User) {
+    return $query->where('user_id', $User->getId());
+  }
+
+  public function scopeUserAssociatedPosts($query, string $username) {
+    $User = User::where('username', $username)->first();
+    return $query
+      ->userAuthored($User)
+      ->userPinned($User);
+  }
+
+  public function scopeAuthSubscribed($query, $auth_id) {
+    if ($auth_id) {
+      $query->whereHas('user', function ($q) use ($auth_id) {
+        $q->whereHas('subscribers', function ($q2) use ($auth_id) {
+          $q2->where('subscriber_id', '=', $auth_id);
+        });
+      });
+    }
+    return $query;
+  }
+
+  public function scopeSearchOrder($query, $search, string $orderby, string $order) {
+    if ($orderby === 'relevance' && $search) {
+      return $query->relevance($order);
+    } else if ($orderby === 'relevance') {
+      return $query->orderBy('created_at', $order);
+    } else {
+      return $query->orderBy($orderby, $order);
+    }
+  }
+
+  public function scopeWithCommentPreview($query, int $limit = 2) {
+    return $query->with(['comments' => function ($q) use ($limit) {
+      $q
+        ->orderBy('created_at', 'DESC')
+        ->where('comment_id', '=', null)
+        ->with('user')
+        ->limit($limit);
+    }]);
+  }
+
+  public function scopeWhereRealmSlugIn($query, $realms) {
+    if ($realms) {
+      return $query->whereHas('realms', function ($q) use ($realms) {
+        $q->whereIn('slug', '=', $realms);
+      });
+    }
+    return $query;
+  }
+
+  public function scopeWhereRealmSlug($query, $slug) {
+    if ($slug) {
+      return $query->whereHas('realms', function ($q) use ($slug) {
+        $q->where('slug', '=', $slug);
+      });
+    }
+    return $query;
+  }
+
+  public function scopeWhereTopicSlugIn($query, $topics) {
+    if ($topics) {
+      return $query->whereHas('topics', function ($q) use ($topics) {
+        $q->whereIn('slug', '=', $topics);
+      });
+    }
+    return $query;
+  }
+
+  public function scopeWhereTopicSlug($query, $slug) {
+    if ($slug) {
+      return $query->whereHas('topics', function ($q) use ($slug) {
+        $q->where('slug', '=', $slug);
+      });
+    }
+    return $query;
+  }
+
+  public function scopeWhereFormatSlugIn($query, $formats) {
+    if ($formats) {
+      return $query->whereHas('format', function ($q) use ($formats) {
+        $q->whereIn('slug', '=', $formats);
+      });
+    }
+    return $query;
+  }
+
+  public function scopeWhereFormatSlug($query, $slug) {
+    if ($slug) {
+      return $query->whereHas('format', function ($q) use ($slug) {
+        $q->where('slug', '=', $slug);
+      });
+    }
+    return $query;
+  }
+
+  public function scopeCreatedCutoff($query, $since) {
+    if ($since > 0) {
+      return $query->where('created_at', '>', Carbon::now()->subHours($since));
+    }
+    return $query;
+  }
+
+  public function scopeByArchiveGroup($query, $type, $slug) {
+    if ($type === 'format') {
+      return $query->whereFormatSlug($slug);
+    } elseif ($type === 'realm') {
+      return $query->whereRealmSlug($slug);
+    } elseif ($type === 'topic') {
+      return $query->whereTopicSlug($slug);
+    }
+    return $query;
   }
 
 }

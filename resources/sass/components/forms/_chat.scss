@@ -1,0 +1,37 @@
+.chat-form {
+  width: 100%;
+  margin-bottom: 2rem;
+
+  .form-title {
+    text-align: left;
+    padding: 0 1rem;
+  }
+
+  .form-content {
+    .form-block {
+      .form-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .form-cell {
+          .jodit_container {
+            opacity: 1;
+            transition: 0.2s;
+          }
+          button {
+            @include icon-spacing(0.4rem);
+          }
+        }
+
+        &.jodit-blur {
+          .form-cell {
+            .jodit_container {
+              opacity: 0.2;
+            }
+          }
+        }
+      }
+    }
+  }
+}

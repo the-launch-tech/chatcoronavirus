@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { withRouter } from 'react-router'
 import { NavLink, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import * as actions from '../store/actions'
+import actions from '../store/actions'
 import loader from '../helpers/loader'
 import currentNav from '../helpers/currentNav'
 import Http from '../Http'
@@ -40,7 +40,7 @@ function Header({
   function handleLogout(event) {
     event.preventDefault()
     Http.post('/api/auth/logout')
-      .then(res => dispatch(actions.authLogout()))
+      .then(res => dispatch(actions.AUTH.logout()))
       .catch(console.error)
   }
 
@@ -66,10 +66,14 @@ function Header({
     menuOptions.map(option => {
       if (option === className) {
         const subMenu = document.querySelector(option)
-        subMenu.classList.toggle('toggled-sub-menu')
+        if (subMenu) {
+          subMenu.classList.toggle('toggled-sub-menu')
+        }
       } else {
         const subMenu = document.querySelector(option)
-        subMenu.classList.remove('toggled-sub-menu')
+        if (subMenu) {
+          subMenu.classList.remove('toggled-sub-menu')
+        }
       }
     })
   }
@@ -77,7 +81,7 @@ function Header({
   return (
     <React.Fragment>
       <div className="logo-margin">
-        <span className="logo">{screen === 'desktop' ? 'Chat Coronavirus' : 'CC'}</span>
+        <span className="logo">{screen === 'desktop' ? 'ChatCoronavirus' : 'CC'}</span>
       </div>
       <nav className="left-nav">
         <div className={`left-nav-toggle ${toggled ? 'toggled-nav' : ''}`} onClick={toggleNav}>
@@ -231,7 +235,9 @@ function Header({
             defaultChecked={
               theme === 'nighttime' || localStorage.getItem('cc_theme') === 'nighttime'
             }
-            onClick={e => dispatch(actions.auxTheme(theme === 'daytime' ? 'nighttime' : 'daytime'))}
+            onClick={e =>
+              dispatch(actions.AUX.toggleTheme(theme === 'daytime' ? 'nighttime' : 'daytime'))
+            }
           />
           <label htmlFor="dn" className="toggle">
             <span className="toggle__handler">

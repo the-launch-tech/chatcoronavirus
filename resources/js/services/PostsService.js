@@ -1,74 +1,75 @@
 import Http from '../Http'
-import * as action from '../store/actions'
+import actions from '../store/actions'
 
 const { log } = console
 
+const routeReducer = {
+  USER_POST: async args => {
+    const { data } = await Http.get(`/api/${args.format}/${args.authId}/${args.slug}`)
+    return data
+  },
+  USER_POSTS: async args => {
+    const { data } = await Http.get(`/api/${args.format}/${args.authId}`)
+    return data
+  },
+  SINGLE: async args => {
+    const { data } = await Http.get(`/api/posts/${args.format}/${args.slug}`)
+    return data
+  },
+  EXPANSION: async args => {
+    const { data } = await Http.get(`/api/posts/expansion/${args.slug}`, {
+      params: args,
+    })
+    return data
+  },
+  POSTS: async args => {
+    const { data } = await Http.get(`/api/posts`, { params: args })
+    return data
+  },
+  ARCHIVE: async args => {
+    const { data } = await Http.get(`/api/posts/archive`, { params: args })
+    return data
+  },
+  SEARCH: async args => {
+    const { data } = await Http.get(`/api/posts/search`, { params: args })
+    return data
+  },
+  TRENDING: async args => {
+    const { data } = await Http.get(`/api/posts/trending`, { params: args })
+    return data
+  },
+  PUBLIC_TIMELINE: async args => {
+    const { data } = await Http.get(`/api/posts/timeline/public`, { params: args })
+    return data
+  },
+  PROFILE_TIMELINE: async args => {
+    const { data } = await Http.get(`/api/posts/timeline/profile/${args.username}`, {
+      params: args,
+    })
+    return data
+  },
+}
+
 export default {
-  incrementView: async id => {
+  get: async args => {
     try {
-      const { data } = await Http.put(`/api/posts/view/${id}`)
+      const routeAction = routeReducer[args.route]
+      return await routeAction(args)
+    } catch (err) {
+      throw err
+    }
+  },
+  incrementView: async args => {
+    try {
+      const { data } = await Http.put(`/api/posts/view/${args.postId}`)
       return data
     } catch (err) {
       throw err
     }
   },
-  getPost: async (format, slug) => {
+  save: async function(args) {
     try {
-      const { data } = await Http.get(`/api/posts/${format}/${slug}`)
-      return data
-    } catch (err) {
-      throw err
-    }
-  },
-  getSearch: async (paged, posts_per_page, args) => {
-    try {
-      const { data } = await Http.get(`/api/posts/search`, {
-        params: { paged, posts_per_page, ...args },
-      })
-      return data
-    } catch (err) {
-      throw err
-    }
-  },
-  getArchive: async (paged, posts_per_page, orderby, args) => {
-    try {
-      const { data } = await Http.get(`/api/posts/archive`, {
-        params: { paged, posts_per_page, orderby, ...args },
-      })
-      return data
-    } catch (err) {
-      throw err
-    }
-  },
-  getHomeList: async (paged, posts_per_page, orderby, auth) => {
-    try {
-      const { data } = await Http.get(`/api/posts/timeline`, {
-        params: { paged, posts_per_page, orderby, user_id: auth.id },
-      })
-      return data
-    } catch (err) {
-      throw err
-    }
-  },
-  getUserPosts: async (user_id, format) => {
-    try {
-      const { data } = await Http.get(`/api/${format}/${user_id}`)
-      return data
-    } catch (err) {
-      throw err
-    }
-  },
-  getUserPost: async (user_id, format, slug) => {
-    try {
-      const { data } = await Http.get(`/api/${format}/${user_id}/${slug}`)
-      return data
-    } catch (err) {
-      throw err
-    }
-  },
-  save: async function(formData, user_id, format) {
-    try {
-      const { data } = await Http.post(`/api/${format}/${user_id}`, formData)
+      const { data } = await Http.post(`/api/${args.format}/${args.authId}`, args.data)
       return data
     } catch (err) {
       const statusCode = err.response.status
@@ -86,9 +87,12 @@ export default {
       throw data
     }
   },
-  update: async function(formData, user_id, format, id) {
+  update: async function(args) {
     try {
-      const { data } = await Http.post(`/api/update/${format}/${user_id}/${id}`, formData)
+      const { data } = await Http.post(
+        `/api/update/${args.format}/${args.authId}/${args.postId}`,
+        args.data
+      )
       return data
     } catch (err) {
       const statusCode = err.response.status
@@ -106,9 +110,9 @@ export default {
       throw data
     }
   },
-  delete: async function(user_id, format, id) {
+  delete: async function(args) {
     try {
-      const { data } = await Http.delete(`/api/${format}/${user_id}/${id}`)
+      const { data } = await Http.delete(`/api/${args.format}/${args.authId}/${args.postId}`)
       return data
     } catch (err) {
       throw err

@@ -1,5 +1,5 @@
 export default {
-  auth: {
+  AUTH: {
     isAuthenticated: false,
     access: false,
     auth: {
@@ -18,34 +18,49 @@ export default {
     authPinned: [],
     authPostCured: [],
     authCommentCured: [],
+    authReported: [],
   },
-  topics: {
+  TOPIC: {
     topics: [],
     newTopics: [],
     primaryTopics: [],
   },
-  formats: {
+  REALM: {
+    realms: [],
+  },
+  FORMAT: {
     formats: [],
   },
-  aux: {
+  AUX: {
     googleUpdates: [],
     loading: true,
     subscriptionStore: {},
     pinStore: {},
     postCureStore: {},
     commentCureStore: {},
-    theme: 'nighttime',
     simpleDialogArgs: { active: false, content: '' },
+    theme: localStorage.getItem('cc_theme') ? localStorage.getItem('cc_theme') : 'nighttime',
     screen: localStorage.getItem('cc_screen') ? localStorage.getItem('cc_screen') : 'desktop',
+    timelineContent: localStorage.getItem('cc_timelineContent')
+      ? localStorage.getItem('cc_timelineContent')
+      : 'public',
+    pageTitle: {
+      current: null,
+      showCurrent: null,
+    },
   },
-  posts: {
-    recentPosts: [],
+  POST: {
+    trendingPosts: [],
+    expandedPost: false,
+    savedPost: false,
+    currentList: [],
+    fresh: false,
   },
-  comments: {
+  COMMENT: {
     recentComments: [],
     emptyCommentChildren: [],
   },
-  users: {
+  USER: {
     topUsers: [],
   },
 }

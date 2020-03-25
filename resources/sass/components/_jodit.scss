@@ -1,7 +1,7 @@
 .jodit_container {
   font-family: $body;
   font-size: 1rem;
-  background: $primary;
+  background-color: transparent;
   width: 100% !important;
 
   @media (max-width: 599px) {
@@ -17,12 +17,12 @@
   }
 
   .jodit_toolbar_container {
-    background-color: $base;
+    background-color: transparent;
 
     .jodit_toolbar {
       font-family: $body;
-      background: transparent;
-      border: 1px solid $primary;
+      background-color: transparent;
+      border: none;
 
       .jodit_icon {
         fill: $std_copy;
@@ -74,7 +74,7 @@
 
       .jodit_toolbar_list {
         .jodit_toolbar {
-          background-color: $base;
+          background-color: transparent;
 
           a {
             padding: 0.4rem 1rem;
@@ -279,20 +279,21 @@
   }
 
   .jodit_workplace {
-    border: 1px solid $primary;
+    border: none;
   }
 
   .jodit .jodit_workplace .jodit_wysiwyg,
   .jodit .jodit_workplace .jodit_wysiwyg_iframe,
   .jodit_container .jodit_workplace .jodit_wysiwyg,
-  .jodit_container .jodit_workplace .jodit_wysiwyg_iframe {
+  .jodit_container .jodit_workplace .jodit_wysiwyg_iframe,
+  .jodit_wysiwyg {
     background-color: $primary;
   }
 
   .jodit_statusbar {
     font-family: $body;
-    border: 1px solid $primary;
-    background-color: $base;
+    border: none;
+    background-color: transparent;
     display: flex;
     justify-content: center;
     align-items: center;

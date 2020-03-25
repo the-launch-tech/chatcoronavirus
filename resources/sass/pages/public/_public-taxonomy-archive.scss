@@ -1,34 +1,30 @@
-#page-wrapper {
+#page-content {
   &.public-taxonomy-archive {
-    @include page-wrapper;
+    @include page-content-padding;
 
-    #page-content {
-      @include page-content-padding;
+    h1 {
+      text-transform: uppercase;
+      text-align: center;
+    }
 
-      h1 {
-        text-transform: uppercase;
-        text-align: center;
+    .archive-content {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-direction: column;
+      width: 100%;
+      margin: 2rem auto;
+
+      .archive-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: stretch;
+        margin-bottom: 2rem;
       }
 
-      .archive-content {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        flex-direction: column;
-        width: 100%;
-        margin: 2rem auto;
-
-        .archive-list {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: flex-start;
-          align-items: stretch;
-          margin-bottom: 2rem;
-        }
-
-        .load-more-button {
-          @include load-more;
-        }
+      .load-more-button {
+        @include load-more;
       }
     }
   }

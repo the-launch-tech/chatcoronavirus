@@ -24,10 +24,6 @@ class TopicsController extends Controller {
     $topic->withUser(User::find($user_id));
     $saved = $topic->push();
     if ($saved) {
-      if (array_key_exists('topic_id', $params)) {
-        $topic->withTopic(Topic::find($params['topic_id']));
-        $topic->push();
-      }
       User::incrementHealthPoints($user_id);
       return response()->json(compact('topic'), 200);
     } else {

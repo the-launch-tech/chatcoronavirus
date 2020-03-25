@@ -15,11 +15,9 @@ function Dashboard({ children, auth, page, dispatch, match, location }) {
   }, [location.pathname, match.params])
 
   return (
-    <div id="page-wrapper" className={`page-wrapper ${children.props.page}`}>
-      <div id="page-content" className={`page-content ${children.props.page}`}>
-        <DashboardHeader auth={auth} />
-        {children}
-      </div>
-    </div>
+    <React.Fragment>
+      <DashboardHeader auth={auth} />
+      {children}
+    </React.Fragment>
   )
 }

@@ -8,53 +8,58 @@
     visibility: hidden;
     opacity: 1;
     position: absolute;
-    top: 6px;
-    right: -29px;
+    top: 4px;
+    right: -34px;
     transition: 0.2s;
     cursor: pointer;
-    width: 24px;
-    height: 24px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
-    border: solid 1px $std_copy;
-    background-color: $primary;
-    color: $std_copy;
+    border: solid 2px $primary;
+    color: $hl_red;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.1rem;
-    font-weight: 900;
-    -webkit-box-shadow: 1px 1px 15px -5px rgba(0, 0, 0, 0.8);
-    -moz-box-shadow: 1px 1px 15px -5px rgba(0, 0, 0, 0.8);
-    box-shadow: 1px 1px 15px -5px rgba(0, 0, 0, 0.8);
+
+    i {
+      font-size: 1.2rem;
+      font-weight: 900;
+    }
 
     &:hover {
-      border: solid 1px $hl_green;
-      background-color: $primary;
+      border: solid 2px $hl_green;
       color: $hl_green;
     }
 
     &:active {
-      border: solid 1px $hl_green;
-      background-color: $primary;
+      border: solid 2px $hl_green;
       color: $hl_green;
     }
 
     &.active-bar {
       padding-right: 1px;
-      border: solid 1px $hl_green;
-      background-color: $primary;
+      border: solid 2px $hl_green;
       color: $hl_green;
 
       &:hover {
         border: solid 2px $std_copy;
-        background-color: $primary;
         color: $std_copy;
       }
 
       &:active {
-        border: solid 1px $hl_green;
-        background-color: $primary;
+        border: solid 2px $hl_green;
         color: $hl_green;
+      }
+    }
+
+    @media (max-width: 599px) {
+      width: 24px;
+      height: 24px;
+      top: 2px;
+      right: -27px;
+
+      i {
+        font-size: 0.8rem;
       }
     }
   }

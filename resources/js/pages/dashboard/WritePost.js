@@ -6,7 +6,7 @@ import validationArgs from '../../helpers/validationArgs'
 import Validator from '../../helpers/validator'
 import mapTopics from '../../helpers/mapTopics'
 import loader from '../../helpers/loader'
-import * as actions from '../../store/actions'
+import actions from '../../store/actions'
 import defaultCredentials from '../../helpers/defaultCredentials'
 import resetFormFields from '../../helpers/resetFormFields'
 import PostsService from '../../services/PostsService'
@@ -56,9 +56,18 @@ function WritePost({
   const [hasErrors, setHasErrors] = useState(true)
 
   useEffect(() => {
+    dispatch(
+      actions.AUX.updatePageTitle({
+        pageTitle: `Write Post`,
+        showCurrent: false,
+      })
+    )
+  }, [])
+
+  useEffect(() => {
     if (responseError.isError) {
       dispatch(
-        actions.auxSimpleDialog({
+        actions.AUX.toggleSimpleDialog({
           active: true,
           content: '<p>' + responseError.text + '</p>',
         })
@@ -79,7 +88,7 @@ function WritePost({
       error = errors.title
     }
     dispatch(
-      actions.auxSimpleDialog({
+      actions.AUX.toggleSimpleDialog({
         active: true,
         content: '<p>' + error + '</p>',
       })
@@ -89,7 +98,7 @@ function WritePost({
   useEffect(() => {
     if (isSuccess) {
       dispatch(
-        actions.auxSimpleDialog({
+        actions.AUX.toggleSimpleDialog({
           active: true,
           content: '<p>Success Publishing!</p>',
         })
@@ -155,7 +164,7 @@ function WritePost({
 
   function submit(formData) {
     loader(dispatch, true)
-    PostsService.save(formData, auth.id, match.params.format)
+    PostsService.save({ data: formData, authId: auth.id, format: match.params.format })
       .then(res => {
         setIsSuccess(true)
         validator.reset()

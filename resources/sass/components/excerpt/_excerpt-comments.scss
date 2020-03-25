@@ -1,0 +1,56 @@
+.excerpt-comments {
+  padding: 1rem;
+  background-color: lighten($primary, 3%);
+  -webkit-box-shadow: inset 0 0 5px -3px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: inset 0 0 5px -3px rgba(0, 0, 0, 0.75);
+  box-shadow: inset 0 0 5px -3px rgba(0, 0, 0, 0.75);
+
+  .excerpt-comments-title {
+    margin: 0 0 0.4rem;
+    font-weight: 600;
+  }
+  .excerpt-comments-list {
+    padding-left: 1rem;
+
+    .excerpt-comment {
+      margin-top: 1rem;
+      padding: 0.2rem 0.2rem 0.2rem 1rem;
+      background-color: $primary;
+      border-radius: 4px;
+      -webkit-box-shadow: 1px 1px 8px -5px rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: 1px 1px 8px -5px rgba(0, 0, 0, 0.75);
+      box-shadow: 1px 1px 8px -5px rgba(0, 0, 0, 0.75);
+
+      .excerpt-comment-user {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin: 0 0 0.5rem;
+
+        .excerpt-comment-user-avatar {
+          width: 35px;
+          height: 35px;
+          object-fit: cover;
+          border-radius: 50%;
+          margin-right: 0.5rem;
+        }
+
+        .excerpt-comment-user-username {
+          margin: 0;
+          font-size: 1rem;
+        }
+      }
+
+      .excerpt-comment-content {
+        @include rich-snippet;
+      }
+    }
+  }
+
+  .excerpt-nocomments {
+    margin-top: 0;
+    padding: 0 0 0 1rem;
+    font-style: italic;
+    font-weight: 500;
+  }
+}

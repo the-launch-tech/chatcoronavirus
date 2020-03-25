@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
-import PostExcerpt from '../../common/excerpts/PostExcerpt'
-import PostService from '../../services/PostsService'
+import PostList from '../../common/posts/PostList'
+import PostsService from '../../services/PostsService'
 import mapAuth from '../../helpers/mapAuth'
 import loader from '../../helpers/loader'
-import * as action from '../../store/actions'
+import actions from '../../store/actions'
 
 const { log, error } = console
 
@@ -21,6 +21,12 @@ function Archive({ title, page, dispatch, type, slug, match, auth, isAuthenticat
   slug = match.params.slug ? match.params.slug : slug
 
   useEffect(() => {
+    dispatch(
+      actions.AUX.updatePageTitle({ pageTitle: `${toTitleCase(slug)} Archive`, showCurrent: true })
+    )
+  }, [])
+
+  useEffect(() => {
     setFresh(true)
     setPaged(0)
   }, [match.params, match.params.slug, match.params.format])
@@ -31,7 +37,9 @@ function Archive({ title, page, dispatch, type, slug, match, auth, isAuthenticat
     }
   }, [fresh])
 
-  useEffect(() => setEmpty(paged >= maxPages), [paged, maxPages])
+  useEffect(() => {
+    setEmpty(paged >= maxPages)
+  }, [paged, maxPages])
 
   useEffect(() => {
     if (loading) {
@@ -46,7 +54,14 @@ function Archive({ title, page, dispatch, type, slug, match, auth, isAuthenticat
   }
 
   function getArchive() {
-    PostService.getArchive(fresh ? 0 : paged, 20, 'created_at', { type, slug })
+    PostsService.get({
+      route: 'ARCHIVE',
+      paged: fresh ? 0 : paged,
+      posts_per_page: 5,
+      orderby: 'created_at',
+      type,
+      slug,
+    })
       .then(data => {
         if (fresh) {
           setMaxPages(data.total)
@@ -75,22 +90,8 @@ function Archive({ title, page, dispatch, type, slug, match, auth, isAuthenticat
   }
 
   return (
-    <div id="page-wrapper" className={`page-wrapper ${page}`}>
-      <div id="page-content" className={`page-content ${page}`}>
-        <h1>{toTitleCase(slug)} Archive</h1>
-        <div className="archive-content">
-          <div className="archive-list">
-            {posts.map((post, i) => (
-              <PostExcerpt key={i} post={post} />
-            ))}
-          </div>
-          {!loading && !empty && (
-            <button className="load-more-button green-btn md-btn" onClick={loadMore}>
-              <i className="fad fa-spinner"></i> Load More
-            </button>
-          )}
-        </div>
-      </div>
-    </div>
+    <React.Fragment>
+      <PostList posts={posts} loadMore={loadMore} empty={empty} />
+    </React.Fragment>
   )
 }

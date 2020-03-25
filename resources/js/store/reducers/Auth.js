@@ -1,4 +1,4 @@
-import * as ActionTypes from '../action-types'
+import TYPES from '../action-types'
 import Http from '../../Http'
 import getUrl from '../../helpers/getUrl'
 import initialState from '../utilities/initialState'
@@ -11,34 +11,38 @@ import unsetAuth from '../utilities/unsetAuth'
 
 const { log } = console
 
-export default (state = initialState.auth, { type, payload = null }) => {
+const { AUTH } = TYPES
+
+export default (state = initialState.AUTH, { type, payload = null }) => {
   switch (type) {
-    case ActionTypes.AUTH_SET:
-      return authSet(state, payload)
-    case ActionTypes.AUTH_LOGIN:
-      return authLogin(state, payload)
-    case ActionTypes.AUTH_CHECK:
-      return authCheck(state)
-    case ActionTypes.AUTH_GET:
-      return authGet(state, payload)
-    case ActionTypes.AUTH_UPDATE:
-      return authUpdate(state, payload)
-    case ActionTypes.AUTH_LOGOUT:
-      return authLogout(state)
-    case ActionTypes.AUTH_SUBSCRIBED:
-      return authSetSubscribed(state, payload)
-    case ActionTypes.AUTH_PINNED:
-      return authSetPinned(state, payload)
-    case ActionTypes.AUTH_POST_CURED:
-      return authSetPostCured(state, payload)
-    case ActionTypes.AUTH_COMMENT_CURED:
-      return authSetCommentCured(state, payload)
+    case AUTH.SET:
+      return set(state, payload)
+    case AUTH.LOGIN:
+      return login(state, payload)
+    case AUTH.CHECK:
+      return check(state)
+    case AUTH.GET:
+      return get(state, payload)
+    case AUTH.UPDATE:
+      return update(state, payload)
+    case AUTH.LOGOUT:
+      return logout(state)
+    case AUTH.SUBSCRIBED:
+      return setSubscribed(state, payload)
+    case AUTH.PINNED:
+      return setPinned(state, payload)
+    case AUTH.POST_CURED:
+      return setPostCured(state, payload)
+    case AUTH.COMMENT_CURED:
+      return setCommentCured(state, payload)
+    case AUTH.REPORTED:
+      return setReported(state, payload)
     default:
       return state
   }
 }
 
-function authSet(state, { token }) {
+function set(state, { token }) {
   Http.defaults.headers.common['Authorization'] = `Bearer ${token}`
   jwtToken('set', token)
   ttl('set', new Date())
@@ -47,16 +51,20 @@ function authSet(state, { token }) {
   })
 }
 
-function authLogin(state, { auth }) {
+function login(state, { auth }) {
   access('set', auth.access)
   return merge(state, {
     isAuthenticated: !!jwtToken(),
     access: access(),
     auth,
+    authSubscribed: auth ? auth.subscriptions.map(sub => sub.subscription.subscription_id) : [],
+    authPinned: auth ? auth.pins.map(sub => sub.pin.post_id) : [],
+    authPostCured: auth ? auth.post_cures.map(sub => sub.post_cure.post_id) : [],
+    authCommentCured: auth ? auth.comment_cures.map(sub => sub.comment_cure.comment_id) : [],
   })
 }
 
-function authCheck(state) {
+function check(state) {
   if (isExpired()) {
     unsetAuth()
   }
@@ -67,7 +75,7 @@ function authCheck(state) {
   })
 }
 
-function authGet(state, payload) {
+function get(state, payload) {
   if (!payload) {
     unsetAuth()
   }
@@ -76,14 +84,16 @@ function authGet(state, payload) {
     isAuthenticated: !!jwtToken(),
     access: access(),
     auth: payload,
-    authSubscribed: payload.subscriptions.map(sub => sub.subscription.subscription_id),
-    authPinned: payload.pins.map(sub => sub.pin.post_id),
-    authPostCured: payload.post_cures.map(sub => sub.post_cure.post_id),
-    authCommentCured: payload.comment_cures.map(sub => sub.comment_cure.comment_id),
+    authSubscribed: payload
+      ? payload.subscriptions.map(sub => sub.subscription.subscription_id)
+      : [],
+    authPinned: payload ? payload.pins.map(sub => sub.pin.post_id) : [],
+    authPostCured: payload ? payload.post_cures.map(sub => sub.post_cure.post_id) : [],
+    authCommentCured: payload ? payload.comment_cures.map(sub => sub.comment_cure.comment_id) : [],
   })
 }
 
-function authUpdate(state, { auth }) {
+function update(state, { auth }) {
   return merge(state, {
     isAuthenticated: !!jwtToken(),
     access: access(),
@@ -91,7 +101,7 @@ function authUpdate(state, { auth }) {
   })
 }
 
-function authLogout(state) {
+function logout(state) {
   unsetAuth()
   window.location.href = getUrl()
   return merge(state, {
@@ -101,7 +111,7 @@ function authLogout(state) {
   })
 }
 
-function authSetSubscribed(state, { auth, subscribed, itemId }) {
+function setSubscribed(state, { auth, subscribed, itemId }) {
   return merge(state, {
     authSubscribed: subscribed
       ? [...state.authSubscribed, itemId]
@@ -109,7 +119,7 @@ function authSetSubscribed(state, { auth, subscribed, itemId }) {
   })
 }
 
-function authSetPinned(state, { auth, pinned, itemId }) {
+function setPinned(state, { auth, pinned, itemId }) {
   return merge(state, {
     authPinned: pinned
       ? [...state.authPinned, itemId]
@@ -117,7 +127,7 @@ function authSetPinned(state, { auth, pinned, itemId }) {
   })
 }
 
-function authSetPostCured(state, { auth, postCured, itemId }) {
+function setPostCured(state, { auth, postCured, itemId }) {
   return merge(state, {
     authPostCured: postCured
       ? [...state.authPostCured, itemId]
@@ -125,10 +135,18 @@ function authSetPostCured(state, { auth, postCured, itemId }) {
   })
 }
 
-function authSetCommentCured(state, { auth, commentCured, itemId }) {
+function setCommentCured(state, { auth, commentCured, itemId }) {
   return merge(state, {
     authCommentCured: commentCured
       ? [...state.authCommentCured, itemId]
       : state.authCommentCured.filter(item => item !== itemId),
+  })
+}
+
+function setReported(state, { auth, reported, itemId }) {
+  return merge(state, {
+    authReported: reported
+      ? [...state.authReported, itemId]
+      : state.authReported.filter(item => item !== itemId),
   })
 }

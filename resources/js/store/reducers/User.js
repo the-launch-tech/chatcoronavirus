@@ -1,20 +1,21 @@
-import * as ActionTypes from '../action-types'
-import Http from '../../Http'
+import TYPES from '../action-types'
 import merge from '../utilities/merge'
 import initialState from '../utilities/initialState'
 
-const { log } = console
+const { log, error } = console
 
-export default (state = initialState.users, { type, payload = null }) => {
+const { USER } = TYPES
+
+export default (state = initialState.USER, { type, payload = null }) => {
   switch (type) {
-    case ActionTypes.USERS_TOP:
-      return usersTop(state, payload)
+    case USER.TOP:
+      return getTop(state, payload)
     default:
       return state
   }
 }
 
-const usersTop = (state, payload) => {
+const getTop = (state, payload) => {
   return merge(state, {
     topUsers: payload.users,
   })

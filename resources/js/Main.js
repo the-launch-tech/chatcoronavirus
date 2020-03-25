@@ -6,25 +6,17 @@ import LeftBar from './common/LeftBar'
 import RightBar from './common/RightBar'
 import Footer from './common/Footer'
 import SimpleDialog from './common/utils/SimpleDialog'
-import mapAuth from './helpers/mapAuth'
-import getScreenSize from './helpers/getScreenSize'
 
 const { log, error } = console
 
-const mapStateToProps = ({ Aux }) => {
+export default connect(({ Aux }) => {
   return {
     loading: Aux.loading,
-    screen: Aux.screen,
   }
-}
+})(Main)
 
-export default connect(mapStateToProps)(function({ loading, children, dispatch }) {
+function Main({ loading, children, dispatch }) {
   const [pane, setPane] = useState(false)
-
-  useEffect(() => {
-    getScreenSize(dispatch)
-    window.addEventListener('resize', () => getScreenSize(dispatch))
-  }, [])
 
   function togglePane() {
     setPane(!pane)
@@ -32,15 +24,6 @@ export default connect(mapStateToProps)(function({ loading, children, dispatch }
 
   return (
     <React.Fragment>
-      <div
-        id="loader-wrapper"
-        className={`loader-wrapper ${loading ? 'is-loading' : 'is-not-loading'}`}
-      >
-        <div id="loader-item" className="loader-item">
-          <div></div>
-          <div></div>
-        </div>
-      </div>
       <header id="header">
         <Header />
       </header>
@@ -51,7 +34,18 @@ export default connect(mapStateToProps)(function({ loading, children, dispatch }
         <section id="left-bar" className={pane ? 'active-bar' : ''}>
           <LeftBar pane={pane} togglePane={togglePane} />
         </section>
-        <article id="center">{children}</article>
+        <article id="center">
+          <div
+            id="loader-wrapper"
+            className={`loader-wrapper ${loading ? 'is-loading' : 'is-not-loading'}`}
+          >
+            <div id="loader-item" className="loader-item">
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+          {children}
+        </article>
       </main>
       <footer id="footer">
         <Footer />
@@ -59,4 +53,4 @@ export default connect(mapStateToProps)(function({ loading, children, dispatch }
       <SimpleDialog />
     </React.Fragment>
   )
-})
+}

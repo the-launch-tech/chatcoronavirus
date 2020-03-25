@@ -50,7 +50,7 @@ function AddTopic({ isAuthenticated, dispatch, auth }) {
 
   function submit(credentials) {
     loader(dispatch, true)
-    dispatch(TopicService.save(credentials, auth.id))
+    TopicService.save(credentials, auth.id, dispatch)
       .then(result => {
         setIsSuccess(true)
         setCredentials({

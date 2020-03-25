@@ -32,25 +32,21 @@ function PostSnippet({ isAuthenticated, auth, post, dispatch }) {
         >
           <h6 className="snippet-title post-snippet">{post.title}</h6>
         </Link>
-        {post.users ? (
-          <React.Fragment>
-            {post.users.map((user, i) => (
-              <Link
-                key={i}
-                className="snippet-subtitle-anchor post-snippet"
-                to={`/profile/${user.username}`}
-                onClick={() => loader(dispatch, true)}
-              >
-                <img
-                  className="snippet-avatar post-snippet"
-                  src={`/storage/${user.avatar}`}
-                  alt={user.username}
-                  title={user.username}
-                />
-                <span className="snippet-subtitle post-snippet">{user.username}</span>
-              </Link>
-            ))}
-          </React.Fragment>
+        {post.user ? (
+          <Link
+            key={i}
+            className="snippet-subtitle-anchor post-snippet"
+            to={`/profile/${post.user.username}`}
+            onClick={() => loader(dispatch, true)}
+          >
+            <img
+              className="snippet-avatar post-snippet"
+              src={`/storage/${post.user.avatar}`}
+              alt={post.user.username}
+              title={post.user.username}
+            />
+            <span className="snippet-subtitle post-snippet">{post.user.username}</span>
+          </Link>
         ) : (
           ''
         )}

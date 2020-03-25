@@ -1,14 +1,10 @@
-#page-wrapper {
+#page-content {
   &.login {
-    @include page-wrapper;
+    @include page-content-centered;
+    @include page-content-padding;
 
-    #page-content {
-      @include page-content-centered;
-      @include page-content-padding;
-
-      .form-wrapper {
-        width: 100%;
-      }
+    .form-wrapper {
+      width: 100%;
     }
   }
 }

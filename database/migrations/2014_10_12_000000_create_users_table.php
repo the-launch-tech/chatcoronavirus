@@ -23,9 +23,10 @@ class CreateUsersTable extends Migration {
       $t->boolean('comment_cure_updates')->default(false);
       $t->boolean('post_cure_updates')->default(false);
       $t->boolean('pin_updates')->default(false);
-      $t->boolean('subscriber_updates')->default(false);
+      $t->boolean('subscriber_updates')->default(true);
       $t->boolean('malpractice_updates')->default(false);
       $t->boolean('comment_updates')->default(true);
+      $t->boolean('chat_updates')->default(true);
       $t->boolean('at_updates')->default(true);
 
       $t->rememberToken();

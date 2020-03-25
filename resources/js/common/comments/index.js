@@ -7,7 +7,7 @@ import CommentsService from '../../services/CommentsService'
 import mapAuth from '../../helpers/mapAuth'
 import loader from '../../helpers/loader'
 import getUrl from '../../helpers/getUrl'
-import * as actions from '../../store/actions'
+import actions from '../../store/actions'
 
 const { log, error } = console
 
@@ -97,7 +97,7 @@ function Comments({ dispatch, postId, emptyCommentChildren, auth, postComments }
 
   function handleEmpty(parentId, total, newPaged) {
     if (total > -1 && total <= newPaged) {
-      dispatch(actions.commentEmptyChildren(parentId))
+      dispatch(actions.COMMENT.updateEmptyChildren(parentId))
     }
   }
 

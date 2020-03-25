@@ -41,11 +41,12 @@ Route::group(['middleware' => ['throttle:100000']], function () {
 
   Route::group(['prefix' => 'posts'], function () {
     Route::get('/', 'PostsController@posts');
-    Route::get('/trending', 'PostsController@trending');
-    Route::get('/timeline', 'PostsController@timeline');
-    Route::get('/pages', 'PostsController@maxPages');
     Route::get('/archive', 'PostsController@archive');
     Route::get('/search', 'PostsController@search');
+    Route::get('/trending', 'PostsController@trending');
+    Route::get('/timeline/public', 'PostsController@publicTimeline');
+    Route::get('/timeline/profile/{user_id}', 'PostsController@profileTimeline');
+    Route::get('/expansion/{slug}', 'PostsController@expansion');
     Route::get('/{format}/{slug}', 'PostsController@post');
     Route::put('/view/{post_id}', 'PostsController@view');
   });
@@ -111,6 +112,8 @@ Route::group(['middleware' => ['throttle:100000']], function () {
       Route::put('/{post_id}/{user_id}/{id}', 'CommentsController@edit');
       Route::delete('/{post_id}/{user_id}/{id}', 'CommentsController@delete');
     });
+
+    Route::post('/posts/chat/{user_id}', 'PostsController@saveChat');
 
     Route::post('/{format}/{user_id}', 'PostsController@savePost');
     Route::get('/{format}/{user_id}', 'PostsController@getUserPosts');

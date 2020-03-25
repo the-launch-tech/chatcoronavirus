@@ -6,7 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateCacheTable extends Migration {
   public function up() {
-      Schema::dropIfExists('cache');
     Schema::create('cache', function (Blueprint $t) {
       $t->string('key', 100)->unique();
       $t->text('value');

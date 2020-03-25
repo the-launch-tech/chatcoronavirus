@@ -3,6 +3,7 @@ import JoditEditor from 'jodit-react'
 import AddTopic from './AddTopic'
 import TopicCell from './TopicCell'
 import RealmCell from './RealmCell'
+import joditConfig from '../../helpers/joditConfig'
 
 const { log } = console
 
@@ -41,35 +42,7 @@ export default ({
           <JoditEditor
             ref={null}
             value={item.excerpt ? item.excerpt : ''}
-            config={{
-              readonly: false,
-              removeButtons: [
-                'source',
-                'font',
-                'brush',
-                'copyformat',
-                'symbol',
-                'fullsize',
-                'print',
-                'about',
-                'eraser',
-                'fontsize',
-                'paragraph',
-                'file',
-                'left',
-                'right',
-                'center',
-                'justify',
-                'superscript',
-                'subscript',
-                'strikethrough',
-                'paste',
-                'copy',
-                'cut',
-                'selectall',
-                'break',
-              ],
-            }}
+            config={joditConfig.excerpt}
             tabIndex={1}
             onBlur={newExcerpt => handleChange({ target: { name: 'excerpt', value: newExcerpt } })}
             onChange={null}
@@ -116,24 +89,10 @@ export default ({
           <JoditEditor
             ref={null}
             value={item.content ? item.content : '<p>Enter the body content!</p>'}
-            config={{
-              readonly: false,
-              removeButtons: [
-                'source',
-                'font',
-                'brush',
-                'copyformat',
-                'symbol',
-                'fullsize',
-                'print',
-                'about',
-                'eraser',
-              ],
-            }}
+            config={joditConfig.content}
             tabIndex={1}
-            onChange={newContent =>
-              handleChange({ target: { name: 'content', value: newContent } })
-            }
+            onBlur={newContent => handleChange({ target: { name: 'content', value: newContent } })}
+            onChange={null}
           />
           {errors.content && <span className="form-error sm-text">{errors.content}</span>}
         </div>

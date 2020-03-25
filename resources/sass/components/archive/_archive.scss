@@ -68,7 +68,7 @@
   }
 
   .archive-item-anchor {
-    color: $std_copy;
+    @include hover-transition($std_copy, $hl_red);
 
     .archive-item-title {
       font-size: 1rem;
@@ -76,24 +76,17 @@
 
       @media (max-width: 599px) {
         max-width: 70%;
+        font-size: 0.8rem;
       }
-    }
-
-    &:visited {
-      color: $std_copy;
-    }
-
-    &:hover {
-      color: $hl_red;
-    }
-
-    &:active {
-      color: $std_copy;
     }
   }
 
   .archive-item-created {
     font-size: 0.9rem;
+
+    @media (max-width: 599px) {
+      font-size: 0.7rem;
+    }
   }
 
   .archive-item-excerpt {
@@ -101,6 +94,8 @@
     margin-top: 1rem;
 
     @media (max-width: 599px) {
+      margin-top: 0.75rem;
+
       img {
         max-height: 200px;
         width: auto;

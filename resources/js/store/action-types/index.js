@@ -1,28 +1,19 @@
-export const AUTH_SET = 'AUTH_SET'
-export const AUTH_LOGIN = 'AUTH_LOGIN'
-export const AUTH_CHECK = 'AUTH_CHECK'
-export const AUTH_LOGOUT = 'AUTH_LOGOUT'
-export const AUTH_UPDATE = 'AUTH_UPDATE'
-export const AUTH_GET = 'AUTH_GET'
-export const AUTH_SUBSCRIBED = 'AUTH_SUBSCRIBED'
-export const AUTH_PINNED = 'AUTH_PINNED'
-export const AUTH_POST_CURED = 'AUTH_POST_CURED'
-export const AUTH_COMMENT_CURED = 'AUTH_COMMENT_CURED'
-export const TOPICS_ALL = 'TOPICS_ALL'
-export const TOPICS_PRIMARY = 'TOPICS_PRIMARY'
-export const TOPIC_SAVE = 'TOPIC_SAVE'
-export const REALMS_ALL = 'REALMS_ALL'
-export const FORMATS_ALL = 'FORMATS_ALL'
-export const AUX_GOOGLE = 'AUX_GOOGLE'
-export const AUX_LOADING = 'AUX_LOADING'
-export const AUX_SUBSCRIPTION_STORE = 'AUX_SUBSCRIPTION_STORE'
-export const AUX_PIN_STORE = 'AUX_PIN_STORE'
-export const AUX_POST_CURE_STORE = 'AUX_POST_CURE_STORE'
-export const AUX_COMMENT_CURE_STORE = 'AUX_COMMENT_CURE_STORE'
-export const AUX_THEME = 'AUX_THEME'
-export const AUX_SIMPLE_DIALOG = 'AUX_SIMPLE_DIALOG'
-export const AUX_SCREEN = 'AUX_SCREEN'
-export const COMMENTS_RECENT = 'COMMENTS_RECENT'
-export const COMMENT_EMPTY_CHILDREN = 'COMMENT_EMPTY_CHILDREN'
-export const POSTS_TRENDING = 'POSTS_TRENDING'
-export const USERS_TOP = 'USERS_TOP'
+import * as AUTH from './auth'
+import * as AUX from './aux'
+import * as COMMENT from './comment'
+import * as FORMAT from './format'
+import * as POST from './post'
+import * as REALM from './realm'
+import * as TOPIC from './topic'
+import * as USER from './user'
+
+export default {
+  AUTH,
+  AUX,
+  COMMENT,
+  FORMAT,
+  POST,
+  REALM,
+  TOPIC,
+  USER,
+}

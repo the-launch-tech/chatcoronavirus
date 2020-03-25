@@ -3,6 +3,7 @@ import JoditEditor from 'jodit-react'
 import AddTopic from './AddTopic'
 import TopicCell from './TopicCell'
 import RealmCell from './RealmCell'
+import joditConfig from '../../helpers/joditConfig'
 
 const { log } = console
 
@@ -61,22 +62,7 @@ export default ({
           <JoditEditor
             ref={null}
             value={item.content ? item.content : '<p>Enter the resource details!</p>'}
-            config={{
-              readonly: false,
-              inline: false,
-              removeButtons: [
-                'source',
-                'font',
-                'brush',
-                'copyformat',
-                'symbol',
-                'fullsize',
-                'print',
-                'about',
-                'eraser',
-              ],
-              toolbar: true,
-            }}
+            config={joditConfig.content}
             tabIndex={1}
             onBlur={newContent => handleChange({ target: { name: 'content', value: newContent } })}
             onChange={null}

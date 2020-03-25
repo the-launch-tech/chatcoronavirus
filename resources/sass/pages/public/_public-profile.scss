@@ -1,15 +1,17 @@
-#page-wrapper {
+#page-content {
   &.public-profile {
-    @include page-wrapper;
+    @include page-content-padding;
 
-    #page-content {
-      @include page-content-centered;
-      @include page-content-padding;
+    .page-title {
+    }
 
-      .feature-coming-soon-page {
-        margin: auto;
-        max-width: 500px;
-        padding: 1rem;
+    .page-archive {
+      .page-posts {
+      }
+    }
+
+    .page-archive-base {
+      button {
       }
     }
   }

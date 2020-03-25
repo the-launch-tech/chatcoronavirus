@@ -1,0 +1,2 @@
+export const RECENT = 'COMMENT.RECENT'
+export const EMPTY_CHILDREN = 'COMMENT.EMPTY_CHILDREN'

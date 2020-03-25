@@ -4,6 +4,7 @@
   width: 100%;
   height: 100%;
   padding-bottom: 2rem;
+  position: relative;
 }
 
 @mixin page-content-started {
@@ -27,11 +28,7 @@
   padding: $centerPadding;
 
   @media (max-width: 991px) {
-    padding: 2rem 1rem 1rem;
-  }
-
-  @media (max-width: 991px) {
-    padding: 1.5rem 0.35rem 0.5rem;
+    padding: 5rem 1rem 2rem;
   }
 }
 

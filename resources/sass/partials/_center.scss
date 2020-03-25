@@ -7,9 +7,23 @@
   border-right: solid 1px $greyscale;
   height: 100%;
   background-image: linear-gradient(45deg, $base, lighten($base, 3%));
+  position: relative;
 
   @media (max-width: 991px) {
     width: 100%;
     border: solid 1px transparent;
+  }
+
+  #page-wrapper {
+    @include page-wrapper;
+
+    #page-content {
+      opacity: 0;
+      transition: 0.3s;
+
+      &.active-page {
+        opacity: 1;
+      }
+    }
   }
 }

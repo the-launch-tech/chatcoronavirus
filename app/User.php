@@ -55,14 +55,7 @@ class User extends Authenticatable implements JWTSubject {
   }
 
   public function posts() {
-    return $this->belongsToMany(
-      'App\Post',
-      'post_user',
-      'user_id',
-      'post_id'
-      )
-      ->as('post')
-      ->withPivot(['primary']);
+    return $this->hasMany('App\Post');
   }
 
   public function pins() {
@@ -72,8 +65,7 @@ class User extends Authenticatable implements JWTSubject {
       'user_id',
       'post_id'
       )
-      ->as('pin')
-      ->withPivot(['email_updates']);
+      ->as('pin');
   }
 
   public function postCures() {
@@ -103,8 +95,7 @@ class User extends Authenticatable implements JWTSubject {
       'subscriber_id',
       'subscription_id'
     )
-    ->as('subscription')
-    ->withPivot(['email_updates']);
+    ->as('subscription');
   }
 
   public function subscribers() {
@@ -114,8 +105,7 @@ class User extends Authenticatable implements JWTSubject {
       'subscription_id',
       'subscriber_id'
     )
-    ->as('subscriber')
-    ->withPivot(['email_updates']);
+    ->as('subscriber');
   }
 
   public function reports() {
@@ -140,11 +130,6 @@ class User extends Authenticatable implements JWTSubject {
       ->withPivot(['reported_item_id', 'reported_item_table']);
   }
 
-  public function withPost(Post $Post) : self {
-    $this->posts()->attach($Post);
-    return $this;
-  }
-
   public function withSubscriber(User $User) : self {
     if ($this->subscriber_updates) {
       Mail::to($this->getEmail())->send(new SubscriberUpdate(['subscriber' => $User, 'subscription' => $this]));
@@ -163,7 +148,7 @@ class User extends Authenticatable implements JWTSubject {
   }
 
   public function withPostCure(Post $Post) : self {
-    $User = $Post->users()->where('primary', '=', 1)->first();
+    $User = $Post->user()->first();
     if ($User->post_cure_updates) {
       Mail::to($User->getEmail())->send(new PostCureUpdate(['cured_post' => $Post, 'post_author' => $User, 'post_curer' => $this]));
     }
@@ -172,7 +157,7 @@ class User extends Authenticatable implements JWTSubject {
   }
 
   public function withPin(Post $Post) : self {
-    $User = $Post->users()->where('primary', '=', 1)->first();
+    $User = $Post->user()->first();
     if ($User->pin_updates) {
       Mail::to($User->getEmail())->send(new PinUpdate(['pinned_post' => $Post, 'post_author' => $User, 'post_pinner' => $this]));
     }

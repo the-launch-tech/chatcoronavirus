@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
-import TermExcerpt from '../../common/excerpts/TermExcerpt'
+import TermExcerpt from '../../common/terms/TermExcerpt'
 import TopicService from '../../services/TopicService'
 import loader from '../../helpers/loader'
 import mapAuth from '../../helpers/mapAuth'
+import actions from '../../store/actions'
 
 const { log, error } = console
 
@@ -18,6 +19,8 @@ function TaxArchive({ title, page, dispatch, type, loading }) {
   const [maxPages, setMaxPages] = useState(-1)
 
   useEffect(() => {
+    dispatch(actions.AUX.updatePageTitle({ pageTitle: `${title} Archive`, showCurrent: true }))
+
     getArchive()
   }, [])
 
@@ -53,22 +56,19 @@ function TaxArchive({ title, page, dispatch, type, loading }) {
   }
 
   return (
-    <div id="page-wrapper" className={`page-wrapper ${page}`}>
-      <div id="page-content" className={`page-content ${page}`}>
-        <h1>{title} Archive</h1>
-        <div className="archive-content">
-          <div className="archive-list">
-            {terms.map((term, i) => (
-              <TermExcerpt key={i} term={term} />
-            ))}
-          </div>
-          {!loading && !empty && (
-            <button className="load-more-button green-btn md-btn" onClick={loadMore}>
-              <i className="fad fa-spinner"></i> Load More
-            </button>
-          )}
+    <React.Fragment>
+      <div className="archive-content">
+        <div className="archive-list">
+          {terms.map((term, i) => (
+            <TermExcerpt key={i} term={term} />
+          ))}
         </div>
+        {!loading && !empty && (
+          <button className="load-more-button green-btn md-btn" onClick={loadMore}>
+            <i className="fad fa-spinner"></i> Load More
+          </button>
+        )}
       </div>
-    </div>
+    </React.Fragment>
   )
 }

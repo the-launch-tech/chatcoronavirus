@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import mapAuth from '../../helpers/mapAuth'
 import SocialsService from '../../services/SocialsService'
-import * as actions from '../../store/actions'
+import actions from '../../store/actions'
 import iconCount from '../../helpers/iconCount'
 import getUrl from '../../helpers/getUrl'
 
@@ -25,7 +25,7 @@ function ButtonPin({
 
   useEffect(() => {
     dispatch(
-      actions.auxUpdatePinStore({
+      actions.AUX.updatePinStore({
         itemId,
         initial: pinStore[itemId] ? pinStore[itemId] : currentPins,
       })
@@ -35,7 +35,7 @@ function ButtonPin({
 
   useEffect(() => {
     dispatch(
-      actions.auxUpdatePinStore({
+      actions.AUX.updatePinStore({
         itemId,
         initial: pinStore[itemId] ? pinStore[itemId] : currentPins,
       })
@@ -51,7 +51,7 @@ function ButtonPin({
     event.preventDefault()
     if (!auth) {
       dispatch(
-        actions.auxSimpleDialog({
+        actions.AUX.toggleSimpleDialog({
           active: true,
           content:
             '<p>You must be <a href="' +
@@ -66,8 +66,8 @@ function ButtonPin({
     SocialsService.increment({ social: 'pins', authId: auth.id, itemId, type })
       .then(({ pinned }) => {
         const newCount = pinned ? (pinStore[itemId] || 0) + 1 : (pinStore[itemId] || 0) - 1
-        dispatch(actions.authSetPinned({ auth, pinned, itemId }))
-        dispatch(actions.auxUpdatePinStore({ newCount, itemId }))
+        dispatch(actions.AUTH.setPinned({ auth, pinned, itemId }))
+        dispatch(actions.AUX.updatePinStore({ newCount, itemId }))
       })
       .catch(error)
   }

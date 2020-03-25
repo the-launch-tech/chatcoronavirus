@@ -7,7 +7,7 @@ import Validator from '../../helpers/validator'
 import mapTopics from '../../helpers/mapTopics'
 import loader from '../../helpers/loader'
 import getUrl from '../../helpers/getUrl'
-import * as actions from '../../store/actions'
+import actions from '../../store/actions'
 import defaultCredentials from '../../helpers/defaultCredentials'
 import resetFormFields from '../../helpers/resetFormFields'
 import PostsService from '../../services/PostsService'
@@ -57,9 +57,18 @@ function EditPost({
   const [hasErrors, setHasErrors] = useState(false)
 
   useEffect(() => {
+    dispatch(
+      actions.AUX.updatePageTitle({
+        pageTitle: `Edit Post`,
+        showCurrent: false,
+      })
+    )
+  }, [])
+
+  useEffect(() => {
     if (responseError.isError) {
       dispatch(
-        actions.auxSimpleDialog({
+        actions.AUX.toggleSimpleDialog({
           active: true,
           content: '<p>' + responseError.text + '</p>',
         })
@@ -80,7 +89,7 @@ function EditPost({
       error = errors.title
     }
     dispatch(
-      actions.auxSimpleDialog({
+      actions.AUX.toggleSimpleDialog({
         active: true,
         content: '<p>' + error + '</p>',
       })
@@ -90,7 +99,7 @@ function EditPost({
   useEffect(() => {
     if (isSuccess) {
       dispatch(
-        actions.auxSimpleDialog({
+        actions.AUX.toggleSimpleDialog({
           active: true,
           content: '<p>Success Updating Post</p>',
         })
@@ -106,7 +115,12 @@ function EditPost({
   useEffect(() => {
     RealmService.get(dispatch)
     TopicService.get(dispatch)
-    PostsService.getUserPost(auth.id, match.params.format, match.params.slug).then(data => {
+    PostsService.get({
+      route: 'USER_POST',
+      authId: auth.id,
+      format: match.params.format,
+      slug: match.params.slug,
+    }).then(data => {
       setPost(data.post)
     })
   }, [])
@@ -170,7 +184,12 @@ function EditPost({
   async function submit(formData) {
     loader(dispatch, true)
     try {
-      const { message } = await PostsService.update(formData, auth.id, match.params.format, post.id)
+      const { message } = await PostsService.update({
+        data: formData,
+        authId: auth.id,
+        format: match.params.format,
+        postId: post.id,
+      })
       setIsSuccess(true)
       setResponseError({
         isError: false,
@@ -193,7 +212,7 @@ function EditPost({
 
   function destroy() {
     loader(dispatch, true)
-    PostsService.delete(auth.id, match.params.format, post.id)
+    PostsService.delete({ authId: auth.id, format: match.params.format, postId: post.id })
       .then(res => {
         setIsSuccess(true)
         setResponseError({

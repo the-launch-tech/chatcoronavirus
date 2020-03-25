@@ -12,8 +12,7 @@ class CreatePinsTable extends Migration {
       $t->bigIncrements('id');
 
       $t->uuid('user_id')->index();
-      $t->uuid('post_id')->index();
-      $t->boolean('email_updates')->default(false);
+      $t->uuid('post_id')->index()->nullable();
 
       $t->timestampsTz();
     });

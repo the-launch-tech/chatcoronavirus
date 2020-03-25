@@ -11,7 +11,6 @@ const mapStateToProps = ({ User, Post, Comment }) => {
   return {
     topUsers: User.topUsers,
     trendingPosts: Post.trendingPosts,
-    recentComments: Comment.recentComments,
   }
 }
 
@@ -21,25 +20,25 @@ function LeftBar({ topUsers, trendingPosts, recentComments, togglePane, pane }) 
   return (
     <div className="left-bar-container">
       <div className={`left-bar-toggle ${pane ? 'active-bar' : ''}`} onClick={togglePane}>
-        {pane ? <i className="fal fa-chevron-left"></i> : <i className="fal fa-chevron-right"></i>}
+        <i className="fad fa-th-list"></i>
       </div>
       <div className="left-bar-stats">
         <ul className="left-bar-stat-alerts">
           <li className="left-bar-stat-alert w-100">Code</li>
           <li className="left-bar-stat-alert w-50">
             <span className="blue">
-              <i className="fal fa-notes-medical"></i> 276,339
+              <i className="fal fa-notes-medical"></i> 423,935
             </span>
             <span className="yellow">
-              <i className="fal fa-procedures"></i> 175,192
+              <i className="fal fa-procedures"></i> 299,136
             </span>
           </li>
           <li className="left-bar-stat-alert w-50">
             <span className="red">
-              <i className="fal fa-crosshairs"></i> 11,436
+              <i className="fal fa-crosshairs"></i> 18,993
             </span>
             <span className="green">
-              <i className="fal fa-shield-check"></i> 89,711
+              <i className="fal fa-shield-check"></i> 105,806
             </span>
           </li>
         </ul>

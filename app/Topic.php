@@ -33,8 +33,7 @@ class Topic extends Model {
       'topic_id',
       'post_id'
       )
-      ->as('post')
-      ->withPivot(['primary']);
+      ->as('post');
   }
 
   public function getId() {
@@ -51,11 +50,6 @@ class Topic extends Model {
 
   public function getDescription() {
     return $this->description;
-  }
-
-  public function withTopic(self $topic) {
-    $this->topic()->associate($topic);
-    return $this;
   }
 
   public function withUser(User $user) {

@@ -1,0 +1,18 @@
+.page-title {
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.page-list {
+  @include page-content-started;
+
+  .page-list-items {
+    @include archive-list;
+  }
+
+  .page-list-base {
+    .load-more-button {
+      @include load-more;
+    }
+  }
+}

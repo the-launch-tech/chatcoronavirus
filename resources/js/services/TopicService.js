@@ -1,5 +1,5 @@
 import Http from '../Http'
-import * as action from '../store/actions'
+import actions from '../store/actions'
 
 const { log } = console
 
@@ -24,33 +24,31 @@ export default {
       throw err
     }
   },
-  save: function(credentials, user_id) {
-    return dispatch =>
-      new Promise((resolve, reject) => {
-        Http.post(`/api/topics/${user_id}`, credentials)
-          .then(res => dispatch(action.topicSave(res.data)))
-          .then(resolve)
-          .catch(err => {
-            const statusCode = err.response.status
-            const data = {
-              error: null,
-              statusCode,
-            }
-            if (statusCode === 422) {
-              Object.values(err.response.data.message).map((value, i) => {
-                data.error = value
-              })
-            } else if (statusCode === 400) {
-              data.error = err.response.data.message
-            }
-            return reject(data)
-          })
-      })
+  save: async function(credentials, user_id, dispatch) {
+    try {
+      const { data } = await Http.post(`/api/topics/${user_id}`, credentials)
+      dispatch(actions.TOPIC.save(data))
+      return
+    } catch (err) {
+      const statusCode = err.response.status
+      const data = {
+        error: null,
+        statusCode,
+      }
+      if (statusCode === 422) {
+        Object.values(err.response.data.message).map((value, i) => {
+          data.error = value
+        })
+      } else if (statusCode === 400) {
+        data.error = err.response.data.message
+      }
+      return data
+    }
   },
   get: async dispatch => {
     try {
       const { data } = await Http.get('/api/topics')
-      dispatch(action.topicsAll(data))
+      dispatch(actions.TOPIC.getAll(data))
     } catch (err) {
       throw err
     }

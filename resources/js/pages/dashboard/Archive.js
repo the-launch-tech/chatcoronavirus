@@ -7,6 +7,7 @@ import PostsService from '../../services/PostsService'
 import mapAuth from '../../helpers/mapAuth'
 import loader from '../../helpers/loader'
 import iconCount from '../../helpers/iconCount'
+import actions from '../../store/actions'
 
 const { log, error } = console
 
@@ -16,7 +17,16 @@ function Archive({ auth, dispatch, match }) {
   const [posts, setPosts] = useState([])
 
   useEffect(() => {
-    PostsService.getUserPosts(auth.id, match.params.format)
+    dispatch(
+      actions.AUX.updatePageTitle({
+        pageTitle: `Archive`,
+        showCurrent: false,
+      })
+    )
+  }, [])
+
+  useEffect(() => {
+    PostsService.get({ route: 'USER_POSTS', authId: auth.id, format: match.params.format })
       .then(data => {
         setPosts(data.posts)
       })

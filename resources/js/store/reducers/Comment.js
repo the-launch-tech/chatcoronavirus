@@ -1,28 +1,29 @@
-import * as ActionTypes from '../action-types'
-import Http from '../../Http'
+import TYPES from '../action-types'
 import merge from '../utilities/merge'
 import initialState from '../utilities/initialState'
 
-const { log } = console
+const { log, error } = console
 
-export default (state = initialState.comments, { type, payload = null }) => {
+const { COMMENT } = TYPES
+
+export default (state = initialState.COMMENT, { type, payload = null }) => {
   switch (type) {
-    case ActionTypes.COMMENTS_RECENT:
-      return commentsRecent(state, payload)
-    case ActionTypes.COMMENT_EMPTY_CHILDREN:
-      return commentEmptyChildren(state, payload)
+    case COMMENT.RECENT:
+      return getRecent(state, payload)
+    case COMMENT.EMPTY_CHILDREN:
+      return updateEmptyChildren(state, payload)
     default:
       return state
   }
 }
 
-const commentsRecent = (state, payload) => {
+const getRecent = (state, payload) => {
   return merge(state, {
     recentComments: payload.comments,
   })
 }
 
-const commentEmptyChildren = (state, payload) => {
+const updateEmptyChildren = (state, payload) => {
   return merge(state, {
     emptyCommentChildren: [...state.emptyCommentChildren, payload],
   })

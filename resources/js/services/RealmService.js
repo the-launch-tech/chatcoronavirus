@@ -1,5 +1,5 @@
 import Http from '../Http'
-import * as action from '../store/actions'
+import actions from '../store/actions'
 
 const { log } = console
 
@@ -7,7 +7,7 @@ export default {
   get: async dispatch => {
     try {
       const { data } = await Http.get('/api/realms')
-      dispatch(action.realmsAll(data))
+      dispatch(actions.REALM.getAll(data))
     } catch (err) {
       throw err
     }

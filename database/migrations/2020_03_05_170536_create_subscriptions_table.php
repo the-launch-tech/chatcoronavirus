@@ -13,7 +13,6 @@ class CreateSubscriptionsTable extends Migration {
 
       $t->uuid('subscriber_id')->index();
       $t->uuid('subscription_id')->index();
-      $t->boolean('email_updates')->default(false);
 
       $t->timestampsTz();
     });

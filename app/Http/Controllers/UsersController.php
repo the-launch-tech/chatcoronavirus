@@ -52,7 +52,7 @@ class UsersController extends Controller {
       } else {
         $User->withPin($Post);
         $pinned = $User->push();
-        $poster_id = $Post->users()->where('primary', 1)->first()->getId();
+        $poster_id = $Post->user()->first()->getId();
         User::incrementHealthPoints($poster_id, 3);
         User::incrementHealthPoints($user_id, 1);
       }
@@ -74,7 +74,7 @@ class UsersController extends Controller {
         } else {
           $User->withPostCure($Post);
           $cured = $User->push();
-          $poster_id = $Post->users()->where('primary', 1)->first()->getId();
+          $poster_id = $Post->user()->first()->getId();
           User::incrementHealthPoints($poster_id, 3);
           User::incrementHealthPoints($user_id, 1);
         }
@@ -126,11 +126,11 @@ class UsersController extends Controller {
       $Reporter = User::findOrFail($user_id);
       if ($type === 'post') {
         $Target = Post::findOrFail($item_id);
-        $TargetUser = $Target->users()->where('primary', 1)->first();
+        $TargetUser = $Target->user()->first();
         $itemTable = 'posts';
       } else if ($type === 'comment') {
         $Target = Comment::findOrFail($item_id);
-        $TargetUser = $Target->user();
+        $TargetUser = $Target->user()->first();
         $itemTable = 'comments';
       } else {
         throw new Exception('Missing Target In Report!');

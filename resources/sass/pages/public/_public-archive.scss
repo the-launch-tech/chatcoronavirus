@@ -1,31 +1,5 @@
-#page-wrapper {
+#page-content {
   &.public-archive {
-    @include page-wrapper;
-
-    #page-content {
-      @include page-content-padding;
-
-      h1 {
-        text-transform: uppercase;
-        text-align: center;
-      }
-
-      .archive-content {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        flex-direction: column;
-        width: 100%;
-        margin: 2rem auto;
-
-        .archive-list {
-          @include archive-list;
-        }
-
-        .load-more-button {
-          @include load-more;
-        }
-      }
-    }
+    @include page-content-padding;
   }
 }

@@ -1,224 +1,220 @@
-#page-wrapper {
+#page-content {
   &.resource {
-    @include page-wrapper;
+    @include page-content-padding;
 
-    #page-content {
-      @include page-content-padding;
+    .resource-single {
+      max-width: 1170px;
+      margin: auto;
 
-      .resource-single {
-        max-width: 1170px;
-        margin: auto;
+      .resource-header {
+        .resource-title {
+          text-transform: uppercase;
 
-        .resource-header {
-          .resource-title {
-            text-transform: uppercase;
+          @media (max-width: 991px) {
+            text-align: center;
+            padding-left: 5rem;
+            padding-right: 5rem;
+          }
+        }
+      }
 
-            @media (max-width: 991px) {
-              text-align: center;
-              padding-left: 5rem;
-              padding-right: 5rem;
+      .resource-subheader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        background-color: $primary;
+        border-radius: 40px;
+        padding: 0.4rem 1rem 0.4rem 0.4rem;
+        margin: 3rem auto;
+        width: 100%;
+        box-shadow: 1px 1px 14px -10px rgba(0, 0, 0, 0.75);
+
+        @media (max-width: 599px) {
+          padding-left: 1.4rem;
+          margin: 1rem auto 2.5rem;
+          background-color: transparent;
+          border-radius: 0;
+          padding: 0;
+        }
+
+        .resource-user {
+          width: 50%;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          background-color: $primary;
+          border-radius: 40px;
+          padding: 0.4rem 1rem 0.4rem 0.4rem;
+
+          @media (max-width: 599px) {
+            width: 100%;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+          }
+
+          .resource-user-anchor {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin: 0;
+
+            .resource-user-avatar {
+              @include avatar(50px, 1rem);
+
+              @media (max-width: 599px) {
+                @include avatar(40px, 0.8rem);
+              }
+            }
+
+            .resource-username {
+            }
+          }
+
+          .resource-usermeta {
+            margin-left: 2rem;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+
+            @media (max-width: 599px) {
+              justify-content: flex-start;
+            }
+
+            .resource-subscribe {
+              margin-right: 1.5rem;
+              font-weight: 700;
+              @include icon-spacing(0.3rem);
+              @include hover-transition($hl_blue, $std_copy);
+
+              @media (max-width: 599px) {
+                font-size: 0.7rem;
+              }
+            }
+
+            .resource-health_points {
+              margin-right: 1.5rem;
+              font-weight: 700;
+              @include icon-spacing(0.3rem);
+
+              @media (max-width: 599px) {
+                font-size: 0.7rem;
+              }
+            }
+
+            .resource-access {
+              font-weight: 700;
+
+              @media (max-width: 599px) {
+                font-size: 0.7rem;
+              }
             }
           }
         }
 
-        .resource-subheader {
+        .resource-details {
+          width: 50%;
           display: flex;
-          justify-content: space-between;
+          justify-content: flex-end;
           align-items: center;
           flex-wrap: wrap;
           background-color: $primary;
           border-radius: 40px;
           padding: 0.4rem 1rem 0.4rem 0.4rem;
-          margin: 3rem auto;
-          width: 100%;
-          box-shadow: 1px 1px 14px -10px rgba(0, 0, 0, 0.75);
 
           @media (max-width: 599px) {
-            padding-left: 1.4rem;
-            margin: 1rem auto 2.5rem;
-            background-color: transparent;
-            border-radius: 0;
-            padding: 0;
+            width: 100%;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            justify-content: space-between;
           }
 
-          .resource-user {
-            width: 50%;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            background-color: $primary;
-            border-radius: 40px;
-            padding: 0.4rem 1rem 0.4rem 0.4rem;
-
-            @media (max-width: 599px) {
-              width: 100%;
-              justify-content: space-between;
-              margin-bottom: 1rem;
-            }
-
-            .resource-user-anchor {
-              display: flex;
-              justify-content: flex-start;
-              align-items: center;
-              margin: 0;
-
-              .resource-user-avatar {
-                @include avatar(50px, 1rem);
-
-                @media (max-width: 599px) {
-                  @include avatar(40px, 0.8rem);
-                }
-              }
-
-              .resource-username {
-              }
-            }
-
-            .resource-usermeta {
-              margin-left: 2rem;
-              display: flex;
-              justify-content: flex-end;
-              align-items: center;
-
-              @media (max-width: 599px) {
-                justify-content: flex-start;
-              }
-
-              .resource-subscribe {
-                margin-right: 1.5rem;
-                font-weight: 700;
-                @include icon-spacing(0.3rem);
-                @include hover-transition($hl_blue, $std_copy);
-
-                @media (max-width: 599px) {
-                  font-size: 0.7rem;
-                }
-              }
-
-              .resource-health_points {
-                margin-right: 1.5rem;
-                font-weight: 700;
-                @include icon-spacing(0.3rem);
-
-                @media (max-width: 599px) {
-                  font-size: 0.7rem;
-                }
-              }
-
-              .resource-access {
-                font-weight: 700;
-
-                @media (max-width: 599px) {
-                  font-size: 0.7rem;
-                }
-              }
-            }
-          }
-
-          .resource-details {
-            width: 50%;
+          .resource-created {
+            @include icon-spacing(0.3rem);
+            font-weight: 600;
             display: flex;
             justify-content: flex-end;
             align-items: center;
-            flex-wrap: wrap;
-            background-color: $primary;
-            border-radius: 40px;
-            padding: 0.4rem 1rem 0.4rem 0.4rem;
+            margin-left: 1.5rem;
 
-            @media (max-width: 599px) {
+            @media (max-width: 991px) {
+              margin-top: 0.5rem;
               width: 100%;
-              margin-top: 1rem;
-              margin-bottom: 1rem;
-              justify-content: space-between;
             }
 
-            .resource-created {
-              @include icon-spacing(0.3rem);
-              font-weight: 600;
-              display: flex;
-              justify-content: flex-end;
-              align-items: center;
-              margin-left: 1.5rem;
+            @media (max-width: 599px) {
+              width: auto;
+              justify-content: flex-start;
+              margin-left: 0;
+              margin-top: 0;
+              font-size: 0.7rem;
+            }
+          }
 
-              @media (max-width: 991px) {
-                margin-top: 0.5rem;
-                width: 100%;
+          .resource-icons {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            width: 50%;
+
+            @media (max-width: 991px) {
+              width: 100%;
+            }
+
+            @media (max-width: 599px) {
+              width: auto;
+              justify-content: flex-start;
+              width: auto;
+            }
+
+            .resource-icon {
+              font-weight: 700;
+              margin-left: 1.5rem;
+              @include icon-spacing(0.3rem);
+
+              &.hoverable {
+                @include hover-transition($hl_green, $std_copy);
               }
 
               @media (max-width: 599px) {
-                width: auto;
-                justify-content: flex-start;
                 margin-left: 0;
-                margin-top: 0;
+                margin-right: 1.5rem;
                 font-size: 0.7rem;
               }
             }
-
-            .resource-icons {
-              display: flex;
-              justify-content: flex-end;
-              align-items: center;
-              width: 50%;
-
-              @media (max-width: 991px) {
-                width: 100%;
-              }
-
-              @media (max-width: 599px) {
-                width: auto;
-                justify-content: flex-start;
-                width: auto;
-              }
-
-              .resource-icon {
-                font-weight: 700;
-                margin-left: 1.5rem;
-                @include icon-spacing(0.3rem);
-
-                &.hoverable {
-                  @include hover-transition($hl_green, $std_copy);
-                }
-
-                @media (max-width: 599px) {
-                  margin-left: 0;
-                  margin-right: 1.5rem;
-                  font-size: 0.7rem;
-                }
-              }
-            }
           }
         }
+      }
 
-        .resource-body {
-          @include editor-content-styles('large');
-          img {
-            max-width: 100%;
-            height: auto;
-            object-fit: contain;
-          }
+      .resource-body {
+        @include editor-content-styles('large');
+        img {
+          max-width: 100%;
+          height: auto;
+          object-fit: contain;
+        }
+        iframe {
+          width: 480px;
+          height: 360px;
+        }
+
+        @media (max-width: 599px) {
           iframe {
-            width: 480px;
-            height: 360px;
-          }
-
-          @media (max-width: 599px) {
-            iframe {
-              width: 320px;
-              height: 240px;
-            }
+            width: 320px;
+            height: 240px;
           }
         }
+      }
 
-        .resource-footer {
-          margin: 5rem auto;
-          display: flex;
-          justify-content: flex-start;
-          align-items: flex-start;
-          flex-direction: column;
+      .resource-footer {
+        margin: 5rem auto;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
 
-          @media (max-width: 991px) {
-            margin: 3rem auto;
-          }
+        @media (max-width: 991px) {
+          margin: 3rem auto;
         }
       }
     }

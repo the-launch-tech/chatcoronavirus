@@ -1,9 +1,9 @@
-import * as actions from '../store/actions'
+import actions from '../store/actions'
 
 export default function(dispatch, bool = true, time = 500) {
   if (bool) {
-    dispatch(actions.auxLoading(bool))
+    dispatch(actions.AUX.toggleLoading(bool))
   } else {
-    setTimeout(() => dispatch(actions.auxLoading(bool)), time)
+    setTimeout(() => dispatch(actions.AUX.toggleLoading(bool)), time)
   }
 }

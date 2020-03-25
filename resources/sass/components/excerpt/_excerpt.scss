@@ -1,6 +1,33 @@
-@import 'article';
-@import 'resource';
-@import 'thread';
-@import 'term';
-@import 'excerpt-footer';
-@import 'excerpt-header';
+.excerpt {
+  @import 'excerpt-header';
+
+  @import 'excerpt-footer';
+
+  .excerpt-body {
+    .excerpt-body-main {
+      .excerpt-title-anchor {
+        @include excerpt-title;
+      }
+
+      .excerpt-rich-excerpt {
+        @include rich-excerpt;
+      }
+    }
+
+    @import 'excerpt-comments';
+  }
+
+  &.article-excerpt {
+    @include excerpt-wrapper($hl_green);
+  }
+
+  &.thread-excerpt {
+    @include excerpt-wrapper($hl_red);
+  }
+
+  &.resource-excerpt {
+    @include excerpt-wrapper($hl_blue);
+  }
+}
+
+@import 'chat-excerpt';

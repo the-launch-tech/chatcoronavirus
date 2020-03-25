@@ -1,32 +1,35 @@
-#page-wrapper {
+#page-content {
   &.article {
-    @include page-wrapper;
     position: relative;
+    padding: 0 $centerPadding;
+
+    @media (max-width: 991px) {
+      padding: 0 1rem 2rem;
+    }
 
     .article-banner {
       width: 100%;
       height: 300px;
       object-fit: cover;
-      z-index: 0;
+      z-index: 1;
       position: absolute;
       top: 0;
       left: 0;
     }
 
-    #page-content {
-      padding: 0 $centerPadding;
-      z-index: 1;
+    .article-banner-overlay {
+      width: 100%;
+      height: 300px;
+      background-color: transparentize($base, 0.6);
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+    }
+
+    .article-single {
       position: relative;
-      background-color: transparentize($base, 0.4);
-      height: 100%;
-
-      @media (max-width: 991px) {
-        padding: 0 1rem;
-      }
-
-      @media (max-width: 991px) {
-        padding: 0 0.3rem;
-      }
+      z-index: 3;
     }
   }
 }

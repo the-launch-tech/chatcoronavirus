@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import mapAuth from '../../helpers/mapAuth'
 import SocialsService from '../../services/SocialsService'
-import * as actions from '../../store/actions'
+import actions from '../../store/actions'
 import iconCount from '../../helpers/iconCount'
 
 const { log, error } = console
 
-export default connect(mapAuth)(ButtonReport)
+export default connect(({ Auth }) => {
+  return {
+    auth: Auth.auth,
+    isAuthenticated: Auth.isAuthenticated,
+    authReported: Auth.authReported,
+  }
+})(ButtonReport)
 
-function ButtonReport({ auth, isAuthenticated, classNames, itemId, type, auxReported, dispatch }) {
+function ButtonReport({ auth, isAuthenticated, classNames, itemId, type, authReported, dispatch }) {
   const [isReported, setIsReported] = useState(false)
 
   useEffect(() => {
@@ -18,13 +23,13 @@ function ButtonReport({ auth, isAuthenticated, classNames, itemId, type, auxRepo
 
   useEffect(() => {
     setIsReported(validateReported())
-  }, [auxReported])
+  }, [authReported])
 
   function handleReport(event) {
     event.preventDefault()
     if (!auth || auth.access < 2) {
       dispatch(
-        actions.auxSimpleDialog({
+        actions.AUX.toggleSimpleDialog({
           active: true,
           content: '<p>You must be a Doctor or Medical Official to report a malpractice!</p>',
         })
@@ -32,12 +37,12 @@ function ButtonReport({ auth, isAuthenticated, classNames, itemId, type, auxRepo
       return
     }
     SocialsService.increment({ social: 'reports', authId: auth.id, itemId, type })
-      .then(({ reported }) => dispatch(actions.auxSetReported({ reported, auth, itemId })))
+      .then(({ reported }) => dispatch(actions.AUTH.setReported({ reported, auth, itemId })))
       .catch(error)
   }
 
   function validateReported() {
-    return auxReported.indexOf(itemId) > -1
+    return authReported.indexOf(itemId) > -1
   }
 
   return (
@@ -48,7 +53,8 @@ function ButtonReport({ auth, isAuthenticated, classNames, itemId, type, auxRepo
     >
       <i
         className={`fal fa-cancel ${isAuthenticated && isReported ? 'is-stored' : 'is-not-stored'}`}
-      ></i>
+      ></i>{' '}
+      Report
     </span>
   )
 }

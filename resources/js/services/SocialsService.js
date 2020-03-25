@@ -1,5 +1,5 @@
 import Http from '../Http'
-import * as action from '../store/actions'
+import actions from '../store/actions'
 
 const { log } = console
 

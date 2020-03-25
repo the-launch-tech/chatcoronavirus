@@ -6,10 +6,9 @@ import validationArgs from '../../helpers/validationArgs'
 import Validator from '../../helpers/validator'
 import mapAuth from '../../helpers/mapAuth'
 import loader from '../../helpers/loader'
-import * as actions from '../../store/actions'
 import AuthService from '../../services/AuthService'
 import DashboardHeader from '../../common/DashboardHeader'
-import * as action from '../../store/actions'
+import actions from '../../store/actions'
 
 const { log, error } = console
 
@@ -21,6 +20,8 @@ const emailUpdates = [
   { name: 'pin_updates', label: 'Pin Updates' },
   { name: 'post_cure_updates', label: 'Post Cure Updates' },
   { name: 'comment_cure_updates', label: 'Comment Cure Updates' },
+  { name: 'chat_updates', label: 'Chat Updates' },
+  { name: 'at_updates', label: '@ Tag Updates' },
 ]
 
 function Profile(props) {
@@ -39,6 +40,8 @@ function Profile(props) {
     pin_updates: props.auth && props.auth.pin_updates,
     post_cure_updates: props.auth && props.auth.post_cure_updates,
     comment_cure_updates: props.auth && props.auth.comment_cure_updates,
+    chat_updates: props.auth && props.auth.chat_updates,
+    at_updates: props.auth && props.auth.at_updates,
   })
   const [responseError, setResponseError] = useState({
     isError: false,
@@ -49,9 +52,18 @@ function Profile(props) {
   const [hasErrors, setHasErrors] = useState(true)
 
   useEffect(() => {
+    props.dispatch(
+      actions.AUX.updatePageTitle({
+        pageTitle: `Profile`,
+        showCurrent: false,
+      })
+    )
+  }, [])
+
+  useEffect(() => {
     if (responseError.isError) {
       dispatch(
-        actions.auxSimpleDialog({
+        actions.AUX.toggleSimpleDialog({
           active: true,
           content: '<p>' + responseError.text + '</p>',
         })
@@ -74,7 +86,7 @@ function Profile(props) {
       error = errors.password_confirmation
     }
     dispatch(
-      actions.auxSimpleDialog({
+      actions.AUX.toggleSimpleDialog({
         active: true,
         content: '<p>' + error + '</p>',
       })
@@ -84,7 +96,7 @@ function Profile(props) {
   useEffect(() => {
     if (isSuccess) {
       props.dispatch(
-        actions.auxSimpleDialog({
+        actions.AUX.toggleSimpleDialog({
           active: true,
           content: '<p>Success Updating Profile!</p>',
         })
@@ -151,7 +163,7 @@ function Profile(props) {
   function submit(formData) {
     loader(props.dispatch, true)
     AuthService.updateProfile(formData)
-      .then(data => props.dispatch(action.authUpdate(data)))
+      .then(data => props.dispatch(actions.AUTH.update(data)))
       .then(result => {
         setIsSuccess(true)
         setResponseError({

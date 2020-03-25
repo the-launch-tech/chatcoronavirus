@@ -91,6 +91,8 @@ class AuthController extends Controller {
       ->with('pins')
       ->with('postCures')
       ->with('commentCures')
+      ->with('reports')
+      ->with('malpractices')
       ->first();
 
     $auth->health_points = $auth->health_points + 1;
@@ -139,7 +141,9 @@ class AuthController extends Controller {
       'malpractice_updates',
       'pin_updates',
       'post_cure_updates',
-      'comment_cure_updates'
+      'comment_cure_updates',
+      'chat_updates',
+      'at_updates'
     );
     $file = $request->file('avatar');
     try {
@@ -171,6 +175,12 @@ class AuthController extends Controller {
       }
       if ($credentials['comment_cure_updates'] !== $auth->comment_cure_updates) {
         $auth->comment_cure_updates = $credentials['comment_cure_updates'] === "true" || $credentials['comment_cure_updates'] === "1" ? 1 : 0;
+      }
+      if ($credentials['chat_updates'] !== $auth->chat_updates) {
+        $auth->chat_updates = $credentials['chat_updates'] === "true" || $credentials['chat_updates'] === "1" ? 1 : 0;
+      }
+      if ($credentials['at_updates'] !== $auth->at_updates) {
+        $auth->at_updates = $credentials['at_updates'] === "true" || $credentials['at_updates'] === "1" ? 1 : 0;
       }
       $auth->health_points = $auth->health_points + 1;
       $saved = $auth->save();

@@ -1,17 +1,27 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import mapAuth from '../../helpers/mapAuth'
 import loader from '../../helpers/loader'
-import PostExcerpt from '../../common/excerpts/PostExcerpt'
-import PostService from '../../services/PostsService'
-import * as action from '../../store/actions'
+import PostList from '../../common/posts/PostList'
+import PostsService from '../../services/PostsService'
+import actions from '../../store/actions'
+import VisitorContent from './home/VisitorContent'
+import TimelineForm from './home/TimelineForm'
+import ChatForm from '../../common/forms/ChatForm'
 
 const { log, error } = console
 
-export default connect(mapAuth)(Home)
+export default connect(({ Auth, Aux, Post }) => {
+  return {
+    auth: Auth.auth,
+    isAuthenticated: Auth.isAuthenticated,
+    loading: Aux.loading,
+    timelineContent: Aux.timelineContent,
+    savedPost: Post.savedPost,
+  }
+})(Home)
 
-function Home({ isAuthenticated, auth, dispatch, page, loading }) {
+function Home({ isAuthenticated, auth, dispatch, page, loading, timelineContent, savedPost }) {
   const [fresh, setFresh] = useState(false)
   const [empty, setEmpty] = useState(false)
   const [paged, setPaged] = useState(0)
@@ -19,127 +29,115 @@ function Home({ isAuthenticated, auth, dispatch, page, loading }) {
   const [maxPages, setMaxPages] = useState(-1)
 
   useEffect(() => {
-    if (auth && isAuthenticated) {
-      getHomeList()
-    } else {
-      loader(dispatch, false)
+    dispatch(actions.AUX.updatePageTitle({ pageTitle: `ChatCoronavirus`, showCurrent: true }))
+
+    return () => {
+      resetState(false)
     }
   }, [])
 
   useEffect(() => {
-    if (auth && isAuthenticated) {
-      getHomeList()
-    }
-  }, [auth])
-
-  useEffect(() => setEmpty(paged >= maxPages), [paged, maxPages])
-
-  useEffect(() => {
-    if (loading && auth && isAuthenticated) {
-      getHomeList()
+    if (loading) {
+      getHomeList({
+        params: {
+          route: 'PUBLIC_TIMELINE',
+          paged,
+          posts_per_page: 10,
+          orderby: 'created_at',
+          authId: auth ? auth.id : 0,
+          timeline_content: timelineContent,
+        },
+        callback: data => {
+          if (fresh) {
+            setMaxPages(data.total)
+            setPaged(1)
+            setPosts(data.posts)
+          } else {
+            setMaxPages(data.total)
+            setPaged(paged + 1)
+            setPosts([...posts, ...data.posts])
+          }
+          setFresh(false)
+          loader(dispatch, false)
+        },
+      })
     }
   }, [loading])
 
-  function loadMore() {
+  useEffect(() => {
+    if (fresh) {
+      loader(dispatch, true)
+    }
+  }, [fresh])
+
+  useEffect(() => {
+    if (auth) {
+      getHomeList({
+        params: {
+          route: 'PUBLIC_TIMELINE',
+          paged: 0,
+          posts_per_page: 10,
+          orderby: 'created_at',
+          authId: auth.id,
+          timeline_content: timelineContent,
+        },
+        callback: data => {
+          setMaxPages(data.total)
+          setPaged(1)
+          setPosts(data.posts)
+          setFresh(false)
+          loader(dispatch, false)
+        },
+      })
+    }
+  }, [auth])
+
+  useEffect(() => {
+    setEmpty(paged >= maxPages)
+  }, [paged, maxPages])
+
+  useEffect(() => {
+    resetState(true)
+  }, [timelineContent])
+
+  useEffect(() => {
+    if (savedPost) {
+      setPosts([savedPost, ...posts])
+      dispatch(actions.POST.setSavedPost(false))
+    }
+  }, [savedPost])
+
+  function loadMore(event) {
+    event.preventDefault()
     if (!empty) {
       loader(dispatch, true)
     }
   }
 
-  function getHomeList() {
-    PostService.getHomeList(paged, 10, 'created_at', auth)
-      .then(data => {
-        setMaxPages(data.total)
-        setPaged(paged + 1)
-        setPosts([...posts, ...data.posts])
-        loader(dispatch, false)
-      })
+  function getHomeList(args) {
+    PostsService.get(args.params)
+      .then(args.callback)
       .catch(err => {
         loader(dispatch, false)
+        setFresh(false)
+        setEmpty(true)
         error(err)
       })
   }
 
+  function resetState(freshState) {
+    setEmpty(false)
+    setPaged(0)
+    setMaxPages(-1)
+    setPosts([])
+    setFresh(freshState)
+  }
+
   return (
-    <div id="page-wrapper" className={`page-wrapper ${page}`}>
-      <div id="page-content" className={`page-content ${page}`}>
-        <h2 className="home-title">
-          ChatCoronavirus <sup>(beta)</sup>
-        </h2>
-        {!isAuthenticated ? (
-          <div className="home-intro">
-            <ul className="home-features">
-              <li className="home-feature">
-                <h6 className="home-feature-title">Write Articles</h6>
-              </li>
-              <li className="home-feature">
-                <h6 className="home-feature-title">Create Threads</h6>
-              </li>
-              <li className="home-feature">
-                <h6 className="home-feature-title">Archive Resources</h6>
-              </li>
-              <li className="home-feature">
-                <h6 className="home-feature-title">
-                  Talk With Others in Threads and Comment Sections
-                </h6>
-              </li>
-              <li className="home-feature">
-                <h6 className="home-feature-title">Repost Your Favorite Posts</h6>
-              </li>
-              <li className="home-feature">
-                <h6 className="home-feature-title">Curate Your Personal Timeline</h6>
-              </li>
-              <li className="home-feature">
-                <h6 className="home-feature-title">
-                  Gain "Health Points" And Become a Reputable User
-                </h6>
-              </li>
-              <li className="home-feature">
-                <h6 className="home-feature-title">
-                  Subscribe and Follow Other Users and Conversations to Stay Informed
-                </h6>
-              </li>
-              <li className="home-feature">
-                <h6 className="home-feature-title">Help The Community Grow!</h6>
-              </li>
-              <li className="home-feature">
-                <h6 className="home-feature-title">Spread Useful Information and Experiences...</h6>
-              </li>
-            </ul>
-            <div className="home-links">
-              <Link className="home-link md-btn green-btn" to="/register">
-                Register <i className="fal fa-sign-in"></i>
-              </Link>
-              <Link className="home-link md-btn green-btn" to="/login">
-                Login <i className="fal fa-user"></i>
-              </Link>
-            </div>
-            <div className="home-info">
-              <p className="home-info-text">
-                <i>
-                  <sup>*</sup> If you are mildly sick <strong>stay home</strong>. If you are
-                  severely sick call your local health officials <strong>from home</strong> in order
-                  to plan your social interactions.
-                </i>
-              </p>
-            </div>
-          </div>
-        ) : (
-          <div className="home-content">
-            {auth ? <h6 className="home-timeline">Public Timeline For {auth.username}</h6> : ''}
-            <div className="home-timeline-list">
-              {posts.map((post, i) => (
-                <PostExcerpt key={i} post={post} />
-              ))}
-            </div>
-            {!loading && !empty && (
-              <button className="load-more-button green-btn md-btn" onClick={loadMore}>
-                <i className="fad fa-spinner"></i> Load More
-              </button>
-            )}
-          </div>
-        )}
-      </div>
-    </div>
+    <React.Fragment>
+      <TimelineForm />
+      <ChatForm />
+      <PostList posts={posts} loadMore={loadMore} empty={empty} />
+    </React.Fragment>
   )
 }

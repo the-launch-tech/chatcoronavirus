@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import * as actions from '../../store/actions'
+import actions from '../../store/actions'
 
 const { log, error } = console
 
@@ -25,7 +25,7 @@ function SimpleDialog({ dispatch, simpleDialogArgs }) {
 
   function closeSimpleDialog(event) {
     event.preventDefault()
-    dispatch(actions.auxSimpleDialog({ active: false, content: null }))
+    dispatch(actions.AUX.toggleSimpleDialog({ active: false, content: null }))
   }
 
   return (
@@ -41,7 +41,7 @@ function SimpleDialog({ dispatch, simpleDialogArgs }) {
             )}
           </div>
           <div className="simple-dialog-footer">
-            <button className="green-btn md-btn" type="button" onClick={closeSimpleDialog}>
+            <button className="red-btn tiny-btn" type="button" onClick={closeSimpleDialog}>
               Ok
             </button>
           </div>

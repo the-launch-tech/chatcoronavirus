@@ -8,6 +8,7 @@ import Validator from '../../helpers/validator'
 import mapAuth from '../../helpers/mapAuth'
 import loader from '../../helpers/loader'
 import AuthService from '../../services/AuthService'
+import actions from '../../store/actions'
 
 const { log } = console
 
@@ -31,6 +32,13 @@ function ResetPassword(props) {
   const [isSuccess, setIsSuccess] = useState(false)
 
   useEffect(() => {
+    props.dispatch(
+      actions.AUX.updatePageTitle({
+        pageTitle: `Reset Password`,
+        showCurrent: true,
+      })
+    )
+
     loader(props.dispatch, false)
   }, [])
 
@@ -56,8 +64,7 @@ function ResetPassword(props) {
 
   function submit(credentials) {
     loader(props.dispatch, true)
-    props
-      .dispatch(AuthService.updatePassword(credentials))
+    AuthService.updatePassword(credentials)
       .then(result => {
         setIsSuccess(true)
         setCredentials({
@@ -86,63 +93,61 @@ function ResetPassword(props) {
   }
 
   return (
-    <div id="page-wrapper" className={`page-wrapper ${props.page}`}>
-      <div id="page-content" className={`page-content ${props.page}`}>
-        <div className="form-wrapper">
-          <h5 className="form-title">Update Password</h5>
-          {responseError.isError && (
-            <div className="form-notification">
-              <p className="form-notification-text notification-failure">{responseError.text}</p>
-            </div>
-          )}
-          {isSuccess && (
-            <div className="form-notification">
-              <p className="form-notification-text notification-success">
-                Your password has been updated!
-              </p>
-            </div>
-          )}
-          <div className="form-content">
-            <div className="form-block">
-              <div className="form-row">
-                <div className="form-cell w-100">
-                  <label className="form-label">New Password</label>
-                  <input
-                    className="form-input"
-                    name="password"
-                    placeholder="New Password"
-                    type="password"
-                    onChange={handleChange}
-                  />
-                  {errors.password && <span className="form-error sm-text">{errors.password}</span>}
-                </div>
+    <React.Fragment>
+      <div className="form-wrapper">
+        <h5 className="form-title">Update Password</h5>
+        {responseError.isError && (
+          <div className="form-notification">
+            <p className="form-notification-text notification-failure">{responseError.text}</p>
+          </div>
+        )}
+        {isSuccess && (
+          <div className="form-notification">
+            <p className="form-notification-text notification-success">
+              Your password has been updated!
+            </p>
+          </div>
+        )}
+        <div className="form-content">
+          <div className="form-block">
+            <div className="form-row">
+              <div className="form-cell w-100">
+                <label className="form-label">New Password</label>
+                <input
+                  className="form-input"
+                  name="password"
+                  placeholder="New Password"
+                  type="password"
+                  onChange={handleChange}
+                />
+                {errors.password && <span className="form-error sm-text">{errors.password}</span>}
               </div>
-              <div className="form-row">
-                <div className="form-cell w-100">
-                  <label className="form-label">Confirm New Password</label>
-                  <input
-                    className="form-input"
-                    name="password_confirmation"
-                    placeholder="Confirm New password"
-                    type="password"
-                    onChange={handleChange}
-                  />
-                  {errors.password_confirmation && (
-                    <span className="form-error sm-text">{errors.password_confirmation}</span>
-                  )}
-                </div>
+            </div>
+            <div className="form-row">
+              <div className="form-cell w-100">
+                <label className="form-label">Confirm New Password</label>
+                <input
+                  className="form-input"
+                  name="password_confirmation"
+                  placeholder="Confirm New password"
+                  type="password"
+                  onChange={handleChange}
+                />
+                {errors.password_confirmation && (
+                  <span className="form-error sm-text">{errors.password_confirmation}</span>
+                )}
               </div>
-              <div className="form-row">
-                <div className="form-cell">
-                  <button className="form-button md-btn green-btn" onClick={handleSubmit}>
-                    Update Password
-                  </button>
-                </div>
+            </div>
+            <div className="form-row">
+              <div className="form-cell">
+                <button className="form-button md-btn green-btn" onClick={handleSubmit}>
+                  Update Password
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </React.Fragment>
   )
 }

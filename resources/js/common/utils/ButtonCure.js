@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import mapAuth from '../../helpers/mapAuth'
 import SocialsService from '../../services/SocialsService'
-import * as actions from '../../store/actions'
+import actions from '../../store/actions'
 import iconCount from '../../helpers/iconCount'
 import getUrl from '../../helpers/getUrl'
 
@@ -28,14 +28,14 @@ function ButtonCure({
   useEffect(() => {
     if (type === 'comment') {
       dispatch(
-        actions.auxUpdateCommentCureStore({
+        actions.AUX.updateCommentCureStore({
           itemId,
           initial: commentCureStore[itemId] ? commentCureStore[itemId] : currentCures,
         })
       )
     } else {
       dispatch(
-        actions.auxUpdatePostCureStore({
+        actions.AUX.updatePostCureStore({
           itemId,
           initial: postCureStore[itemId] ? postCureStore[itemId] : currentCures,
         })
@@ -47,14 +47,14 @@ function ButtonCure({
   useEffect(() => {
     if (type === 'comment') {
       dispatch(
-        actions.auxUpdateCommentCureStore({
+        actions.AUX.updateCommentCureStore({
           itemId,
           initial: commentCureStore[itemId] ? commentCureStore[itemId] : currentCures,
         })
       )
     } else {
       dispatch(
-        actions.auxUpdatePostCureStore({
+        actions.AUX.updatePostCureStore({
           itemId,
           initial: postCureStore[itemId] ? postCureStore[itemId] : currentCures,
         })
@@ -70,7 +70,7 @@ function ButtonCure({
   function handleCure(event) {
     if (!auth) {
       dispatch(
-        actions.auxSimpleDialog({
+        actions.AUX.toggleSimpleDialog({
           active: true,
           content:
             '<p>You must be <a href="' +
@@ -88,14 +88,14 @@ function ButtonCure({
           const newCount = cured
             ? (commentCureStore[itemId] || 0) + 1
             : (commentCureStore[itemId] || 0) - 1
-          dispatch(actions.authSetCommentCured({ auth, commentCured: cured, itemId }))
-          dispatch(actions.auxUpdateCommentCureStore({ newCount, itemId }))
+          dispatch(actions.AUTH.setCommentCured({ auth, commentCured: cured, itemId }))
+          dispatch(actions.AUX.updateCommentCureStore({ newCount, itemId }))
         } else {
           const newCount = cured
             ? (postCureStore[itemId] || 0) + 1
             : (postCureStore[itemId] || 0) - 1
-          dispatch(actions.authSetPostCured({ auth, postCured: cured, itemId }))
-          dispatch(actions.auxUpdatePostCureStore({ newCount, itemId }))
+          dispatch(actions.AUTH.setPostCured({ auth, postCured: cured, itemId }))
+          dispatch(actions.AUX.updatePostCureStore({ newCount, itemId }))
         }
       })
       .catch(error)

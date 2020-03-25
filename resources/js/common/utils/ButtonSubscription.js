@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import mapAuth from '../../helpers/mapAuth'
 import SocialsService from '../../services/SocialsService'
-import * as actions from '../../store/actions'
+import actions from '../../store/actions'
 import iconCount from '../../helpers/iconCount'
 import getUrl from '../../helpers/getUrl'
 
@@ -25,7 +25,7 @@ function ButtonSubscription({
 
   useEffect(() => {
     dispatch(
-      actions.auxUpdateSubscriptionStore({
+      actions.AUX.updateSubscriptionStore({
         itemId,
         initial: subscriptionStore[itemId] ? subscriptionStore[itemId] : currentSubscriptions,
       })
@@ -35,7 +35,7 @@ function ButtonSubscription({
 
   useEffect(() => {
     dispatch(
-      actions.auxUpdateSubscriptionStore({
+      actions.AUX.updateSubscriptionStore({
         itemId,
         initial: subscriptionStore[itemId] ? subscriptionStore[itemId] : currentSubscriptions,
       })
@@ -51,7 +51,7 @@ function ButtonSubscription({
     event.preventDefault()
     if (!auth) {
       dispatch(
-        actions.auxSimpleDialog({
+        actions.AUX.toggleSimpleDialog({
           active: true,
           content:
             '<p>You must be <a href="' +
@@ -68,8 +68,8 @@ function ButtonSubscription({
         const newCount = subscribed
           ? (subscriptionStore[itemId] || 0) + 1
           : (subscriptionStore[itemId] || 0) - 1
-        dispatch(actions.authSetSubscribed({ subscribed, auth, itemId }))
-        dispatch(actions.auxUpdateSubscriptionStore({ subscribed, newCount, itemId }))
+        dispatch(actions.AUTH.setSubscribed({ subscribed, auth, itemId }))
+        dispatch(actions.AUX.updateSubscriptionStore({ subscribed, newCount, itemId }))
       })
       .catch(error)
   }

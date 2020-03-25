@@ -1,48 +1,47 @@
-import * as ActionTypes from '../action-types'
-import Http from '../../Http'
+import TYPES from '../action-types'
 import merge from '../utilities/merge'
 import initialState from '../utilities/initialState'
 
-const { log } = console
+const { log, error } = console
 
-export default (state = initialState.aux, { type, payload = null }) => {
+const { AUX } = TYPES
+
+export default (state = initialState.AUX, { type, payload = null }) => {
   switch (type) {
-    case ActionTypes.AUX_GOOGLE:
-      return auxGoogle(state, payload)
-    case ActionTypes.AUX_LOADING:
-      return auxLoading(state, payload)
-    case ActionTypes.AUX_SUBSCRIPTION_STORE:
-      return auxUpdateSubscriptionStore(state, payload)
-    case ActionTypes.AUX_PIN_STORE:
-      return auxUpdatePinStore(state, payload)
-    case ActionTypes.AUX_POST_CURE_STORE:
-      return auxUpdatePostCureStore(state, payload)
-    case ActionTypes.AUX_COMMENT_CURE_STORE:
-      return auxUpdateCommentCureStore(state, payload)
-    case ActionTypes.AUX_THEME:
-      return auxTheme(state, payload)
-    case ActionTypes.AUX_SIMPLE_DIALOG:
-      return auxSimpleDialog(state, payload)
-    case ActionTypes.AUX_SCREEN:
-      return auxScreen(state, payload)
+    case AUX.GOOGLE:
+      return getGoogle(state, payload)
+    case AUX.SUBSCRIPTION_STORE:
+      return updateSubscriptionStore(state, payload)
+    case AUX.PIN_STORE:
+      return updatePinStore(state, payload)
+    case AUX.POST_CURE_STORE:
+      return updatePostCureStore(state, payload)
+    case AUX.COMMENT_CURE_STORE:
+      return updateCommentCureStore(state, payload)
+    case AUX.THEME:
+      return toggleTheme(state, payload)
+    case AUX.SIMPLE_DIALOG:
+      return toggleSimpleDialog(state, payload)
+    case AUX.SCREEN:
+      return updateScreen(state, payload)
+    case AUX.LOADING:
+      return toggleLoading(state, payload)
+    case AUX.TIMELINE_CONTENT:
+      return updateTimelineContent(state, payload)
+    case AUX.PAGE_TITLE:
+      return updatePageTitle(state, payload)
     default:
       return state
   }
 }
 
-const auxGoogle = (state, payload) => {
+const getGoogle = (state, payload) => {
   return merge(state, {
     googleUpdates: payload.aux,
   })
 }
 
-const auxLoading = (state, payload) => {
-  return merge(state, {
-    loading: payload,
-  })
-}
-
-const auxUpdateSubscriptionStore = (state, { initial, itemId, newCount }) => {
+const updateSubscriptionStore = (state, { initial, itemId, newCount }) => {
   const subscriptionStore = Object.assign({}, state.subscriptionStore)
   subscriptionStore[itemId] = initial ? initial : newCount
   return merge(state, {
@@ -50,7 +49,7 @@ const auxUpdateSubscriptionStore = (state, { initial, itemId, newCount }) => {
   })
 }
 
-const auxUpdatePinStore = (state, { initial, itemId, newCount }) => {
+const updatePinStore = (state, { initial, itemId, newCount }) => {
   const pinStore = Object.assign({}, state.pinStore)
   pinStore[itemId] = initial ? initial : newCount
   return merge(state, {
@@ -58,7 +57,7 @@ const auxUpdatePinStore = (state, { initial, itemId, newCount }) => {
   })
 }
 
-const auxUpdatePostCureStore = (state, { initial, itemId, newCount }) => {
+const updatePostCureStore = (state, { initial, itemId, newCount }) => {
   const postCureStore = Object.assign({}, state.postCureStore)
   postCureStore[itemId] = initial ? initial : newCount
   return merge(state, {
@@ -66,7 +65,7 @@ const auxUpdatePostCureStore = (state, { initial, itemId, newCount }) => {
   })
 }
 
-const auxUpdateCommentCureStore = (state, { initial, itemId, newCount }) => {
+const updateCommentCureStore = (state, { initial, itemId, newCount }) => {
   const commentCureStore = Object.assign({}, state.commentCureStore)
   commentCureStore[itemId] = initial ? initial : newCount
   return merge(state, {
@@ -74,7 +73,7 @@ const auxUpdateCommentCureStore = (state, { initial, itemId, newCount }) => {
   })
 }
 
-const auxTheme = (state, theme) => {
+const toggleTheme = (state, theme) => {
   localStorage.setItem('cc_theme', theme)
   document.querySelector('body').classList.remove(theme === 'daytime' ? 'nighttime' : 'daytime')
   document.querySelector('body').classList.add(theme)
@@ -83,15 +82,37 @@ const auxTheme = (state, theme) => {
   })
 }
 
-const auxSimpleDialog = (state, payload) => {
+const toggleSimpleDialog = (state, payload) => {
   return merge(state, {
     simpleDialogArgs: payload,
   })
 }
 
-const auxScreen = (state, payload) => {
+const updateScreen = (state, payload) => {
   localStorage.setItem('cc_screen', payload)
   return merge(state, {
     screen: payload,
+  })
+}
+
+const toggleLoading = (state, payload) => {
+  return merge(state, {
+    loading: payload,
+  })
+}
+
+const updateTimelineContent = (state, payload) => {
+  localStorage.setItem('cc_timelineContent', payload)
+  return merge(state, {
+    timelineContent: payload,
+  })
+}
+
+const updatePageTitle = (state, payload) => {
+  return merge(state, {
+    pageTitle: {
+      current: payload.pageTitle,
+      showCurrent: payload.showCurrent,
+    },
   })
 }

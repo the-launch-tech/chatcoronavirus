@@ -11,14 +11,14 @@ class CreateFulltextTable extends Migration {
      * @return void
      */
     public function up() {
-      // DB::statement('
-      //   ALTER TABLE posts
-      //   ADD FULLTEXT post_index (
-      //     title,
-      //     excerpt,
-      //     content
-      //   )
-      // ');
+      DB::statement('
+        ALTER TABLE posts
+        ADD FULLTEXT post_index (
+          title,
+          excerpt,
+          content
+        )
+      ');
     }
 
     /**

@@ -1,0 +1,8 @@
+.no-posts {
+  margin: 2rem auto;
+
+  .no-posts-text {
+    font-weight: 600;
+    color: transparentize($std_copy, 0.3);
+  }
+}
