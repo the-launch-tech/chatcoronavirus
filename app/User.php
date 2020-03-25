@@ -301,8 +301,9 @@ class User extends Authenticatable implements JWTSubject {
   }
 
   public function setBanner($file, bool $edit = false) : self {
-    Debugbar::info('SET BANNER');
+    Debugbar::info('SET BANNER', $file, $edit);
     if ($file) {
+      Debugbar::info('HAS FILE', $file);
       $uploader = new ImageUploader([
         'file' => $file,
         'prefix' => 'banners',
@@ -313,9 +314,6 @@ class User extends Authenticatable implements JWTSubject {
         'resize' => true,
         'model' => $this
       ]);
-      if ($edit) {
-        $uploader->unstoreFeaturedImage();
-      }
       $this->banner = $uploader
         ->upload()
         ->resize()
