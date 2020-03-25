@@ -21,11 +21,17 @@ class ImageUploader {
   public function upload() : self {
     Debugbar::info('upload()');
     $this->originalname = Carbon::now()->format('YmdHHmmss') . '_' . $this->model->getId() . '.' . $this->file->getClientOriginalExtension();
+    Debugbar::info('$this->originalname', $this->originalname);
     $this->thumbnailname = Carbon::now()->format('YmdHHmmss') . '_' . $this->model->getId() . '_thumbnail.' . $this->file->getClientOriginalExtension();
+    Debugbar::info('$this->thumbnailname', $this->thumbnailname);
     $this->fullOriginalPath = public_path('storage/' . $this->prefix . '/' . $this->originalname);
+    Debugbar::info('$this->fullOriginalPath', $this->fullOriginalPath);
     $this->fullThumbnailPath = public_path('storage/' . $this->prefix . '/' . $this->thumbnailname);
+    Debugbar::info('$this->fullThumbnailPath', $this->fullThumbnailPath);
     $this->file->storeAs($this->prefix, $this->originalname, ['disk' => 'public']);
+    Debugbar::info('STORED ORIGINAL');
     $this->file->storeAs($this->prefix, $this->thumbnailname, ['disk' => 'public']);
+    Debugbar::info('STORED_THUMB');
     Debugbar::info('uploaded', $this->originalname, $this->thumbnailname, $this->fullOriginalPath, $this->fullThumbnailPath);
     return $this;
   }
