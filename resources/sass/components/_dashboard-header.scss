@@ -1,9 +1,18 @@
 #dashboard-header {
   margin-bottom: 2rem;
   width: 100%;
+  position: relative;
 
   @media (max-width: 599px) {
     margin-bottom: 1rem;
+  }
+
+  .dashboard-user-banner {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    z-index: 0;
   }
 
   .dashboard-button-row {
@@ -12,9 +21,12 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    z-index: 1;
+    position: relative;
+    background-color: $base;
 
     .dashboard-button {
-      width: 33%;
+      width: 33.333333333%;
       text-align: center;
       border: none;
       margin: 0;
@@ -32,28 +44,32 @@
   }
 
   .dashboard-user {
-    padding: 1rem;
-    background-color: darken($base, 1%);
+    padding: 2rem 1rem;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: stretch;
     flex-wrap: wrap;
+    z-index: 1;
+    position: relative;
 
     .dashboard-user-left {
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      width: 50%;
+      padding: 0.5rem;
+      background-color: $base;
+      border-radius: 6px;
+      margin-right: 1rem;
 
       .dashboard-user-avatar {
-        @include avatar(70px, 2rem);
+        @include avatar(70px, 1rem);
 
         @media (max-width: 991px) {
-          @include avatar(60px, 1rem);
+          @include avatar(60px, 0.75rem);
         }
 
         @media (max-width: 599px) {
-          @include avatar(50px, 0.7rem);
+          @include avatar(50px, 0.5rem);
         }
       }
 
@@ -70,7 +86,9 @@
       display: flex;
       justify-content: flex-end;
       align-items: flex-end;
-      width: 50%;
+      padding: 0.5rem;
+      background-color: $base;
+      border-radius: 6px;
 
       .dashboard-health_points {
         padding-left: 1rem;
@@ -107,6 +125,7 @@
         .dashboard-contributions-links {
           .dashboard-contrubtion-link {
             padding: 0 0.5rem;
+            @include hover-transition($std_copy, $hl_green);
           }
 
           @media (max-width: 599px) {

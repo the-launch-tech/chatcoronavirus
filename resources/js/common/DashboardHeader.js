@@ -24,6 +24,17 @@ function DashboardHeader({ auth, dispatch, location, screen }) {
 
   return (
     <header id="dashboard-header">
+      {auth && auth.avatar ? (
+        <img
+          id="dashboard-user-banner"
+          className="dashboard-user-banner"
+          src={getUrl('/storage/' + auth.banner)}
+          alt={auth.username}
+          title={auth.username}
+        />
+      ) : (
+        ''
+      )}
       <div className="dashboard-button-row">
         <Link
           className={`dashboard-button sm-btn primary-btn ${currentNav(

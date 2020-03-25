@@ -35,6 +35,7 @@ function Profile(props) {
     country: props.auth ? props.auth.country : '',
     state: props.auth ? props.auth.state : '',
     avatar: props.auth ? props.auth.avatar : '',
+    banner: props.auth ? props.auth.banner : '',
     subscriber_updates: props.auth && props.auth.subscriber_updates,
     malpractice_updates: props.auth && props.auth.malpractice_updates,
     pin_updates: props.auth && props.auth.pin_updates,
@@ -124,11 +125,12 @@ function Profile(props) {
   function handleFileChange(event) {
     const name = event.target.name
     const value = event.target.files[0]
+    const parent = event.target.parentElement
     credentials[name] = value
     setCredentials(credentials)
     const reader = new FileReader()
     reader.onload = function(e) {
-      document.getElementById('form-file-output').innerHTML =
+      parent.querySelector('.form-file-output').innerHTML =
         '<img class="form-file-display" src="' + e.target.result + '" />'
     }
     reader.readAsDataURL(value)
@@ -262,12 +264,17 @@ function Profile(props) {
             </div>
           </div>
           <div className="form-row">
-            <div className="form-cell w-50">
+            <div className="form-cell w-33">
               <label className="form-label">Avatar</label>
               <input className="form-input" name="avatar" type="file" onChange={handleFileChange} />
               <output id="form-file-output" className="form-file-output"></output>
             </div>
-            <div className="form-cell w-50">
+            <div className="form-cell w-33">
+              <label className="form-label">Banner</label>
+              <input className="form-input" name="banner" type="file" onChange={handleFileChange} />
+              <output id="form-file-output" className="form-file-output"></output>
+            </div>
+            <div className="form-cell w-33">
               <label className="form-label">Email Updates Actions</label>
               <div className="form-checkboxes" style={{ overflow: 'hidden' }}>
                 {emailUpdates.map((em, i) => (

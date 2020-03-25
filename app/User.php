@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Debugbar;
 use Mail;
 use App\Mail\SubscriberUpdate;
 use App\Mail\MalpracticeUpdate;
@@ -27,11 +28,11 @@ class User extends Authenticatable implements JWTSubject {
   const ADMIN = 3;
 
   protected $fillable = [
-      'username', 'email', 'password', 'avatar', 'country', 'state', 'health_points', 'malpractices', 'access', 'role'
+    'username', 'email', 'password', 'avatar', 'country', 'state', 'health_points', 'malpractices', 'access', 'role', 'banner'
   ];
 
   protected $hidden = [
-      'password', 'remember_token',
+    'password', 'remember_token',
   ];
 
   protected $casts = [
@@ -295,6 +296,32 @@ class User extends Authenticatable implements JWTSubject {
         ->getFilename();
     } elseif (!$this->avatar) {
       $this->avatar = 'avatars/default-avatar-1.png';
+    }
+    return $this;
+  }
+
+  public function setBanner($file, bool $edit = false) : self {
+    if ($file) {
+      $uploader = new ImageUploader([
+        'file' => $file,
+        'prefix' => 'banners',
+        'edit' => $edit,
+        'width' => 1200,
+        'height' => 400,
+        'compress' => true,
+        'resize' => true,
+        'model' => $this
+      ]);
+      if ($edit) {
+        $uploader->unstoreFeaturedImage();
+      }
+      $this->banner = $uploader
+        ->upload()
+        ->resize()
+        ->compress()
+        ->getFilename();
+    } elseif (!$this->banner) {
+      $this->banner = 'banners/default-banner-1.jpg';
     }
     return $this;
   }

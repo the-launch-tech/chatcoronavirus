@@ -8,6 +8,7 @@ use Hash;
 use Mail;
 use Crypt;
 use JWTAuth;
+use Debugbar;
 use Carbon\Carbon;
 use Exception;
 use App\User;
@@ -67,6 +68,7 @@ class AuthController extends Controller {
       'password' => Hash::make($request->get('password')),
       'access' => $access[0],
       'avatar' => 'avatars/default-avatar-1.png',
+      'banner' => 'banners/default-banner-1.jpg',
       'role' => $access[1]
     ]);
 
@@ -145,10 +147,12 @@ class AuthController extends Controller {
       'chat_updates',
       'at_updates'
     );
-    $file = $request->file('avatar');
+    $avatarFile = $request->file('avatar');
+    $bannerFile = $request->file('banner');
     try {
       $auth = User::where('email', $credentials['email'])->first();
-      $auth->setAvatar($file, true);
+      $auth->setAvatar($avatarFile, true);
+      $auth->setBanner($bannerFile, true);
       if ($credentials['email'] !== $auth->getEmail()) {
         $auth->email = $credentials['email'];
       }
