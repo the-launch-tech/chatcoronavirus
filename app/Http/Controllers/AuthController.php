@@ -150,6 +150,8 @@ class AuthController extends Controller {
     $avatarFile = $request->file('avatar');
     $bannerFile = $request->file('banner');
     try {
+      Debugbar::find('$avatarFile', $avatarFile);
+      Debugbar::find('$bannerFile', $bannerFile);
       $auth = User::where('email', $credentials['email'])->first();
       $auth->setAvatar($avatarFile, true);
       $auth->setBanner($bannerFile, true);
