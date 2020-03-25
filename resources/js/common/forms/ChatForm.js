@@ -73,15 +73,19 @@ function ChatForm({ auth, dispatch }) {
   return (
     <div className="chat-form form-wrapper">
       <div className="form-content">
-        <div className={`chat-form-auth ${blur ? 'jodit-blur' : ''}`}>
-          <img
-            className="chat-form-avatar"
-            src={getUrl('/storage/' + auth.avatar)}
-            alt={auth.username}
-            title={auth.username}
-          />
-          <h5 className="chat-form-username">{auth.username}</h5>
-        </div>
+        {auth ? (
+          <div className={`chat-form-auth ${blur ? 'jodit-blur' : ''}`}>
+            <img
+              className="chat-form-avatar"
+              src={getUrl('/storage/' + auth.avatar)}
+              alt={auth.username}
+              title={auth.username}
+            />
+            <h5 className="chat-form-username">{auth.username}</h5>
+          </div>
+        ) : (
+          ''
+        )}
         <div className="form-block">
           <div className={`form-row ${blur ? 'jodit-blur' : ''}`}>
             <div className="form-cell w-100">
