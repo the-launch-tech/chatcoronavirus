@@ -52,7 +52,6 @@ function Resource({ title, page, dispatch, auth, isAuthenticated, access, match 
             {resource.user && (
               <React.Fragment>
                 <Link
-                  key={i}
                   className="resource-user-anchor"
                   to={`/profile/${resource.user.username}`}
                   onClick={e => loader(dispatch, true)}
