@@ -9,6 +9,17 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller {
 
+  public function user(Request $request, string $username) {
+    try {
+      $user = User::where('username', $username)
+        ->withCount('subscribers')
+        ->first();
+      return response()->json(compact('user'), 200);
+    } catch (Exception $e) {
+      return response()->json(['message' => $e->getMessage()], 500);
+    }
+  }
+
   public function users(Request $request) {
     $params = $request->all();
     try {

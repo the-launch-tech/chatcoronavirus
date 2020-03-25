@@ -37,6 +37,7 @@ Route::group(['middleware' => ['throttle:100000']], function () {
 
   Route::group(['prefix' => 'users'], function () {
     Route::get('/', 'UsersController@users');
+    Route::get('/{username}', 'UsersController@user');
   });
 
   Route::group(['prefix' => 'posts'], function () {

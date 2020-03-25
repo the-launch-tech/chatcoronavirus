@@ -1,17 +1,137 @@
 #page-content {
   &.public-profile {
     @include page-content-padding;
+    padding: 0;
 
-    .page-title {
+    @media (max-width: 991px) {
+      padding: 0;
     }
 
-    .page-archive {
-      .page-posts {
+    @media (max-width: 599px) {
+      padding: 0;
+    }
+
+    .user-profile-header {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      margin-bottom: 2rem;
+
+      @media (max-width: 599px) {
+        height: 200px;
       }
-    }
 
-    .page-archive-base {
-      button {
+      .user-profile-banner {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 0;
+
+        @media (max-width: 599px) {
+          height: 200px;
+        }
+      }
+
+      .user-profile-wrapper {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        height: 300px;
+        background-color: transparentize($base, 0.4);
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+
+        @media (max-width: 599px) {
+          height: 200px;
+        }
+
+        .user-profile-content {
+          width: 96%;
+          display: flex;
+          justify-content: space-between;
+          align-items: stretch;
+          flex-wrap: wrap;
+          padding: 1rem;
+          background-color: transparentize($base, 0.2);
+          border-radius: 60px;
+          margin-bottom: 1rem;
+
+          .user-profile-face {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            width: 50%;
+
+            @media (max-width: 599px) {
+              width: 100%;
+            }
+
+            .user-profile-avatar {
+              @include avatar(100px, 1rem);
+              @media (max-width: 991px) {
+                @include avatar(85px, 0.75rem);
+              }
+              @media (max-width: 599px) {
+                @include avatar(70px, 0.5rem);
+              }
+            }
+          }
+
+          .user-profile-meta {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            width: 50%;
+            padding-right: 1rem;
+
+            @media (max-width: 599px) {
+              width: 100%;
+              padding-right: 0;
+              justify-content: center;
+            }
+
+            .user-profile-subscribe {
+              @include hover-transition($hl_green, darken($hl_green, 10%));
+              @include icon-spacing(0.5rem);
+              font-size: 1.2rem;
+              margin-right: 2rem;
+              font-weight: 900;
+              @media (max-width: 991px) {
+                font-size: 1.1rem;
+              }
+              @media (max-width: 599px) {
+                font-size: 1rem;
+              }
+            }
+            .user-profile-health_points {
+              color: $hl_blue;
+              @include icon-spacing(0.5rem);
+              font-size: 1.2rem;
+              margin-right: 2rem;
+              font-weight: 900;
+              @media (max-width: 991px) {
+                font-size: 1.1rem;
+              }
+              @media (max-width: 599px) {
+                font-size: 1rem;
+              }
+            }
+            .user-profile-access {
+              font-weight: 700;
+              font-size: 1.2rem;
+              @media (max-width: 991px) {
+                font-size: 1.1rem;
+              }
+              @media (max-width: 599px) {
+                font-size: 1rem;
+              }
+            }
+          }
+        }
       }
     }
   }

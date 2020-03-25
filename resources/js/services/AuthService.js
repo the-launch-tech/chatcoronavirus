@@ -4,6 +4,14 @@ import actions from '../store/actions'
 const { log } = console
 
 export default {
+  getUser: async function(args) {
+    try {
+      const { data } = await Http.get(`/api/users/${args.username}`)
+      return data
+    } catch (err) {
+      throw err
+    }
+  },
   register: async function(credentials) {
     try {
       const { data } = await Http.post('/api/auth/register', credentials)

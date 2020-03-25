@@ -1,3 +1,9 @@
+.jodit_container:not(.jodit_inline) .jodit_wysiwyg,
+.jodit .jodit_workplace,
+.jodit_container .jodit_workplace {
+  overflow: hidden !important;
+}
+
 .jodit_container {
   font-family: $body;
   font-size: 1rem;
@@ -9,6 +15,7 @@
 
     .jodit_workplace {
       min-height: 100px !important;
+      overflow: hidden !important;
 
       .jodit_wysiwyg {
         min-height: 100px !important;
@@ -288,6 +295,7 @@
   .jodit_container .jodit_workplace .jodit_wysiwyg_iframe,
   .jodit_wysiwyg {
     background-color: $primary;
+    border-radius: 6px;
   }
 
   .jodit_statusbar {

@@ -8,6 +8,29 @@
   }
 
   .form-content {
+    .chat-form-auth {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 0 1rem;
+      transition: 0.2s;
+      .chat-form-avatar {
+        @include avatar(30px, 1rem);
+        @media (max-width: 991px) {
+          @include avatar(28px, 0.75rem);
+        }
+        @media (max-width: 991px) {
+          @include avatar(26px, 0.5rem);
+        }
+      }
+      .chat-form-username {
+        margin: 0;
+      }
+
+      &.jodit-blur {
+        opacity: 0.2;
+      }
+    }
     .form-block {
       .form-row {
         display: flex;

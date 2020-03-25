@@ -5,6 +5,8 @@ import ChatForm from '../../common/forms/ChatForm'
 import PostList from '../../common/posts/PostList'
 import PostsService from '../../services/PostsService'
 import actions from '../../store/actions'
+import UserHeader from '../../common/UserHeader'
+import AuthService from '../../services/AuthService'
 
 const { log, error } = console
 
@@ -17,6 +19,7 @@ export default connect(({ Auth, Aux, Post }) => {
 })(User)
 
 function User({ dispatch, auth, page, match, loading, savedPost }) {
+  const [user, setUser] = useState({})
   const [fresh, setFresh] = useState(false)
   const [empty, setEmpty] = useState(false)
   const [paged, setPaged] = useState(0)
@@ -24,6 +27,7 @@ function User({ dispatch, auth, page, match, loading, savedPost }) {
   const [maxPages, setMaxPages] = useState(-1)
 
   useEffect(() => {
+    getUser()
     getProfileTimeline()
     dispatch(
       actions.AUX.updatePageTitle({
@@ -34,6 +38,7 @@ function User({ dispatch, auth, page, match, loading, savedPost }) {
   }, [])
 
   useEffect(() => {
+    getUser()
     setFresh(true)
     dispatch(
       actions.AUX.updatePageTitle({
@@ -106,8 +111,19 @@ function User({ dispatch, auth, page, match, loading, savedPost }) {
       })
   }
 
+  function getUser() {
+    AuthService.getUser({ username: match.params.username })
+      .then(data => {
+        setUser(data.user)
+      })
+      .catch(err => {
+        error(err)
+      })
+  }
+
   return (
     <React.Fragment>
+      <UserHeader user={user} />
       {auth && auth.username === match.params.username && <ChatForm />}
       <PostList posts={posts} loadMore={loadMore} empty={empty} />
     </React.Fragment>
