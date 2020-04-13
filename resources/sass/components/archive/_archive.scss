@@ -31,7 +31,8 @@
       align-items: center;
       margin: 0 1rem;
 
-      i {
+      i,
+      svg {
         font-size: 1.5rem;
         color: $hl_green;
         margin-right: 0.5rem;
@@ -44,7 +45,8 @@
       align-items: center;
       margin: 0 1rem;
 
-      i {
+      i,
+      svg {
         font-size: 1.5rem;
         color: $hl_green;
         margin-right: 0.5rem;
@@ -59,7 +61,8 @@
         margin: 0 0.2rem;
         font-size: 0.7rem;
 
-        i {
+        i,
+        svg {
           margin-right: 0.3rem;
           font-size: 0.7rem;
         }

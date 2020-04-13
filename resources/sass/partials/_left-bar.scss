@@ -21,7 +21,7 @@
     justify-content: center;
     align-items: center;
 
-    i {
+    i, svg {
       font-size: 1.2rem;
       font-weight: 900;
     }
@@ -58,7 +58,7 @@
       top: 2px;
       right: -27px;
 
-      i {
+      i, svg {
         font-size: 0.8rem;
       }
     }
@@ -116,7 +116,7 @@
               height: 35px;
               padding: 0 0 0 1rem;
 
-              i {
+              i, svg {
                 width: 20px;
                 text-align: left;
                 font-size: 1.75rem;
@@ -127,32 +127,32 @@
               &:last-child {
                 border-bottom: none;
 
-                i {
+                i, svg {
                   position: relative;
                   left: 1px;
                 }
               }
 
               &.green {
-                i {
+                i, svg {
                   color: $hl_green;
                 }
               }
 
               &.red {
-                i {
+                i, svg {
                   color: $hl_red;
                 }
               }
 
               &.blue {
-                i {
+                i, svg {
                   color: $hl_blue;
                 }
               }
 
               &.yellow {
-                i {
+                i, svg {
                   color: $hl_yellow;
                 }
               }

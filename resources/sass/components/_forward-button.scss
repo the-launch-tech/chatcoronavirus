@@ -12,7 +12,7 @@
   border: solid 2px $primary;
   z-index: 10;
 
-  i {
+  i, svg {
     font-size: 1.2rem;
     font-weight: 900;
   }
@@ -32,7 +32,7 @@
     width: 24px;
     height: 24px;
 
-    i {
+    i, svg {
       font-size: 0.8rem;
     }
   }
