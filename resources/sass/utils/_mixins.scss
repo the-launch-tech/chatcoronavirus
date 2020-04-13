@@ -278,7 +278,8 @@
   align-items: center;
   font-weight: 800;
 
-  i {
+  i,
+  svg {
     margin-right: $size;
   }
 }
